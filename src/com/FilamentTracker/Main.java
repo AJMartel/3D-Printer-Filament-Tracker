@@ -1,6 +1,6 @@
 /*
  * ***STUFF TO DO****
- * remove print/filament - using popup menu.
+ * remove print/filament - using popup menu
  * about dialog
  * more menu items
  * program icon
