@@ -1,4 +1,4 @@
-[Filament]:0:Orange:PLA (1.75mm):1.0kg:300000.0
+[Filament]:0:Orange:PLA (1.75mm):1.0kg:330000.0
 [Print]:Wed, Nov 25, 2015:Big vase:28000.0
 [Print]:Thu, Nov 26, 2015:Lighter Case:3500.0
 [Print]:Fri, Nov 27, 2015:Calib Cube:830.82

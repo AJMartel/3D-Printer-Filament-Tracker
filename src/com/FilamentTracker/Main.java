@@ -1,11 +1,8 @@
 /*
- * aother git test
- * 
  * ***STUFF TO DO****
  * remove print/filament - using popup menu..
  * about dialog
  * more menu items
- * program icon
  * 
  * Not urgent
  * grey out combo box filaments that have no filament left
@@ -22,6 +19,7 @@
  * DONE *** Export stuff
  * DONE *** title over the print test area show which filaments selected since the row color messes with the selection color 
  * DOME *** Donation - https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CKF9ND26CTW34&lc=US&item_name=3D%20Printer%20Filament%20Tracker&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
+ * DONE *** program icon
  */
 
 package com.FilamentTracker;
@@ -128,7 +126,7 @@ public class Main extends JFrame {
 	final JScrollPane 					printScrollPane 	= new JScrollPane();
 	
 	//Table
-	final static JTable 				filamentTable 		= new JTable();
+	public final static JTable 			filamentTable 		= new JTable();
 	static DefaultTableModel 			tableModel;
 	
 	//Text Areas
@@ -205,7 +203,7 @@ public class Main extends JFrame {
 
 		addFilamentMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
-				final AddFilamentDialog addFilamentDialog = new AddFilamentDialog(getX(), getY());
+				final AddFilamentDialog addFilamentDialog = new AddFilamentDialog(getX(), getY(), false, -1);
 				addFilamentDialog.setVisible(true);
 			}
 		});
@@ -267,13 +265,14 @@ public class Main extends JFrame {
 		
 		editPopupMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Edit " + filaments.get(filamentTable.getSelectedRow()).getName());		
+				final AddFilamentDialog addFilamentDialog = new AddFilamentDialog(getX(), getY(), true, (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
+				addFilamentDialog.setVisible(true);
 			}
 		});
 		
 		deletePopupMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Delete " + filaments.get(filamentTable.getSelectedRow()).getName());
+//				System.out.println("Delete " + filaments.get(filamentTable.getSelectedRow()).getName());
 			}
 		});
 		
@@ -379,7 +378,6 @@ public class Main extends JFrame {
 	public static void addFilament(String name, String type, String weight, Double length) {
 		filaments.add(Global.index += 1, new Filament(Global.index, name, type, weight, length));
 		Global.saveNeeded = true;
-		updateTable();
 	}
 	
 	/**

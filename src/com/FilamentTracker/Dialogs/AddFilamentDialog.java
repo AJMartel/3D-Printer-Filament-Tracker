@@ -47,7 +47,7 @@ public class AddFilamentDialog extends JFrame {
 	//Combo Box Content
 	final String[]				filamentTypeOptions			= { "PLA (1.75mm)", "PLA (3.0mm)", "ABS (1.75mm)", "ABS (3.0mm)", "Other" };
 	final String[]				filamentWeightOptions		= { "1.0kg", "Other" };
-	final String[]				filamentLengthOptions		= { "330000mm", "150000mm", "Other",};
+	final String[]				filamentLengthOptions		= { "330000.0mm", "150000.0mm", "Other",};
 	
 	//Buttons
 	final JButton				addFilamentButton			= new JButton("Add New Filament");
@@ -61,8 +61,9 @@ public class AddFilamentDialog extends JFrame {
 	 * 
 	 * @param x 
 	 * @param y 
+	 * @param index 
 	 */
-	public AddFilamentDialog(int x, int y) {
+	public AddFilamentDialog(int x, int y, boolean forEdit, int index) {
 		setTitle("Add Filament Dialog");
 		setBounds(x, y, 308, 301);
 		getContentPane().setLayout(null);
@@ -157,8 +158,10 @@ public class AddFilamentDialog extends JFrame {
 				
 				Iterator<Filament> filamentIterator = Main.filaments.iterator();
 				while (filamentIterator.hasNext()){
-					if (filamentName.equals(filamentIterator.next().getName()))
-						errorMessage(1);
+					String name = filamentIterator.next().getName();
+					if (filamentName.equals(name))
+						if (!forEdit)
+							errorMessage(1);
 				}
 				
 				if (filamentTypeComboBox.getSelectedIndex() == 4) { //Custom type
@@ -183,7 +186,16 @@ public class AddFilamentDialog extends JFrame {
 					filamentLength = filamentLengthComboBox.getSelectedItem().toString();
 				
 				if (!hasErrors) {
-					Main.addFilament(filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
+					if (!forEdit)
+						Main.addFilament(filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
+					else {
+						Main.filaments.get(index).setName(filamentName);
+						Main.filaments.get(index).setType(filamentType);
+						Main.filaments.get(index).setWeight(filamentWeight);
+						Main.filaments.get(index).setLength(Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
+						System.out.println(Main.filaments.get(index).getLength());
+					}
+					Main.updateTable();
 					dispose();
 				} else
 					JOptionPane.showMessageDialog(null, errorMessage);
@@ -212,6 +224,52 @@ public class AddFilamentDialog extends JFrame {
 		getContentPane().add(filamentLengthCustomField);
 		getContentPane().add(addFilamentButton);
 		getContentPane().add(cancelButton);
+		
+		//If the user selects to edit the filament
+		if (forEdit) {
+			boolean customField = true;
+			filamentNameField.setText(Main.filaments.get(index).getName());
+			
+			for (int i = 0; i < filamentTypeComboBox.getItemCount() - 1; i++) {
+				if (Main.filaments.get(index).getType().equals(filamentTypeComboBox.getItemAt(i))){
+					filamentTypeComboBox.setSelectedIndex(i);
+					customField = false;
+				}
+			}
+			if (customField) {
+				filamentTypeComboBox.setSelectedIndex(filamentTypeComboBox.getItemCount() - 1);
+				filamentTypeCustomField.setText(Main.filaments.get(index).getType());
+			}
+
+			customField = true;
+			
+			for (int i = 0; i < filamentWeightComboBox.getItemCount() - 1; i++) {
+				if (Main.filaments.get(index).getWeight().equals(filamentWeightComboBox.getItemAt(i))){
+					filamentWeightComboBox.setSelectedIndex(i);
+					customField = false;
+				}
+			}
+			if (customField) {
+				filamentWeightComboBox.setSelectedIndex(filamentWeightComboBox.getItemCount() - 1);
+				filamentWeightCustomField.setText(Main.filaments.get(index).getWeight());
+			}
+
+			customField = true;
+			
+			for (int i = 0; i < filamentLengthComboBox.getItemCount() - 1; i++) {
+				if (Main.filaments.get(index).getLength().toString().concat("mm").equals(filamentLengthComboBox.getItemAt(i))){
+					filamentLengthComboBox.setSelectedIndex(i);
+					customField = false;
+				}
+			}
+			if (customField) {
+				filamentLengthComboBox.setSelectedIndex(filamentLengthComboBox.getItemCount() - 1);
+				filamentLengthCustomField.setText(Main.filaments.get(index).getLength().toString());
+			}
+			
+			addFilamentButton.setText("Edit Filament");
+			System.out.println(Main.filaments.get(index).getLength());
+		}
 	}
 	
 	private void errorMessage(int flag){
