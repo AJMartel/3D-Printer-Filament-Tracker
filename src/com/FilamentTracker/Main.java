@@ -1,6 +1,11 @@
 /*
+<<<<<<< HEAD
  * ****STUFF TO DO*****
  * remove print/filament - using popup menu
+=======
+ * ***STUFF TO DO****
+ * remove print/filament - using popup menu..
+>>>>>>> 06ae655fa681852148fc87121c9619702b237bfa
  * about dialog
  * more menu items
  * program icon
