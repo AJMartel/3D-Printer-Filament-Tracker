@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.FilamentTracker.Filament;
+import com.FilamentTracker.Global;
 import com.FilamentTracker.Main;
 
 
@@ -55,6 +56,7 @@ public class AddFilamentDialog extends JFrame {
 	
 	private String				errorMessage;
 	private Boolean				hasErrors;
+	private Boolean				customField;
 
 	/**
 	 * 
@@ -187,7 +189,7 @@ public class AddFilamentDialog extends JFrame {
 				
 				if (!hasErrors) {
 					if (!forEdit)
-						Main.addFilament(filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
+						Main.filaments.add(Global.index += 1, new Filament(Global.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", ""))));
 					else {
 						Main.filaments.get(index).setName(filamentName);
 						Main.filaments.get(index).setType(filamentType);
@@ -196,6 +198,7 @@ public class AddFilamentDialog extends JFrame {
 						System.out.println(Main.filaments.get(index).getLength());
 					}
 					Main.updateTable();
+					Global.saveNeeded = true;
 					dispose();
 				} else
 					JOptionPane.showMessageDialog(null, errorMessage);
@@ -227,7 +230,7 @@ public class AddFilamentDialog extends JFrame {
 		
 		//If the user selects to edit the filament
 		if (forEdit) {
-			boolean customField = true;
+			customField = true;
 			filamentNameField.setText(Main.filaments.get(index).getName());
 			
 			for (int i = 0; i < filamentTypeComboBox.getItemCount() - 1; i++) {

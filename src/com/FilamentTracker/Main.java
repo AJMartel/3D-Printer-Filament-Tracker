@@ -4,6 +4,9 @@
  * about dialog
  * more menu items
  * 
+ * PENDING *** Added edit filament, need to do some more testing to see if its done
+ * 				will probably have to add a check to make sure the user does not enter a length smaller that what has already been used in the prints.
+ * 
  * Not urgent
  * grey out combo box filaments that have no filament left
  * fix table sort to sort by numeric values opposed to the string
@@ -365,19 +368,6 @@ public class Main extends JFrame {
 		}		
 		filament.setLRemaining(filament.getLength() - totalAmountUsed);
 		filament.setPRemaining(filament.getLRemaining() / filament.getLength());
-	}
-
-	/**
-	 * Creates a new filament object and adds it to the table.
-	 * 
-	 * @param name Name of the filament.
-	 * @param type Type of the filament.
-	 * @param weight Weight of the filament.
-	 * @param length Length of the filament.
-	 */
-	public static void addFilament(String name, String type, String weight, Double length) {
-		filaments.add(Global.index += 1, new Filament(Global.index, name, type, weight, length));
-		Global.saveNeeded = true;
 	}
 	
 	/**
