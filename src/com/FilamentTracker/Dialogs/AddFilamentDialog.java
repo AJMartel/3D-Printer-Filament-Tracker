@@ -1,0 +1,241 @@
+package com.FilamentTracker.Dialogs;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import com.FilamentTracker.Filament;
+import com.FilamentTracker.Main;
+
+
+
+/**
+ * 
+ * @author Andrew Comer
+ *
+ */
+public class AddFilamentDialog extends JFrame {
+	
+	private static final long	serialVersionUID			= 1L;
+	
+	//Labels
+	final JLabel				filamentNameLabel			= new JLabel("Filament Name");
+	final JLabel				filamentTypeLabel			= new JLabel("Filament Type");
+	final JLabel				filamentWeightLabel			= new JLabel("Filament Weight");
+	final JLabel				filamentLengthLabel			= new JLabel("Filament Length");
+	
+	//Text Fields
+	private final JTextField	filamentNameField			= new JTextField();
+	private final JTextField	filamentTypeCustomField		= new JTextField();
+	private final JTextField	filamentWeightCustomField	= new JTextField();
+	private final JTextField	filamentLengthCustomField	= new JTextField();
+	
+	//Combo Boxes
+	final JComboBox				filamentTypeComboBox		= new JComboBox();
+	final JComboBox				filamentWeightComboBox		= new JComboBox();
+	final JComboBox				filamentLengthComboBox		= new JComboBox();
+	
+	//Combo Box Content
+	final String[]				filamentTypeOptions			= { "PLA (1.75mm)", "PLA (3.0mm)", "ABS (1.75mm)", "ABS (3.0mm)", "Other" };
+	final String[]				filamentWeightOptions		= { "1.0kg", "Other" };
+	final String[]				filamentLengthOptions		= { "330000mm", "150000mm", "Other",};
+	
+	//Buttons
+	final JButton				addFilamentButton			= new JButton("Add New Filament");
+	final JButton				cancelButton				= new JButton("Cancel");
+	
+	private String				errorMessage;
+	private Boolean				hasErrors;
+
+	/**
+	 * 
+	 * 
+	 * @param x 
+	 * @param y 
+	 */
+	public AddFilamentDialog(int x, int y) {
+		setTitle("Add Filament Dialog");
+		setBounds(x, y, 308, 301);
+		getContentPane().setLayout(null);
+		setResizable(false);
+
+		//Name
+		filamentNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentNameLabel.setBounds(10, 12, 98, 17);
+
+		filamentNameField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentNameField.setColumns(10);
+		filamentNameField.setBounds(118, 9, 174, 22);
+
+		//Type
+		filamentTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentTypeLabel.setBounds(10, 45, 98, 17);
+
+		filamentTypeComboBox.setModel(new DefaultComboBoxModel(filamentTypeOptions));
+		filamentTypeComboBox.setSelectedIndex(0);
+		filamentTypeComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentTypeComboBox.setBounds(118, 42, 174, 23);
+		filamentTypeComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (filamentTypeComboBox.getSelectedIndex() == 4)
+					filamentTypeCustomField.setEditable(true);
+				else
+					filamentTypeCustomField.setEditable(false);				
+			}
+		});
+
+		filamentTypeCustomField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentTypeCustomField.setColumns(10);
+		filamentTypeCustomField.setBounds(118, 76, 174, 20);
+		filamentTypeCustomField.setEditable(false);	
+
+		//Weight
+		filamentWeightLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentWeightLabel.setBounds(10, 110, 98, 17);
+
+		filamentWeightComboBox.setModel(new DefaultComboBoxModel(filamentWeightOptions));
+		filamentWeightComboBox.setSelectedIndex(0);
+		filamentWeightComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentWeightComboBox.setBounds(118, 107, 174, 23);
+		filamentWeightComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (filamentWeightComboBox.getSelectedIndex() == 1)
+					filamentWeightCustomField.setEditable(true);
+				else
+					filamentWeightCustomField.setEditable(false);
+			}
+		});
+
+		filamentWeightCustomField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentWeightCustomField.setColumns(10);
+		filamentWeightCustomField.setBounds(118, 141, 174, 20);
+		filamentWeightCustomField.setEditable(false);
+		
+		//Length
+		filamentLengthLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentLengthLabel.setBounds(10, 175, 98, 17);
+
+		filamentLengthComboBox.setModel(new DefaultComboBoxModel(filamentLengthOptions));
+		filamentLengthComboBox.setSelectedIndex(0);
+		filamentLengthComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentLengthComboBox.setBounds(118, 172, 174, 23);
+		filamentLengthComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (filamentLengthComboBox.getSelectedIndex() == 2)
+					filamentLengthCustomField.setEditable(true);
+				else
+					filamentLengthCustomField.setEditable(false);
+			}
+		});
+
+		filamentLengthCustomField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		filamentLengthCustomField.setColumns(10);
+		filamentLengthCustomField.setBounds(118, 206, 174, 20);
+		filamentLengthCustomField.setEditable(false);
+
+		//Add Button
+		addFilamentButton.setBounds(10, 237, 136, 23);
+		addFilamentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+				String filamentName, filamentType, filamentWeight, filamentLength;
+
+				hasErrors = false;
+				errorMessage = "";
+				
+				filamentName = filamentNameField.getText().trim();
+				if (filamentName.equals(""))
+					errorMessage(0);
+				
+				Iterator<Filament> filamentIterator = Main.filaments.iterator();
+				while (filamentIterator.hasNext()){
+					if (filamentName.equals(filamentIterator.next().getName()))
+						errorMessage(1);
+				}
+				
+				if (filamentTypeComboBox.getSelectedIndex() == 4) { //Custom type
+					filamentType = filamentTypeCustomField.getText().trim();
+					if (filamentType.equals(""))
+						errorMessage(2);
+				} else
+					filamentType = filamentTypeComboBox.getSelectedItem().toString();
+
+				if (filamentWeightComboBox.getSelectedIndex() == 1) { //Custom weight
+					filamentWeight = filamentWeightCustomField.getText().trim();
+					if (filamentWeight.equals(""))
+						errorMessage(3);
+				} else
+					filamentWeight = filamentWeightComboBox.getSelectedItem().toString();
+
+				if (filamentLengthComboBox.getSelectedIndex() == 2) { // Custom Length
+					filamentLength = filamentLengthCustomField.getText().trim();
+					if (filamentLength.equals(""))
+						errorMessage(4);
+				} else
+					filamentLength = filamentLengthComboBox.getSelectedItem().toString();
+				
+				if (!hasErrors) {
+					Main.addFilament(filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
+					dispose();
+				} else
+					JOptionPane.showMessageDialog(null, errorMessage);
+			}
+		});
+
+		//Cancel Button
+		cancelButton.setBounds(156, 237, 136, 23);
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
+		//Add everything to content pane
+		getContentPane().add(filamentNameLabel);
+		getContentPane().add(filamentNameField);
+		getContentPane().add(filamentTypeLabel);
+		getContentPane().add(filamentTypeComboBox);	
+		getContentPane().add(filamentTypeCustomField);
+		getContentPane().add(filamentWeightLabel);
+		getContentPane().add(filamentWeightComboBox);
+		getContentPane().add(filamentWeightCustomField);
+		getContentPane().add(filamentLengthLabel);
+		getContentPane().add(filamentLengthComboBox);
+		getContentPane().add(filamentLengthCustomField);
+		getContentPane().add(addFilamentButton);
+		getContentPane().add(cancelButton);
+	}
+	
+	private void errorMessage(int flag){
+		switch (flag) {
+		case 0:
+			errorMessage += "Please enter a name for the filament.\n";
+			hasErrors = true;
+			break;
+		case 1:
+			errorMessage += "The filament name matches an existing name. Please choose a new one.\n";
+			hasErrors = true;
+			break;
+		case 2:
+			errorMessage += "Type not specified.\n";
+			hasErrors = true;
+			break;
+		case 3:
+			errorMessage += "Weight not specified.\n";
+			hasErrors = true;
+			break;
+		case 4:
+			errorMessage += "Length not specified.\n";
+			hasErrors = true;
+			break;
+		}
+	}
+}
