@@ -184,8 +184,25 @@ public class AddFilamentDialog extends JFrame {
 					filamentLength = filamentLengthCustomField.getText().trim();
 					if (filamentLength.equals(""))
 						errorMessage(4);
-				} else
+					if (forEdit){
+						System.out
+								.println(Double.parseDouble(filamentLength));
+						System.out.println(Main.filaments.get(index)
+								.getLRemaining());
+						if (Double.parseDouble(filamentLength) < Main.filaments.get(index).getLRemaining())
+							errorMessage(5);
+					}
+				} else {
 					filamentLength = filamentLengthComboBox.getSelectedItem().toString();
+					if (forEdit) {
+						System.out.println(Double.parseDouble(filamentLength
+								.replaceAll("[^\\d.-]", "")));
+						System.out.println(Main.filaments.get(index)
+								.getLRemaining());
+						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLRemaining())
+							errorMessage(5);
+					}
+				}
 				
 				if (!hasErrors) {
 					if (!forEdit)
@@ -295,6 +312,10 @@ public class AddFilamentDialog extends JFrame {
 			break;
 		case 4:
 			errorMessage += "Length not specified.\n";
+			hasErrors = true;
+			break;
+		case 5:
+			errorMessage += "Length shorter than what has been used.\n";
 			hasErrors = true;
 			break;
 		}
