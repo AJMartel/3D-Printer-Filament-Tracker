@@ -148,7 +148,7 @@ public class Main extends JFrame {
 	 */
 	public Main() throws IOException {
 		setTitle("3D Printer Filament Tracker");
-		setIconImage(new ImageIcon(getClass().getResource("icon.jpg")).getImage());
+		setIconImage(new ImageIcon("Icon.jpg").getImage());//getClass().getResource("icon.jpg")).getImage());
 		setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((int)((screenSize.getWidth() / 2) - (921 / 2)), (int)((screenSize.getHeight() / 2) - (546 / 2)), 921, 546);
