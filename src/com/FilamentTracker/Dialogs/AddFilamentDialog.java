@@ -185,21 +185,13 @@ public class AddFilamentDialog extends JFrame {
 					if (filamentLength.equals(""))
 						errorMessage(4);
 					if (forEdit){
-						System.out
-								.println(Double.parseDouble(filamentLength));
-						System.out.println(Main.filaments.get(index)
-								.getLRemaining());
-						if (Double.parseDouble(filamentLength) < Main.filaments.get(index).getLRemaining())
+						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
 							errorMessage(5);
 					}
 				} else {
 					filamentLength = filamentLengthComboBox.getSelectedItem().toString();
 					if (forEdit) {
-						System.out.println(Double.parseDouble(filamentLength
-								.replaceAll("[^\\d.-]", "")));
-						System.out.println(Main.filaments.get(index)
-								.getLRemaining());
-						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLRemaining())
+						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
 							errorMessage(5);
 					}
 				}
