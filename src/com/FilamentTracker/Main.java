@@ -1,6 +1,6 @@
 /*
  * ***STUFF TO DO****
- * remove print/filament - using popup menu..
+ * remove print/filament - using popup menu. not sure how to do remove prints
  * about dialog
  * more menu items
  * 
