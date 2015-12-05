@@ -3,9 +3,8 @@
  * remove print/filament - using popup menu. not sure how to do remove prints.
  * about dialog
  * more menu items
+ * Better icon
  * 
- * PENDING *** Added edit filament, need to do some more testing to see if its done
- * 				will probably have to add a check to make sure the user does not enter a length smaller that what has already been used in the prints.
  * 
  * Not urgent
  * grey out combo box filaments that have no filament left
@@ -22,7 +21,7 @@
  * DONE *** Export stuff
  * DONE *** title over the print test area show which filaments selected since the row color messes with the selection color 
  * DOME *** Donation - https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CKF9ND26CTW34&lc=US&item_name=3D%20Printer%20Filament%20Tracker&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
- * DONE *** program icon
+ * DONE *** Added edit filament, need to do some more testing to see if its done
  */
 
 package com.FilamentTracker;
@@ -275,7 +274,17 @@ public class Main extends JFrame {
 		
 		deletePopupMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				System.out.println("Delete " + filaments.get(filamentTable.getSelectedRow()).getName());
+				Object[] options = { "Yes", "No"};
+				switch (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + filamentTable.getValueAt(filamentTable.getSelectedRow(), 1) + " filament?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
+				case 0: // Delete
+					filaments.remove((int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
+					for (Filament filament : filaments) {
+						if (filament.getIndex() > (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1)
+							filament.setIndex(filament.getIndex() - 1);
+					}
+					updateTable();
+					break;
+				}
 			}
 		});
 		

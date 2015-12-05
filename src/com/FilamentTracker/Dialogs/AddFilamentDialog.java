@@ -280,7 +280,6 @@ public class AddFilamentDialog extends JFrame {
 			}
 			
 			addFilamentButton.setText("Edit Filament");
-			System.out.println(Main.filaments.get(index).getLength());
 		}
 	}
 	
