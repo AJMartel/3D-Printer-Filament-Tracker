@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -66,9 +67,13 @@ public class AddFilamentDialog extends JFrame {
 	 * @param index 
 	 */
 	public AddFilamentDialog(int x, int y, boolean forEdit, int index) {
-		setTitle("Add Filament Dialog");
-		setBounds(x, y, 308, 301);
-		getContentPane().setLayout(null);
+		if (forEdit)
+			setTitle("Edit Filament Dialog");
+		else
+			setTitle("Add Filament Dialog");
+		setIconImage(new ImageIcon("Filament_Icon.png").getImage());
+		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
+		setLayout(null);
 		setResizable(false);
 
 		//Name
@@ -204,7 +209,6 @@ public class AddFilamentDialog extends JFrame {
 						Main.filaments.get(index).setType(filamentType);
 						Main.filaments.get(index).setWeight(filamentWeight);
 						Main.filaments.get(index).setLength(Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
-						System.out.println(Main.filaments.get(index).getLength());
 					}
 					Main.updateTable();
 					Global.saveNeeded = true;
@@ -223,19 +227,19 @@ public class AddFilamentDialog extends JFrame {
 		});
 		
 		//Add everything to content pane
-		getContentPane().add(filamentNameLabel);
-		getContentPane().add(filamentNameField);
-		getContentPane().add(filamentTypeLabel);
-		getContentPane().add(filamentTypeComboBox);	
-		getContentPane().add(filamentTypeCustomField);
-		getContentPane().add(filamentWeightLabel);
-		getContentPane().add(filamentWeightComboBox);
-		getContentPane().add(filamentWeightCustomField);
-		getContentPane().add(filamentLengthLabel);
-		getContentPane().add(filamentLengthComboBox);
-		getContentPane().add(filamentLengthCustomField);
-		getContentPane().add(addFilamentButton);
-		getContentPane().add(cancelButton);
+		add(filamentNameLabel);
+		add(filamentNameField);
+		add(filamentTypeLabel);
+		add(filamentTypeComboBox);	
+		add(filamentTypeCustomField);
+		add(filamentWeightLabel);
+		add(filamentWeightComboBox);
+		add(filamentWeightCustomField);
+		add(filamentLengthLabel);
+		add(filamentLengthComboBox);
+		add(filamentLengthCustomField);
+		add(addFilamentButton);
+		add(cancelButton);
 		
 		//If the user selects to edit the filament
 		if (forEdit) {

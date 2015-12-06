@@ -1,12 +1,10 @@
 /*
  * ***STUFF TO DO****
- * remove print/filament - using popup menu. not sure how to do remove prints.
  * about dialog
- * more menu items
  * Better icon
  * 
  * 
- * Not urgent
+ * ****UPDATE 1****
  * grey out combo box filaments that have no filament left
  * fix table sort to sort by numeric values opposed to the string
  * sort prints by date
@@ -22,6 +20,9 @@
  * DONE *** title over the print test area show which filaments selected since the row color messes with the selection color 
  * DOME *** Donation - https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CKF9ND26CTW34&lc=US&item_name=3D%20Printer%20Filament%20Tracker&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
  * DONE *** Added edit filament, need to do some more testing to see if its done
+ * DONE *** remove print/filament - using popup menu. not sure how to do remove prints.
+ * DONE *** Menu item icons
+ * DONE *** Menu item Mnemonics
  */
 
 package com.FilamentTracker;
@@ -35,6 +36,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -58,6 +60,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -82,6 +88,7 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					final Main frame = new Main();
 					frame.setVisible(true);
 					frame.setResizable(false);
@@ -106,16 +113,16 @@ public class Main extends JFrame {
 	final JPopupMenu					popupMenu			= new JPopupMenu();
 	
 	//Menu Item
-	final JMenuItem 					saveMenuItem 		= new JMenuItem("Save");
-	final JMenuItem 					exportHTMLMenuItem 	= new JMenuItem("HTML File");
-	final JMenuItem 					exportTextMenuItem 	= new JMenuItem("Text File");
-	final JMenuItem 					exitMenuItem 		= new JMenuItem("Exit");
-	final JMenuItem 					addFilamentMenuItem = new JMenuItem("Add New Filament");
-	final JMenuItem 					addPrintMenuItem 	= new JMenuItem("Add New Print");
-	final JMenuItem 					aboutMenuItem 		= new JMenuItem("About");
-	final JMenuItem 					editPopupMenuItem 	= new JMenuItem("Edit");
-	final JMenuItem 					deletePopupMenuItem = new JMenuItem("Delete");
-	final JMenuItem 					printsPopupMenuItem = new JMenuItem("Edit Prints");
+	final JMenuItem 					saveMenuItem 		= new JMenuItem("Save", new ImageIcon("Save_Icon.png"));
+	final JMenuItem 					exportHTMLMenuItem 	= new JMenuItem("HTML File", new ImageIcon("HTML_Icon.png"));
+	final JMenuItem 					exportTextMenuItem 	= new JMenuItem("Text File", new ImageIcon("Text_Icon.png"));
+	final JMenuItem 					exitMenuItem 		= new JMenuItem("Exit", new ImageIcon("Exit_Icon.png"));
+	final JMenuItem 					addFilamentMenuItem = new JMenuItem("Add New Filament", new ImageIcon("Filament_Icon.png"));
+	final JMenuItem 					addPrintMenuItem 	= new JMenuItem("Add New Print", new ImageIcon("Print_Icon.png"));
+	final JMenuItem 					aboutMenuItem 		= new JMenuItem("About", new ImageIcon("About_Icon.png"));
+	final JMenuItem 					editPopupMenuItem 	= new JMenuItem("Edit Filament", new ImageIcon("Filament_Icon.png"));
+	final JMenuItem 					deletePopupMenuItem = new JMenuItem("Delete Filament", new ImageIcon("Delete_Icon.gif"));
+	final JMenuItem 					printsPopupMenuItem = new JMenuItem("Edit Prints", new ImageIcon("Print_Icon.png"));
 
 	final JSeparator 					separator1 			= new JSeparator();
 	final JSeparator 					separator2 			= new JSeparator();
@@ -140,10 +147,9 @@ public class Main extends JFrame {
 	public static NumberFormat			percentFormat 		= NumberFormat.getPercentInstance();
 	public static NumberFormat 			numberFormat		= new DecimalFormat("#0.00"); 
 
-
 	/**
-	 * Create the frame.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public Main() throws IOException {
 		setTitle("3D Printer Filament Tracker");
@@ -151,7 +157,7 @@ public class Main extends JFrame {
 		setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((int)((screenSize.getWidth() / 2) - (921 / 2)), (int)((screenSize.getHeight() / 2) - (546 / 2)), 921, 546);
-		getContentPane().setLayout(null);
+		setLayout(null);
 		
 		addWindowListener(new WindowListener() {
 			public void windowOpened(WindowEvent arg0) {}
@@ -178,6 +184,27 @@ public class Main extends JFrame {
 		editMenuBar.add(addPrintMenuItem);
 		mainMenuBar.add(helpMenuBar);
 		helpMenuBar.add(aboutMenuItem);
+
+		saveMenuItem.setMnemonic(KeyEvent.VK_S);
+		saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		
+		exportHTMLMenuItem.setMnemonic(KeyEvent.VK_H);
+		exportHTMLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+		
+		exitMenuItem.setMnemonic(KeyEvent.VK_E);
+		exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		
+		exportTextMenuItem.setMnemonic(KeyEvent.VK_T);
+		exportTextMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+		
+		addFilamentMenuItem.setMnemonic(KeyEvent.VK_F);
+		addFilamentMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK));
+		
+		addPrintMenuItem.setMnemonic(KeyEvent.VK_P);
+		addPrintMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+		
+		aboutMenuItem.setMnemonic(KeyEvent.VK_A);
+		aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 
 		saveMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
@@ -212,7 +239,7 @@ public class Main extends JFrame {
 
 		addPrintMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
-				final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY());
+				final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), false, -1);
 				addPrintDialog.setVisible(true);
 			}
 		});
@@ -263,6 +290,13 @@ public class Main extends JFrame {
 		popupMenu.add(deletePopupMenuItem);
 		popupMenu.addSeparator();
 		popupMenu.add(printsPopupMenuItem);
+		popupMenu.addAncestorListener(new AncestorListener() {
+			public void ancestorRemoved(AncestorEvent event) {}
+			public void ancestorMoved(AncestorEvent event) {}
+			public void ancestorAdded(AncestorEvent event) {
+				printsPopupMenuItem.setEnabled(Double.parseDouble(filamentTable.getValueAt(filamentTable.getSelectedRow(), 4).toString().replaceAll("[^\\d.-]", "")) != Double.parseDouble(filamentTable.getValueAt(filamentTable.getSelectedRow(), 5).toString().replaceAll("[^\\d.-]", "")) ? true : false);
+			}
+		});
 		filamentTable.setComponentPopupMenu(popupMenu);
 		
 		editPopupMenuItem.addActionListener(new ActionListener() {
@@ -290,6 +324,8 @@ public class Main extends JFrame {
 		
 		printsPopupMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), true, (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
+				addPrintDialog.setVisible(true);
 			}
 		});
 		
@@ -330,13 +366,13 @@ public class Main extends JFrame {
 		percentFormat.setMinimumFractionDigits(2);
 		
 		//Add everything to content pane
-		getContentPane().add(mainMenuBar);
-		getContentPane().add(tableScrollPane);
-		getContentPane().add(separator1);
-		getContentPane().add(printInfoLabel);
-		getContentPane().add(printScrollPane);
-		getContentPane().add(separator2);
-		getContentPane().add(donationLabel);
+		add(mainMenuBar);
+		add(tableScrollPane);
+		add(separator1);
+		add(printInfoLabel);
+		add(printScrollPane);
+		add(separator2);
+		add(donationLabel);
 
 		//Create filament objects from file and create table from objects
 		FileIO.initializeObjects();
