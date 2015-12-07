@@ -5,17 +5,28 @@ import java.util.Iterator;
 
 
 /**
- * 
+ *	FILENAME:		Filament.java
+ *	DESCRIPTION:	This class contains the Filament object that holds all information about the filaments.
+ *	
  * @author Andrew Comer
- *
  */
 public class Filament {
+	
 	private String name, type, weight;
 	private int index;
 	private Double length, lRemaining, pRemaining;
 	private ArrayList<Print> print = new ArrayList<Print>();
 	
-
+	/**
+     *	FUNCTION:	Filament
+     *	PURPOSE:	Constructor.
+	 * 
+	 * @param index The index of the new filament
+	 * @param name The name of the new filament
+	 * @param type The type of the new filament
+	 * @param weight The weight of the new filament
+	 * @param length The length of the new filament
+	 */
 	public Filament(int index, String name, String type, String weight, Double length) {
 		this.index = index;
 		this.name = name;
@@ -24,78 +35,56 @@ public class Filament {
 		this.length = length;
 	}
 	
-	public int getIndex(){
-		return this.index;
-	}
+	/*
+	 * Getters
+	 */
+	public int getIndex() {return this.index;}
+	public String getName() {return this.name;}
+	public String getType() {return this.type;}
+	public String getWeight() {return this.weight;}
+	public Double getLength() {return this.length;}
+	public Double getLRemaining() {return this.lRemaining;}
+	public Double getPRemaining() {return this.pRemaining;}
+	public ArrayList<Print> getPrint() {return this.print;}
 	
-	public void setIndex(int index){
-		this.index = index;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	/*
+	 * Setters
+	 */
+	public void setIndex(int index) {this.index = index;}
+	public void setName(String name) {this.name = name;}
+	public void setType(String type) {this.type= type;}
+	public void setWeight(String weight) {this.weight = weight;}
+	public void setLength(Double length) {this.length = length;}
+	public void setLRemaining(Double lRemaining) {this.lRemaining = lRemaining;}
+	public void setPRemaining(Double pRemaining) {this.pRemaining = pRemaining;}
 	
-	public String getType(){
-		return this.type;
-	}
-
-	public void setType(String type){
-		this.type= type;
-	}
-	
-	public String getWeight(){
-		return this.weight;
-	}
-	
-	public void setWeight(String weight){
-		this.weight = weight;
-	}
-	
-	public Double getLength(){
-		return this.length;
-	}
-	
-	public void setLength(Double length){
-		this.length = length;
-	}
-	
-	public Double getLRemaining(){
-		return this.lRemaining;
-	}
-	
-	public void setLRemaining(Double lRemaining){
-		this.lRemaining = lRemaining;
-	}
-	
-	public Double getPRemaining(){
-		return this.pRemaining;
-	}
-	
-	public void setPRemaining(Double pRemaining){
-		this.pRemaining = pRemaining;
-	}
-	
-	public ArrayList<Print> getPrint(){
-		return this.print;
-	}
-	
-	public void addPrint(String date, String description, Double used){
+	/**
+	 * 	FUNCTION:	addPrint
+	 * 	PURPOSE:	Adds a new print to the filament.
+	 * 
+	 * @param date
+	 * @param description
+	 * @param used
+	 */
+	public void addPrint(String date, String description, Double used) {
 		print.add(new Print(date, description, used));
 	}
 	
-	public boolean isEmpty(){
-		if (Global.index == -1)
-			return true;
-		else
-			return false;
-	}
+	/**
+	 * FUNCTION:	isEmpty
+	 * PURPOSE:		Lets the user know if there are any filaments stored.
+	 * 
+	 * @return boolean
+	 */
+	public boolean isEmpty() {return (Global.index == -1 ? true : false);}
 	
-	public String getPrints(){
+	/**
+	 * FUNCTION:	getPrints
+	 * PURPOSE:		Returns a string with print information to be shown to the user.
+	 * 
+	 * @return String
+	 */
+	public String getPrints() {
 		String output = "";
 		Iterator<Print> printIterator = print.iterator();
 		while (printIterator.hasNext()) {

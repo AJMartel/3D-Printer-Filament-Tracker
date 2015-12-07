@@ -25,41 +25,41 @@ import com.FilamentTracker.Print;
 import com.toedter.calendar.JDateChooser;
 
 /**
- * 
+ *	FILENAME:		AddPrintDialog.java
+ *	DESCRIPTION:	This class creates and opens the add/edit/delete print dialog.
+ *	
  * @author Andrew Comer
- *
  */
 public class AddPrintDialog extends JFrame {
 	
 	private static final long 	serialVersionUID 		= 1L;
 	
 	private JTextField 			amountUsedTextField 	= new JTextField();
-	
 	private JDateChooser 		date 					= new JDateChooser();
-	
 	private JComboBox 			filamentUsedComboBox 	= new JComboBox();
-	
 	private JScrollPane 		descriptionScrollPane 	= new JScrollPane();
-	
 	private JTextPane 			descriptionTextPane 	= new JTextPane();
-	
 	private JLabel 				filamentUsedLabel 		= new JLabel("Filament Used");
 	private JLabel 				dateLabel 				= new JLabel("Date");
 	private JLabel 				descriptionLabel 		= new JLabel("Description");
 	private JLabel 				amountUsedLabel 		= new JLabel("Amount Used");
-
 	private JButton 			addPrintButton 			= new JButton("Add New Print");
 	private JButton 			deletePrintButton		= new JButton("Delete");
 	private JButton 			cancelButton 			= new JButton("Cancel");
-	
 	private String				errorMessage;
 	private Boolean				hasErrors;
 
+	/**
+	 * FUNCTION:	AddPrintDialog
+	 * PURPOSE:		Constructor.
+	 * 
+	 * @param x X coordinate of the main frame
+	 * @param y Y coordinate of the main frame
+	 * @param forEdit Add new or edit existing filament
+	 * @param index Index of the filament to be edited
+	 */
 	public AddPrintDialog(int x, int y, boolean forEdit, int index) {
-		if (forEdit)
-			setTitle("Edit Prints Dialog");
-		else
-			setTitle("Add Print Dialog");
+		setTitle(forEdit == true ? "Edit Prints Dialog" : "Add Print Dialog");
 		setIconImage(new ImageIcon("Print_Icon.png").getImage());
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
 		setLayout(null);
@@ -157,6 +157,7 @@ public class AddPrintDialog extends JFrame {
 			}
 		});
 		
+		//Delete button
 		deletePrintButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main.filaments.get(index).getPrint().remove(filamentUsedComboBox.getSelectedIndex());
@@ -199,6 +200,12 @@ public class AddPrintDialog extends JFrame {
 		add(deletePrintButton);
 	}
 	
+	/**
+	 * FUNCTION:	errorMessage
+	 * PURPOSE:		Alert the user of any errors
+	 * 
+	 * @param flag Number for specific error message
+	 */
 	private void errorMessage(int flag){
 		switch (flag) {
 		case 1:

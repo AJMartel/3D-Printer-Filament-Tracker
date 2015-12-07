@@ -11,14 +11,19 @@ import javax.swing.JOptionPane;
 
 
 /**
- * 
- * @author Andrew Comer
- *
+ *	FILENAME:		FileIO.java
+ *	DESCRIPTION:	This class controls all the save file input/output actions.
+ *	
+ *	@author Andrew Comer
  */
 public class FileIO {
 
-	public FileIO() {}
-
+	/**
+	 * FUNTION:	initializeObjects
+	 * PURPOSE:	Reads information from the save file into Filament and Print objects.
+	 * 
+	 * @throws IOException
+	 */
 	public static void initializeObjects() throws IOException{
 		String line;
 		try {
@@ -27,15 +32,12 @@ public class FileIO {
 				StringTokenizer st = new StringTokenizer(scan.nextLine(), ":");
 				while (st.hasMoreTokens()) {
 					line = st.nextToken();
-					if (!line.contains("//")){
-						if (line.equalsIgnoreCase("[Filament]")) { //filament information
-							Global.index = Integer.parseInt(st.nextToken());
-							Main.filaments.add(Global.index, new Filament(Global.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
-						} else { //print information
-							Main.filaments.get(Global.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
-						}
-					} else //comment line
-						break;
+					if (line.equalsIgnoreCase("[Filament]")) { //filament information
+						Global.index = Integer.parseInt(st.nextToken());
+						Main.filaments.add(Global.index, new Filament(Global.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
+					} else { //print information
+						Main.filaments.get(Global.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
+					}
 				}
 			}
 			scan.close();
@@ -46,6 +48,10 @@ public class FileIO {
 		}
 	}
 	
+	/**
+	 * FUNCTION:	save
+	 * PURPOSE:		Reads information from the Filament and Print objects into a save file.
+	 */
 	public static void save() {
 		try {
 			FileWriter fw = new FileWriter(Global.fileName);

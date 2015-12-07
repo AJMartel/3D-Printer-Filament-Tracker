@@ -18,59 +18,47 @@ import com.FilamentTracker.Filament;
 import com.FilamentTracker.Global;
 import com.FilamentTracker.Main;
 
-
-
 /**
- * 
+ *	FILENAME:		AddFilamentDialog.java
+ *	DESCRIPTION:	This class creates and opens the add/edit filament dialog.
+ *	
  * @author Andrew Comer
- *
  */
 public class AddFilamentDialog extends JFrame {
 	
 	private static final long	serialVersionUID			= 1L;
 	
-	//Labels
-	final JLabel				filamentNameLabel			= new JLabel("Filament Name");
-	final JLabel				filamentTypeLabel			= new JLabel("Filament Type");
-	final JLabel				filamentWeightLabel			= new JLabel("Filament Weight");
-	final JLabel				filamentLengthLabel			= new JLabel("Filament Length");
-	
-	//Text Fields
+	private final JLabel		filamentNameLabel			= new JLabel("Filament Name");
+	private final JLabel		filamentTypeLabel			= new JLabel("Filament Type");
+	private final JLabel		filamentWeightLabel			= new JLabel("Filament Weight");
+	private final JLabel		filamentLengthLabel			= new JLabel("Filament Length");
 	private final JTextField	filamentNameField			= new JTextField();
 	private final JTextField	filamentTypeCustomField		= new JTextField();
 	private final JTextField	filamentWeightCustomField	= new JTextField();
 	private final JTextField	filamentLengthCustomField	= new JTextField();
-	
-	//Combo Boxes
-	final JComboBox				filamentTypeComboBox		= new JComboBox();
-	final JComboBox				filamentWeightComboBox		= new JComboBox();
-	final JComboBox				filamentLengthComboBox		= new JComboBox();
-	
-	//Combo Box Content
-	final String[]				filamentTypeOptions			= { "PLA (1.75mm)", "PLA (3.0mm)", "ABS (1.75mm)", "ABS (3.0mm)", "Other" };
-	final String[]				filamentWeightOptions		= { "1.0kg", "Other" };
-	final String[]				filamentLengthOptions		= { "330000.0mm", "150000.0mm", "Other",};
-	
-	//Buttons
-	final JButton				addFilamentButton			= new JButton("Add New Filament");
-	final JButton				cancelButton				= new JButton("Cancel");
-	
+	private final JComboBox		filamentTypeComboBox		= new JComboBox();
+	private final JComboBox		filamentWeightComboBox		= new JComboBox();
+	private final JComboBox		filamentLengthComboBox		= new JComboBox();
+	private final String[]		filamentTypeOptions			= { "PLA (1.75mm)", "PLA (3.0mm)", "ABS (1.75mm)", "ABS (3.0mm)", "Other" };
+	private final String[]		filamentWeightOptions		= { "1.0kg", "Other" };
+	private final String[]		filamentLengthOptions		= { "330000.0mm", "Other",};
+	private final JButton		addFilamentButton			= new JButton("Add New Filament");
+	private final JButton		cancelButton				= new JButton("Cancel");
 	private String				errorMessage;
 	private Boolean				hasErrors;
 	private Boolean				customField;
 
 	/**
+	 * FUNCTION:	AddFilamentDialog
+	 * PURPOSE:		Constructor.
 	 * 
-	 * 
-	 * @param x 
-	 * @param y 
-	 * @param index 
+	 * @param x X coordinate of the main frame
+	 * @param y Y coordinate of the main frame
+	 * @param forEdit Add new or edit existing filament
+	 * @param index Index of the filament to be edited
 	 */
 	public AddFilamentDialog(int x, int y, boolean forEdit, int index) {
-		if (forEdit)
-			setTitle("Edit Filament Dialog");
-		else
-			setTitle("Add Filament Dialog");
+		setTitle(forEdit == true ? "Edit Filament Dialog" : "Add Filament Dialog");
 		setIconImage(new ImageIcon("Filament_Icon.png").getImage());
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
 		setLayout(null);
@@ -185,7 +173,7 @@ public class AddFilamentDialog extends JFrame {
 				} else
 					filamentWeight = filamentWeightComboBox.getSelectedItem().toString();
 
-				if (filamentLengthComboBox.getSelectedIndex() == 2) { // Custom Length
+				if (filamentLengthComboBox.getSelectedIndex() == 1) { // Custom Length
 					filamentLength = filamentLengthCustomField.getText().trim();
 					if (filamentLength.equals(""))
 						errorMessage(4);
@@ -287,6 +275,12 @@ public class AddFilamentDialog extends JFrame {
 		}
 	}
 	
+	/**
+	 * FUNCTION:	errorMessage
+	 * PURPOSE:		Alert the user of any errors
+	 * 
+	 * @param flag Number for specific error message
+	 */
 	private void errorMessage(int flag){
 		switch (flag) {
 		case 0:

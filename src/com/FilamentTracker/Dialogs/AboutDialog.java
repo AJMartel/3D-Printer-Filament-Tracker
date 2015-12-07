@@ -10,16 +10,28 @@ import javax.swing.JPanel;
 
 import com.FilamentTracker.Global;
 
+/**
+ *	FILENAME:		AboutDialog.java
+ *	DESCRIPTION:	This class creates and opens the about dialog.
+ *	
+ * @author Andrew Comer
+ */
 public class AboutDialog extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
-		JLabel pictureLabel = new JLabel(new ImageIcon("About_Window_Icon.jpg"));
-		JLabel programNameLabel = new JLabel("3D Printer Filament Tracker");
-		JLabel versionLabel = new JLabel(Global.VERSION);
-		JLabel emailLabel = new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
-		private final JPanel nameAndVersionPanel = new JPanel();
+	
+	private final JLabel pictureLabel 			= new JLabel(new ImageIcon("About_Window_Icon.jpg"));
+	private final JLabel programNameLabel 		= new JLabel("3D Printer Filament Tracker");
+	private final JLabel versionLabel 			= new JLabel(Global.VERSION);
+	private final JLabel emailLabel 			= new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
+	private final JPanel nameAndVersionPanel 	= new JPanel();
 		
 	/**
-	 * Create the frame.
+	 * FUNCTION:	aboutDialog
+	 * PURPOSE:		Constructor.
+	 * 
+	 * @param x X coordinate of the main frame
+	 * @param y Y coordinate of the main frame
 	 */
 	public AboutDialog(int x, int y) {
 		setTitle("About 3D Printer Filament Tracker");

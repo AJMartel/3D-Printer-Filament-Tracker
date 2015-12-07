@@ -9,15 +9,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ *	FILENAME:		Export.java
+ *	DESCRIPTION:	This class exports all the data in the table to a HTML or text file.
+ *	
+ *	@author Andrew Comer
+ */
 public class Export {
 
-	   static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	   static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-	   static Date date = new Date();
-	   static String separator =  "====================================================================================================";
+	   private static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	   private static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+	   private static Date date = new Date();
+	   private static String separator =  "====================================================================================================";
 	   
 	/**
-	 * Exports the data to a HTML file
+     *	FUNCTION:	exportToHTML
+     *	PURPOSE:	Exports the data to a HTML file.
 	 */
 	public static void exportToHTML() {
 		try {
@@ -124,7 +131,8 @@ public class Export {
 	}
 
 	/**
-	 * Exports the data to a text file
+     *	FUNCTION:	exportToHTML
+     *	PURPOSE:	Exports the data to a text file.
 	 */
 	public static void exportToText() {
 		try {
@@ -141,7 +149,6 @@ public class Export {
 					fw.write(String.format("\n\t%-19s%-13s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), print.getDescription()));
 				}
 			}
-			fw.write("");
 			fw.close();
 			Desktop.getDesktop().browse(new File("Report_" + saveFileDateFormat.format(date) + ".txt").toURI());
 		} catch (IOException e) {
