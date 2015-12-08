@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import com.FilamentTracker.Global;
 import com.FilamentTracker.Main;
 import com.FilamentTracker.Print;
 import com.toedter.calendar.JDateChooser;
@@ -72,7 +71,7 @@ public class AddPrintDialog extends JFrame {
 		filamentUsedComboBox.setBounds(104, 10, 187, 20);
 			
 		if (!forEdit){
-			for (int i = 0; i <= Global.index; i++) 
+			for (int i = 0; i <= Main.index; i++) 
 				filamentUsedComboBox.addItem(Main.filaments.get(i).getName());
 		} else {
 			filamentUsedLabel.setText("Print");
@@ -148,7 +147,7 @@ public class AddPrintDialog extends JFrame {
 						Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).setDescription(descriptionTextPane.getText());
 						Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).setAmountUsed(Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")));
 					}
-					Global.saveNeeded = true;
+					Main.saveNeeded = true;
 					Main.updateTable();
 					Main.updatePrintArea();
 					dispose();
@@ -164,7 +163,7 @@ public class AddPrintDialog extends JFrame {
 				Main.filamentTable.setRowSelectionInterval((int) Main.filamentTable.getValueAt(Main.filamentTable.getSelectedRow(), 0) - 1, (int) Main.filamentTable.getValueAt(Main.filamentTable.getSelectedRow(), 0) - 1);
 				Main.updatePrintArea();
 				Main.updateTable();
-				Global.saveNeeded = true;
+				Main.saveNeeded = true;
 				dispose();
 			}
 		});

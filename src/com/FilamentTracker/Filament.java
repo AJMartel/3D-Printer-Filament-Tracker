@@ -80,7 +80,7 @@ public class Filament {
 	 * 
 	 * @return boolean
 	 */
-	public boolean isEmpty() {return (Global.index == -1 ? true : false);}
+	public boolean isEmpty() {return (Main.index == -1 ? true : false);}
 	
 	/**
 	 * FUNCTION:	getPrints

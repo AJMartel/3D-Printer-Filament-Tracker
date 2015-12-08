@@ -1,5 +1,6 @@
 package com.FilamentTracker;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  *	@author Andrew Comer
  */
 public class FileIO {
+	
+	private final static File 	fileName = new File("FilamentInfo.txt");
 
 	/**
 	 * FUNTION:	initializeObjects
@@ -27,23 +30,23 @@ public class FileIO {
 	public static void initializeObjects() throws IOException{
 		String line;
 		try {
-			Scanner scan = new Scanner(Global.fileName);
+			Scanner scan = new Scanner(fileName);
 			while (scan.hasNextLine()) {
 				StringTokenizer st = new StringTokenizer(scan.nextLine(), ":");
 				while (st.hasMoreTokens()) {
 					line = st.nextToken();
 					if (line.equalsIgnoreCase("[Filament]")) { //filament information
-						Global.index = Integer.parseInt(st.nextToken());
-						Main.filaments.add(Global.index, new Filament(Global.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
+						Main.index = Integer.parseInt(st.nextToken());
+						Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
 					} else { //print information
-						Main.filaments.get(Global.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
+						Main.filaments.get(Main.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
 					}
 				}
 			}
 			scan.close();
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Info file not found.\nCreating new file.");
-			FileWriter fw = new FileWriter(Global.fileName);
+			FileWriter fw = new FileWriter(fileName);
 			fw.close();
 		}
 	}
@@ -54,7 +57,7 @@ public class FileIO {
 	 */
 	public static void save() {
 		try {
-			FileWriter fw = new FileWriter(Global.fileName);
+			FileWriter fw = new FileWriter(fileName);
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
@@ -66,7 +69,7 @@ public class FileIO {
 				}
 			}
 			fw.close();
-			Global.saveNeeded = false;
+			Main.saveNeeded = false;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

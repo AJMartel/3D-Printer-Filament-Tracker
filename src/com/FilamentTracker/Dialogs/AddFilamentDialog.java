@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.FilamentTracker.Filament;
-import com.FilamentTracker.Global;
 import com.FilamentTracker.Main;
 
 /**
@@ -126,7 +125,7 @@ public class AddFilamentDialog extends JFrame {
 		filamentLengthComboBox.setBounds(118, 172, 174, 23);
 		filamentLengthComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (filamentLengthComboBox.getSelectedIndex() == 2)
+				if (filamentLengthComboBox.getSelectedIndex() == 1)
 					filamentLengthCustomField.setEditable(true);
 				else
 					filamentLengthCustomField.setEditable(false);
@@ -191,7 +190,7 @@ public class AddFilamentDialog extends JFrame {
 				
 				if (!hasErrors) {
 					if (!forEdit)
-						Main.filaments.add(Global.index += 1, new Filament(Global.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", ""))));
+						Main.filaments.add(Main.index += 1, new Filament(Main.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", ""))));
 					else {
 						Main.filaments.get(index).setName(filamentName);
 						Main.filaments.get(index).setType(filamentType);
@@ -199,7 +198,8 @@ public class AddFilamentDialog extends JFrame {
 						Main.filaments.get(index).setLength(Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
 					}
 					Main.updateTable();
-					Global.saveNeeded = true;
+					Main.updatePrintArea();
+					Main.saveNeeded = true;
 					dispose();
 				} else
 					JOptionPane.showMessageDialog(null, errorMessage);

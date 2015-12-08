@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.FilamentTracker.Global;
-
 /**
  *	FILENAME:		AboutDialog.java
  *	DESCRIPTION:	This class creates and opens the about dialog.
@@ -19,10 +17,12 @@ import com.FilamentTracker.Global;
 public class AboutDialog extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	
-	private final JLabel pictureLabel 			= new JLabel();
+
+	private final String VERSION 				= "v1.0";
+	private final JLabel pictureLabel 			= new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("About_Window_Icon.jpg") : new ImageIcon(getClass().getResource("About_Window_Icon.jpg")));
 	private final JLabel programNameLabel 		= new JLabel("3D Printer Filament Tracker");
-	private final JLabel versionLabel 			= new JLabel(Global.VERSION);
+	private final JLabel versionLabel 			= new JLabel(VERSION);
+	private final JLabel infoLabel 				= new JLabel("<html>Feel free to contact me if you have any questions or comments.</html>", JLabel.CENTER);
 	private final JLabel emailLabel 			= new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
 	private final JPanel nameAndVersionPanel 	= new JPanel();
 		
@@ -39,8 +39,6 @@ public class AboutDialog extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 		
-		pictureLabel.setIcon(System.getProperty("DEBUG") != null ? new ImageIcon("About_Window_Icon.jpg") : new ImageIcon(getClass().getResource("About_Window_Icon.jpg")));
-		
 		pictureLabel.setBounds(12, 11, 100, 100);
 		
 		programNameLabel.setBounds(0, 0, 166, 17);
@@ -54,12 +52,16 @@ public class AboutDialog extends JFrame {
 		nameAndVersionPanel.add(programNameLabel);
 		nameAndVersionPanel.add(versionLabel);
 		
-		emailLabel.setBounds(12, 172, 276, 17);
+		infoLabel.setBounds(12, 144, 276, 41);
+		infoLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		emailLabel.setBounds(12, 212, 276, 17);
 		emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		emailLabel.setForeground(Color.BLUE);
 		
 		getContentPane().add(nameAndVersionPanel);
 		getContentPane().add(pictureLabel);
+		getContentPane().add(infoLabel);
 		getContentPane().add(emailLabel);
 	}
 }
