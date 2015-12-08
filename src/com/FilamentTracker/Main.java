@@ -1,7 +1,5 @@
 /*
  * ***STUFF TO DO****
- * change basic if functions to use ()?::
- * edits prints menu item change
  * about dialog
  * Better icon
  * 
@@ -63,6 +61,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+import javax.swing.MenuSelectionManager;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -111,17 +111,17 @@ public class Main extends JFrame {
 	private final JMenu 				exportMenuBar 		= new JMenu("Export");
 	private final JMenu 				editMenuBar 		= new JMenu("Edit");
 	private final JMenu 				helpMenuBar 		= new JMenu("Help");
-	private final JMenuItem 			saveMenuItem 		= new JMenuItem("Save", new ImageIcon("Save_Icon.png"));
-	private final JMenuItem 			exportHTMLMenuItem 	= new JMenuItem("HTML File", new ImageIcon("HTML_Icon.png"));
-	private final JMenuItem 			exportTextMenuItem 	= new JMenuItem("Text File", new ImageIcon("Text_Icon.png"));
-	private final JMenuItem 			exitMenuItem 		= new JMenuItem("Exit", new ImageIcon("Exit_Icon.png"));
-	private final JMenuItem 			addFilamentMenuItem = new JMenuItem("Add New Filament", new ImageIcon("Filament_Icon.png"));
-	private final JMenuItem 			addPrintMenuItem 	= new JMenuItem("Add New Print", new ImageIcon("Print_Icon.png"));
-	private final JMenuItem 			aboutMenuItem 		= new JMenuItem("About", new ImageIcon("About_Icon.png"));
+	private final JMenuItem 			saveMenuItem 		= new JMenuItem("Save");
+	private final JMenuItem 			exportHTMLMenuItem 	= new JMenuItem("HTML File");
+	private final JMenuItem 			exportTextMenuItem 	= new JMenuItem("Text File");
+	private final JMenuItem 			exitMenuItem 		= new JMenuItem("Exit");
+	private final JMenuItem 			addFilamentMenuItem = new JMenuItem("Add New Filament");
+	private final JMenuItem 			addPrintMenuItem 	= new JMenuItem("Add New Print");
+	private final JMenuItem 			aboutMenuItem 		= new JMenuItem("About");
 	private final JPopupMenu			popupMenu			= new JPopupMenu();
-	private final JMenuItem 			editPopupMenuItem 	= new JMenuItem("Edit Filament", new ImageIcon("Filament_Icon.png"));
-	private final JMenuItem 			deletePopupMenuItem = new JMenuItem("Delete Filament", new ImageIcon("Delete_Icon.gif"));
-	private final JMenuItem 			printsPopupMenuItem = new JMenuItem("Edit Prints", new ImageIcon("Print_Icon.png"));
+	private final JMenuItem 			editPopupMenuItem 	= new JMenuItem("Edit Filament");
+	private final JMenuItem 			deletePopupMenuItem = new JMenuItem("Delete Filament");
+	private final JMenuItem 			printsPopupMenuItem = new JMenuItem("Edit Prints");
 	private final JSeparator 			separator1 			= new JSeparator();
 	private final JSeparator 			separator2 			= new JSeparator();
 	private static JLabel 				printInfoLabel 		= new JLabel("");
@@ -135,6 +135,7 @@ public class Main extends JFrame {
 	public static NumberFormat			percentFormat 		= NumberFormat.getPercentInstance();
 	public static NumberFormat 			numberFormat		= new DecimalFormat("#0.00"); 
 	private static DefaultTableModel	tableModel;
+	private static int					selectedRow;
 
 	/**
 	 * FUNTION:	Main
@@ -144,11 +145,22 @@ public class Main extends JFrame {
 	 */
 	public Main() throws IOException {
 		setTitle("3D Printer Filament Tracker");
-		setIconImage(new ImageIcon("Icon.jpg").getImage());//getClass().getResource("icon.jpg")).getImage());
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Icon.jpg").getImage() : new ImageIcon(getClass().getResource("Icon.jpg")).getImage());
 		setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((int)((screenSize.getWidth() / 2) - (921 / 2)), (int)((screenSize.getHeight() / 2) - (546 / 2)), 921, 546);
 		setLayout(null);
+		
+		saveMenuItem.setIcon(		System.getProperty("DEBUG") != null ? new ImageIcon("Save_Icon.png") : 		new ImageIcon(getClass().getResource("Save_Icon.png")));
+		exportHTMLMenuItem.setIcon(	System.getProperty("DEBUG") != null ? new ImageIcon("HTML_Icon.png") : 		new ImageIcon(getClass().getResource("HTML_Icon.png")));
+		exportTextMenuItem.setIcon(	System.getProperty("DEBUG") != null ? new ImageIcon("Text_Icon.png") : 		new ImageIcon(getClass().getResource("Text_Icon.png")));
+		exitMenuItem.setIcon(		System.getProperty("DEBUG") != null ? new ImageIcon("Exit_Icon.png") : 		new ImageIcon(getClass().getResource("Exit_Icon.png")));
+		addFilamentMenuItem.setIcon(System.getProperty("DEBUG") != null ? new ImageIcon("Filament_Icon.png") : 	new ImageIcon(getClass().getResource("Filament_Icon.png")));
+		addPrintMenuItem.setIcon(	System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png") : 	new ImageIcon(getClass().getResource("Print_Icon.png")));
+		aboutMenuItem.setIcon(		System.getProperty("DEBUG") != null ? new ImageIcon("About_Icon.png") : 	new ImageIcon(getClass().getResource("About_Icon.png")));
+		editPopupMenuItem.setIcon(addFilamentMenuItem.getIcon());
+		deletePopupMenuItem.setIcon(System.getProperty("DEBUG") != null ? new ImageIcon("Delete_Icon.gif") : 	new ImageIcon(getClass().getResource("Delete_Icon.gif")));
+		printsPopupMenuItem.setIcon(addPrintMenuItem.getIcon());
 		
 		addWindowListener(new WindowListener() {
 			public void windowOpened(WindowEvent arg0) {}
@@ -263,12 +275,18 @@ public class Main extends JFrame {
 
 		filamentTable.addMouseListener(new MouseListener() {
 			public void mouseExited(MouseEvent arg0) {}
-			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				MenuSelectionManager.defaultManager().clearSelectedPath();
+			}
 			public void mouseClicked(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 			public void mousePressed(MouseEvent arg0) {
 				filamentTable.setRowSelectionInterval(filamentTable.rowAtPoint(arg0.getPoint()), filamentTable.rowAtPoint(arg0.getPoint()));
-				updatePrintArea();				
+				selectedRow = filamentTable.rowAtPoint(arg0.getPoint());
+				if (SwingUtilities.isRightMouseButton(arg0)) {
+					printsPopupMenuItem.setEnabled(filaments.get(filamentTable.getSelectedRow()).getPrint().isEmpty() == true ? false : true);
+				}
+				updatePrintArea();
 			}
 		});
 
@@ -280,8 +298,7 @@ public class Main extends JFrame {
 		popupMenu.addAncestorListener(new AncestorListener() {
 			public void ancestorRemoved(AncestorEvent event) {}
 			public void ancestorMoved(AncestorEvent event) {}
-			public void ancestorAdded(AncestorEvent event) {   //////can check if prints is empty instead of if the lenrem == len
-				printsPopupMenuItem.setEnabled(Double.parseDouble(filamentTable.getValueAt(filamentTable.getSelectedRow(), 4).toString().replaceAll("[^\\d.-]", "")) != Double.parseDouble(filamentTable.getValueAt(filamentTable.getSelectedRow(), 5).toString().replaceAll("[^\\d.-]", "")) ? true : false);
+			public void ancestorAdded(AncestorEvent event) {
 			}
 		});
 		editPopupMenuItem.addActionListener(new ActionListener() {
@@ -323,7 +340,6 @@ public class Main extends JFrame {
 		printHeaderTextArea.setText(String.format("%-19s%-13s%s", "Date", "Amount Used", "Description"));
 		printHeaderTextArea.setEditable(false);
 		printHeaderTextArea.setBackground(Color.CYAN);
-		
 
 		separator1.setBounds(0, 242, 915, 2);
 		separator2.setBounds(-10, 493, 915, 2);
@@ -424,8 +440,8 @@ public class Main extends JFrame {
 	 * PURPOSE:		Updates the print information area with prints done by the selected filament. 
 	 */
 	public static void updatePrintArea(){
-		printInfoLabel.setText("Prints for " + filaments.get(Integer.parseInt(filamentTable.getValueAt(filamentTable.getSelectedRow(), 0).toString()) - 1).getName() + " Filament.");
-		printsTextArea.setText(filaments.get(Integer.parseInt(filamentTable.getValueAt(filamentTable.getSelectedRow(), 0).toString()) - 1).getPrints());
+		printInfoLabel.setText("Prints for " + filaments.get(selectedRow).getName() + " Filament.");
+		printsTextArea.setText(filaments.get(Integer.parseInt(filamentTable.getValueAt(selectedRow, 0).toString()) - 1).getPrints());
 		printsTextArea.setCaretPosition(0);
 	}
 	

@@ -17,10 +17,10 @@ import java.util.Iterator;
  */
 public class Export {
 
-	   private static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	   private static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-	   private static Date date = new Date();
-	   private static String separator =  "====================================================================================================";
+	   private static DateFormat 	dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	   private static DateFormat 	saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+	   private static Date 			date = new Date();
+	   private static String 		separator =  "====================================================================================================";
 	   
 	/**
      *	FUNCTION:	exportToHTML

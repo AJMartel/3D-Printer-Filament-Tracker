@@ -20,7 +20,7 @@ public class AboutDialog extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private final JLabel pictureLabel 			= new JLabel(new ImageIcon("About_Window_Icon.jpg"));
+	private final JLabel pictureLabel 			= new JLabel();
 	private final JLabel programNameLabel 		= new JLabel("3D Printer Filament Tracker");
 	private final JLabel versionLabel 			= new JLabel(Global.VERSION);
 	private final JLabel emailLabel 			= new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
@@ -38,6 +38,8 @@ public class AboutDialog extends JFrame {
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
 		getContentPane().setLayout(null);
 		setResizable(false);
+		
+		pictureLabel.setIcon(System.getProperty("DEBUG") != null ? new ImageIcon("About_Window_Icon.jpg") : new ImageIcon(getClass().getResource("About_Window_Icon.jpg")));
 		
 		pictureLabel.setBounds(12, 11, 100, 100);
 		

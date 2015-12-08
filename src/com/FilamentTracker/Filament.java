@@ -11,11 +11,15 @@ import java.util.Iterator;
  * @author Andrew Comer
  */
 public class Filament {
-	
-	private String name, type, weight;
-	private int index;
-	private Double length, lRemaining, pRemaining;
-	private ArrayList<Print> print = new ArrayList<Print>();
+
+	private String 				name;
+	private String 				type;
+	private String 				weight;
+	private int 				index;
+	private double 				length;
+	private double 				lRemaining;
+	private double 				pRemaining;
+	private ArrayList<Print> 	print = new ArrayList<Print>();
 	
 	/**
      *	FUNCTION:	Filament
@@ -66,7 +70,7 @@ public class Filament {
 	 * @param description
 	 * @param used
 	 */
-	public void addPrint(String date, String description, Double used) {
+	public void addPrint(String date, String description, double used) {
 		print.add(new Print(date, description, used));
 	}
 	

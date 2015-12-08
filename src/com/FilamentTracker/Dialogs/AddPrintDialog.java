@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import com.FilamentTracker.Filament;
 import com.FilamentTracker.Global;
 import com.FilamentTracker.Main;
 import com.FilamentTracker.Print;
@@ -46,6 +45,7 @@ public class AddPrintDialog extends JFrame {
 	private JButton 			addPrintButton 			= new JButton("Add New Print");
 	private JButton 			deletePrintButton		= new JButton("Delete");
 	private JButton 			cancelButton 			= new JButton("Cancel");
+	private DateFormat 			format					= new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
 	private String				errorMessage;
 	private Boolean				hasErrors;
 
@@ -81,8 +81,6 @@ public class AddPrintDialog extends JFrame {
 			
 			filamentUsedComboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					DateFormat format = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
-					
 					try {
 						date.setDate(format.parse(Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).getDate()));
 					} catch (ParseException e1) {
@@ -122,7 +120,7 @@ public class AddPrintDialog extends JFrame {
 				hasErrors = false;
 				errorMessage = "";
 				
-				if (Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getPRemaining() == 0)
+				if (Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getPRemaining() == 0.0)
 					errorMessage(1);
 				
 				if (date.getDate() == null)
@@ -132,13 +130,13 @@ public class AddPrintDialog extends JFrame {
 					errorMessage(3);
 				
 				if (!(amountUsedTextField.getText().trim().equals(""))) {
-					int tmp = -1;
-					for (Filament filament : Main.filaments) {
-						if (filament.getName().equals(filamentUsedComboBox.getSelectedItem().toString()))
-							tmp = filament.getIndex();
+					if(!forEdit){
+						if (Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")) > Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getLRemaining())
+							errorMessage(4);
+					} else {
+						if (Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")) > (Main.filaments.get(index).getLRemaining() + Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).getAmountUsed()))
+							errorMessage(4);
 					}
-					if (Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")) > Main.filaments.get(tmp).getLRemaining())
-						errorMessage(4);
 				} else
 					errorMessage(5);
 				
@@ -150,7 +148,9 @@ public class AddPrintDialog extends JFrame {
 						Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).setDescription(descriptionTextPane.getText());
 						Main.filaments.get(index).getPrint().get(filamentUsedComboBox.getSelectedIndex()).setAmountUsed(Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")));
 					}
+					Global.saveNeeded = true;
 					Main.updateTable();
+					Main.updatePrintArea();
 					dispose();
 				} else
 					JOptionPane.showMessageDialog(null, errorMessage);
@@ -198,6 +198,16 @@ public class AddPrintDialog extends JFrame {
 		add(addPrintButton);
 		add(cancelButton);
 		add(deletePrintButton);
+		
+		if (forEdit) {
+			try {
+				date.setDate(format.parse(Main.filaments.get(index).getPrint().get(0).getDate()));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			descriptionTextPane.setText(Main.filaments.get(index).getPrint().get(0).getDescription());
+			amountUsedTextField.setText(Main.filaments.get(index).getPrint().get(0).getAmountUsed() + "");
+		}
 	}
 	
 	/**

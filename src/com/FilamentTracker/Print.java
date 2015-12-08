@@ -8,7 +8,8 @@ package com.FilamentTracker;
  */
 public class Print {
 	
-	private String date, description;
+	private String date;
+	private String description;
 	private double amountUsed;
 	
 	/**
