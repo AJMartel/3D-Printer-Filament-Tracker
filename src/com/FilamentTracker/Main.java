@@ -308,6 +308,7 @@ public class Main extends JFrame {
 						if (filament.getIndex() > (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1)
 							filament.setIndex(filament.getIndex() - 1);
 					}
+					index -= 1;
 					updateTable();
 					saveNeeded = true;
 					break;
