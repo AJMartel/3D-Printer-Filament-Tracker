@@ -36,6 +36,7 @@ public class AboutDialog extends JFrame {
 	public AboutDialog(int x, int y) {
 		setTitle("About 3D Printer Filament Tracker");
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("About_Icon.png").getImage() : new ImageIcon(getClass().getResource("About_Icon.png")).getImage());
 		getContentPane().setLayout(null);
 		setResizable(false);
 		
