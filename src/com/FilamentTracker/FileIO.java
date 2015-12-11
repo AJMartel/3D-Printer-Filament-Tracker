@@ -75,9 +75,10 @@ public class FileIO {
 			AddFilamentDialog.filamentLength.add("330000mm");
 			save();
 		}
-		
+
+		updateSaveFile();
 		if (updateFile)
-			updateSaveFile();
+			save();
 	}
 	
 	/**
@@ -121,7 +122,7 @@ public class FileIO {
 	 * FUNCTION:	updateSaveFile
 	 * PURPOSE:		Updates the save file to be used with a newer version of the program
 	 */
-	synchronized private static void updateSaveFile() {
+	public synchronized static void updateSaveFile() {
 		for (Filament filament : Main.filaments) {
 			if (!AddFilamentDialog.filamentType.contains(filament.getType()))
 				AddFilamentDialog.filamentType.add(filament.getType());
@@ -130,6 +131,5 @@ public class FileIO {
 			if (!AddFilamentDialog.filamentLength.contains(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm")))
 				AddFilamentDialog.filamentLength.add(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm"));
 		}
-		save();
 	}
 }

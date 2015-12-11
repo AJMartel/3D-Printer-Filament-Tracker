@@ -1,4 +1,4 @@
-[FilamentType]:PLA (1.75mm):PLA (3.0mm)
+[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test
 [FilamentWeight]:1.0kg
 [FilamentLength]:330000.0mm:200000.0mm
 [Filament]:0:Orange:PLA (1.75mm):1.0kg:330000.0
@@ -7,13 +7,8 @@
 [Print]:Fri, Nov 27, 2015:Calib Cube:830.82
 [Filament]:1:Black:PLA (3.0mm):1.0kg:330000.0
 [Print]:Mon, Nov 30, 2015:Something big:234324.993
-[Filament]:2:Pink:PLA (1.75mm):1.0kg:330000.0
-[Print]:Mon, Nov 30, 2015:print print print print prit printt print print prit printt print print prit printt print print prit print print print print print 1:44560.0
-[Print]:Mon, Nov 30, 2015:print 2:84000.0
-[Print]:Mon, Nov 30, 2015:ssdf:20000.0
-[Print]:Mon, Nov 30, 2015:90:180000.0
-[Filament]:3:Blue:PLA (1.75mm):1.0kg:330000.0
-[Print]:Mon, Nov 30, 2015:all:330000.0
-[Filament]:4:Red:PLA (1.75mm):1.0kg:200000.0
+[Filament]:2:Blue:New pla:1.0kg:330000.0
+[Print]:Mon, Nov 30, 2015:all:110000.0
+[Filament]:3:Red:test:1.0kg:200000.0
 [Print]:Wed, Dec 02, 2015:test:45000.0
 [Print]:Thu, Dec 03, 2015:ert:1234.0
