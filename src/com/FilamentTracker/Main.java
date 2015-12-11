@@ -12,6 +12,7 @@
  * add checking to see if the user has modified any fields when updating a print or filament. and check for negative values
  * improve about dialog
  * improve icon
+ * autosave after XXX minutes
  * 
  * DONE *** error checking on the dialog boxes
  * DONE *** make it so the length remaining is determined by subtracting all the prints from the length. will do each table update.rather then storing the % left
@@ -23,6 +24,7 @@
  * DONE *** Menu item icons
  * DONE *** Menu item Mnemonics
  * DONE *** Save filament type, weight, length in file. allow user to create new ones
+ * DONE *** Check for updates feature
  */
 
 package com.FilamentTracker;
@@ -42,7 +44,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -121,6 +122,7 @@ public class Main extends JFrame {
 	private final JMenuItem 			exitMenuItem 		= new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
 	private final JMenuItem 			addFilamentMenuItem = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
 	private final JMenuItem 			addPrintMenuItem 	= new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
+	private final JMenuItem 			updateMenuItem 		= new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
 	private final JMenuItem 			aboutMenuItem 		= new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
 	private final JPopupMenu			popupMenu			= new JPopupMenu();
 	private final JMenuItem 			editPopupMenuItem 	= new JMenuItem("Edit Filament", addFilamentMenuItem.getIcon());
@@ -182,6 +184,7 @@ public class Main extends JFrame {
 		editMenuBar.add(addFilamentMenuItem);
 		editMenuBar.add(addPrintMenuItem);
 		mainMenuBar.add(helpMenuBar);
+		helpMenuBar.add(updateMenuItem);
 		helpMenuBar.add(aboutMenuItem);
 
 		//Menu bar mnemonics and accelerators
@@ -202,6 +205,9 @@ public class Main extends JFrame {
 		
 		addPrintMenuItem.setMnemonic(KeyEvent.VK_P);
 		addPrintMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+		
+		updateMenuItem.setMnemonic(KeyEvent.VK_U);
+		updateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
 		
 		aboutMenuItem.setMnemonic(KeyEvent.VK_A);
 		aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
@@ -237,6 +243,15 @@ public class Main extends JFrame {
 			public void actionPerformed(final ActionEvent arg0) {
 				final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), false, -1);
 				addPrintDialog.setVisible(true);
+			}
+		});
+		updateMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+				try {
+					checkForUpdates();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		aboutMenuItem.addActionListener(new ActionListener() {
@@ -495,24 +510,29 @@ public class Main extends JFrame {
     
     /**
      * FUNCTION:	checkForUpdates
-     * PURPOSE:		Checks if a newer version of the program is available and informs the user if so
+     * PURPOSE:		Checks if a newer version of the program is available and informs the user if so.
      * @throws IOException 
      */
 	private void checkForUpdates() throws IOException {
-		URL oracle = new URL("https://raw.githubusercontent.com/MrOwnership/3D-Printer-Filament-Tracker/master/README.md");
-		BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
-		if (!(in.readLine().equals("Current Version: " + AboutDialog.VERSION))) {
-			Object[] options = { "Yes", "No" };
-			switch (JOptionPane.showOptionDialog(null, "A new version is available.\nWould you like to download it now?", "Update Available", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, options, options[0])) {
-			case 0:
-				Desktop.getDesktop().browse(URI.create("https://github.com/MrOwnership/3D-Printer-Filament-Tracker"));
-				Desktop.getDesktop().browse(URI.create("http://www.thingiverse.com/thing:1190757"));
-				System.exit(0);
-				break;
-			case 1:
-				break;
+		try {
+			URL oracle = new URL("https://raw.githubusercontent.com/MrOwnership/3D-Printer-Filament-Tracker/master/README.md");
+			BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
+			if (!(in.readLine().equals("Current Version: " + AboutDialog.VERSION))) {
+				Object[] options = { "Yes", "No" };
+				switch (JOptionPane.showOptionDialog(null, "A newer version is available.\nWould you like to download it now?", "Update Available", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, options, options[0])) {
+				case 0:
+					Desktop.getDesktop().browse(URI.create("https://github.com/MrOwnership/3D-Printer-Filament-Tracker"));
+					Desktop.getDesktop().browse(URI.create("http://www.thingiverse.com/thing:1190757"));
+					System.exit(0);
+					break;
+				case 1:
+					break;
+				}
 			}
 			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
 }
