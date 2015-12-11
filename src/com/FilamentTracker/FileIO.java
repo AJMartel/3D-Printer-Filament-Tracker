@@ -10,6 +10,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import com.FilamentTracker.Dialogs.AddFilamentDialog;
+
 
 /**
  *	FILENAME:		FileIO.java
@@ -29,17 +31,37 @@ public class FileIO {
 	 */
 	public static void initializeObjects() throws IOException{
 		String line;
+		boolean updateFile = true;
 		try {
 			Scanner scan = new Scanner(fileName);
 			while (scan.hasNextLine()) {
-				StringTokenizer st = new StringTokenizer(scan.nextLine(), ":");
+				String tmp = scan.nextLine();
+				StringTokenizer st = new StringTokenizer(tmp, ":");
 				while (st.hasMoreTokens()) {
 					line = st.nextToken();
 					if (line.equalsIgnoreCase("[Filament]")) { //filament information
 						Main.index = Integer.parseInt(st.nextToken());
 						Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
-					} else { //print information
+					} else if (line.equalsIgnoreCase("[Print]")) { //print information
 						Main.filaments.get(Main.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
+					} else if (line.equalsIgnoreCase("[FilamentType]")) {
+						updateFile = false;
+						StringTokenizer st2 = new StringTokenizer(tmp, ":");
+						st2.nextToken();
+						while (st2.hasMoreTokens())
+							AddFilamentDialog.filamentType.add(st2.nextToken());
+					} else if (line.equalsIgnoreCase("[FilamentWeight]")) {
+						updateFile = false;
+						StringTokenizer st2 = new StringTokenizer(tmp, ":");
+						st2.nextToken();
+						while (st2.hasMoreTokens())
+							AddFilamentDialog.filamentWeight.add(st2.nextToken());
+					} else if (line.equalsIgnoreCase("[FilamentLength]")) {
+						updateFile = false;
+						StringTokenizer st2 = new StringTokenizer(tmp, ":");
+						st2.nextToken();
+						while (st2.hasMoreTokens())
+							AddFilamentDialog.filamentLength.add(st2.nextToken());
 					}
 				}
 			}
@@ -48,7 +70,14 @@ public class FileIO {
 			JOptionPane.showMessageDialog(null, "Info file not found.\nCreating new file.");
 			FileWriter fw = new FileWriter(fileName);
 			fw.close();
+			AddFilamentDialog.filamentType.add("PLA (1.75mm)");
+			AddFilamentDialog.filamentWeight.add("1.0kg");
+			AddFilamentDialog.filamentLength.add("330000mm");
+			save();
 		}
+		
+		if (updateFile)
+			updateSaveFile();
 	}
 	
 	/**
@@ -58,6 +87,19 @@ public class FileIO {
 	public static void save() {
 		try {
 			FileWriter fw = new FileWriter(fileName);
+			fw.write("[FilamentType]");
+			for (String type : AddFilamentDialog.filamentType) {
+				fw.write(":" + type);
+			}
+			fw.write("\n[FilamentWeight]");
+			for (String weight : AddFilamentDialog.filamentWeight) {
+				fw.write(":" + weight);
+			}
+			fw.write("\n[FilamentLength]");
+			for (String length : AddFilamentDialog.filamentLength) {
+				fw.write(":" + length);
+			}
+			fw.write("\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
@@ -73,5 +115,21 @@ public class FileIO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * FUNCTION:	updateSaveFile
+	 * PURPOSE:		Updates the save file to be used with a newer version of the program
+	 */
+	synchronized private static void updateSaveFile() {
+		for (Filament filament : Main.filaments) {
+			if (!AddFilamentDialog.filamentType.contains(filament.getType()))
+				AddFilamentDialog.filamentType.add(filament.getType());
+			if (!AddFilamentDialog.filamentWeight.contains(filament.getWeight()))
+				AddFilamentDialog.filamentWeight.add(filament.getWeight());
+			if (!AddFilamentDialog.filamentLength.contains(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm")))
+				AddFilamentDialog.filamentLength.add(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm"));
+		}
+		save();
 	}
 }
