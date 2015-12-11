@@ -18,7 +18,7 @@ public class AboutDialog extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
-	private final String VERSION 				= "v1.1";
+	public static final String VERSION			= "v1.1";
 	private final JLabel pictureLabel 			= new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("About_Window_Icon.jpg") : new ImageIcon(getClass().getResource("About_Window_Icon.jpg")));
 	private final JLabel programNameLabel 		= new JLabel("3D Printer Filament Tracker");
 	private final JLabel versionLabel 			= new JLabel(VERSION);
