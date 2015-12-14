@@ -4,6 +4,13 @@ Current Version: v1.1
 
 This is a small program I have been working on for the past couple weeks. It basically keeps track of your 3D printer filaments. It allows you to add/ edit filaments and prints.
 
+## Version 1.2 (Coming Soon)
+* Auto save the info file every 5 minutes if a save is needed.
+* New format and look for the export to HTML.
+* Add print using the right click menu.
+* Edit print/filament icon change.
+* changelog dialog added.
+
 ## Update 1.1
 * Users can now create filament type, weight, and length. These will be saved to the save file and will be used to populate the combo boxes on the add filament dialog screen.
 * The save file will auto update to the correct format when using v1.1.
