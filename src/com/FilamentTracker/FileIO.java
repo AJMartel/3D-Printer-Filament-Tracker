@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -29,7 +30,7 @@ public class FileIO {
 	 * 
 	 * @throws IOException
 	 */
-	public static void initializeObjects() throws IOException{
+	public synchronized static void initializeObjects() throws IOException{
 		String line;
 		boolean updateFile = true;
 		try {
@@ -85,7 +86,7 @@ public class FileIO {
 	 * FUNCTION:	save
 	 * PURPOSE:		Reads information from the Filament and Print objects into a save file.
 	 */
-	public static void save() {
+	public synchronized static void save() {
 		try {
 			FileWriter fw = new FileWriter(fileName);
 			fw.write("[FilamentType]");
@@ -112,6 +113,7 @@ public class FileIO {
 				}
 			}
 			fw.close();
+			Main.autoSaveLabel.setText("Manual Save: " + new Date().toString());
 			Main.saveNeeded = false;
 		} catch (IOException e) {
 			e.printStackTrace();

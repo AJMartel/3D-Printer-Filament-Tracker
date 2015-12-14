@@ -17,114 +17,188 @@ import java.util.Iterator;
  */
 public class Export {
 
-	   private static DateFormat 	dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	   private static DateFormat 	saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-	   private static Date 			date = new Date();
-	   private static String 		separator =  "====================================================================================================";
+   private static DateFormat 	dateFormat 			= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+   private static DateFormat 	saveFileDateFormat 	= new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+   private static Date 			date 				= new Date();
+   private static String 		separator 			=  "====================================================================================================";
 	   
 	/**
      *	FUNCTION:	exportToHTML
      *	PURPOSE:	Exports the data to a HTML file.
 	 */
 	public static void exportToHTML() {
+		createCSSFiles();
 		try {
 			FileWriter fw = new FileWriter(new File("Report_" + saveFileDateFormat.format(date) + ".html"));
-			fw.write( "<HTML>\n"
-					+ "   <BODY>\n"
-					+ "      <b>" + dateFormat.format(date) + "</b>\n"
-					+ "      <BR>\n"
-					+ "      <BR>\n"
-					+ "      <CENTER><b>" + System.getProperty("user.name") + "'s 3D Printer Filament Report</b></CENTER>\n"
-					+ "      <BR>\n"
-					+ "      <BR>\n"
-					+ "      <HR>\n"
-					+ "      <BR>\n"
-					+ "      <table border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse; mso-padding-alt:0in 5.4pt 0in 5.4pt'>\n"
+			fw.write("<!DOCTYPE html>\n"
+					+ "<html >\n"
+					+ "   <head>\n"
+					+ "      <meta charset=\"UTF-8\">\n"
+					+ "      <meta name=\"viewport\" content=\"initial-scale=1.0\">\n"
+					+ "      <link rel=\"stylesheet\" href=\"reset.css\">\n"
+					+ "      <link rel=\"stylesheet\" href=\"style.css\">\n"
+					+ "   </head>\n"
+					+ "   <date>" + dateFormat.format(date) + "</date>\n"
+					+ "   <h1>" + System.getProperty("user.name") + "'s 3D Printer Filament Report</h1>\n"
+					+ "   <table class=\"purple\">\n"
+					+ "      <thead>\n"
 					+ "         <tr>\n"
-					+ "            <td width=165 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Name</p>\n"
-					+ "            </td>\n"
-					+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Type</p>\n"
-					+ "            </td>\n"
-					+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Weight</p>\n"
-					+ "            </td>\n"
-					+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Length</p>\n"
-					+ "            </td>\n"
-					+ "            <td width=510 valign=top style='width:150pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Length Remaining</p>\n"
-					+ "            </td>\n"
-					+ "            <td width=510 valign=top style='width:150pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-					+ "               <p>Filament Percent Remaining</p>\n"
-					+ "            </td>\n"
+					+ "            <th>Filament Name</th>\n"
+					+ "            <th>Filament Type</th>\n"
+					+ "            <th>Filament Weight</th>\n"
+					+ "            <th>Filament Length</th>\n"
+					+ "            <th>Filament Length Remaining</th>\n"
+					+ "            <th>Filament Percent Remaining</th>\n"
 					+ "         </tr>\n"
-					+ "      </table>\n");
+					+ "      </thead>\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
-				fw.write( "      <BR>\n"
-						+ "      <HR>\n"
-						+ "      <BR>\n"
-						+ "      <table border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse; mso-padding-alt:0in 5.4pt 0in 5.4pt'>\n"
-						+ "         <tr>\n"
-						+ "            <td width=165 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + filament.getName() + "</p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + filament.getType() + "</p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + filament.getWeight() + "</p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + Main.numberFormat.format(filament.getLength()) + "mm</p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:150pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + Main.numberFormat.format(filament.getLRemaining()) + "mm</p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:150pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p>" + Main.percentFormat.format(filament.getPRemaining()) + "</p>\n"
-						+ "            </td>\n"
-						+ "         </tr>\n"
-						+ "      </table>\n"
-						+ "      <BR>\n"
-						+ "      <table border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse; mso-padding-alt:0in 5.4pt 0in 5.4pt'>\n"
-						+ "         <tr>\n"
-						+ "            <td width=165 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p><u>Print Date</u></p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p><u>Filament Used</u></p>\n"
-						+ "            </td>\n"
-						+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-						+ "               <p><u>Print Description</u></p>\n"
-						+ "            </td>\n"
-						+ "         </tr>\n"
-						+ "      </table>\n");
+				fw.write( "      <tr>\n"
+						+ "         <th>" + filament.getName() + "</th>\n"
+						+ "         <th>" + filament.getType() + "</th>\n"
+						+ "         <th>" + filament.getWeight() + "</th>\n"
+						+ "         <th>" + Main.numberFormat.format(filament.getLength()) + "mm</th>\n"
+						+ "         <th>" + Main.numberFormat.format(filament.getLRemaining()) + "mm</th>\n"
+						+ "         <th>" + Main.percentFormat.format(filament.getPRemaining()) + "</th>\n"
+						+ "      </tr>\n"
+						+ "      <td colspan = 6>\n"
+						+ "         <table class=\"blue\">\n"
+						+ "            <thead>\n"
+						+ "               <tr>\n"
+						+ "                  <th>Print Date</th>\n"
+						+ "                  <th>Filament Used</th>\n"
+						+ "                  <th>Description</th>\n"
+						+ "               </tr>\n"
+						+ "            </thead>\n"
+						+ "            <tbody>\n");
 				Iterator<Print> printIterator = filament.getPrint().iterator();
 				while (printIterator.hasNext()){
 					Print print = printIterator.next();
-					fw.write( "      <table border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse; mso-padding-alt:0in 5.4pt 0in 5.4pt'>\n"
-							+ "         <tr>\n"
-							+ "            <td width=165 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-							+ "               <p>" + print.getDate() + "</p>\n"
-							+ "            </td>\n"
-							+ "            <td width=510 valign=top style='width:100pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-							+ "               <p>" + Main.numberFormat.format(print.getAmountUsed()) + "mm</p>\n"
-							+ "            </td>\n"
-							+ "            <td width=510 valign=top style='width:500pt;padding:0in 5.4pt 0in 5.4pt'>\n"
-							+ "               <p>" + print.getDescription() + "</p>\n"
-							+ "            </td>\n"
-							+ "         </tr>\n"
-							+ "      </table>\n");
+					fw.write( "               <tr>\n"
+							+ "                  <td>" + print.getDate() + "</td>\n"
+							+ "                  <td>" + Main.numberFormat.format(print.getAmountUsed()) + "mm</td>\n"
+							+ "                  <td>" + print.getDescription() + "</td>\n"
+							+ "               </tr>\n");
 				}
+				fw.write( "            </tbody>\n"
+						+ "         </table>\n"
+						+ "      </td>\n");
 			}
-			fw.write( "   </BODY>\n"
-					+ "</HTML>");
+			fw.write( "      </tbody>\n"
+					+ "   </table>\n"
+					+ "   </td>\n"
+					+ "   </table>\n"
+					+ "</html>");
 			fw.close();
 			Desktop.getDesktop().browse(new File("Report_" + saveFileDateFormat.format(date) + ".html").toURI());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+			
+			
+	/**
+     *	FUNCTION:	createCSSFiles
+     *	PURPOSE:	Creates the CSS files to format the HTML file.
+	 */
+	public static void createCSSFiles() {
+		try {
+			FileWriter fw = new FileWriter(new File("style.css"));
+			fw.write( "<body{\n"
+					+ "font:1.0em normal Arial,sans-serif;\n"
+					+ "  color:#34495E;\n"
+					+ "}\n"
+					
+					+ "h1{\n"
+					+ "  text-align:center;\n"
+					+ "  text-transform:uppercase;\n"
+					+ "  letter-spacing:2px;\n"
+					+ "  font-size:1.5em;\n"
+					+ "  margin:20px 0;\n"
+					+ "}\n"
+					
+					+ "date{\n"
+					+ "  text-align:left;\n"
+					+ "  letter-spacing:1px;\n"
+					+ "  font-size:1em;\n"
+					+ "  margin:20px 0;\n"
+					+ "}\n"
+					
+					+ ".container{\n"
+					+ "  width:90%;\n"
+					+ "  margin:auto;\n"
+					+ "}\n"
+					
+					+ "table{\n"
+					+ "  border-collapse:collapse;\n"
+					+ "  width:95%;\n"
+					+ "  margin:auto;\n"
+					+ "}\n"
+					
+					+ ".blue{\n"
+					+ "  border:2px solid #1ABC9C;\n"
+					+ "}\n"
+					
+					+ ".blue thead{\n"
+					+ "  background:#1ABC9C;\n"
+					+ "}\n"
+					
+					+ ".purple{\n"
+					+ "  border:2px solid #9B59B6;\n"
+					+ "}\n"
+					
+					+ ".purple thead{\n"
+					+ "  background:#9B59B6;\n"
+					+ "}\n"
+					
+					+ "thead{\n"
+					+ "  color:white;\n"
+					+ "}\n"
+					
+					+ "th,td{\n"
+					+ "  text-align:center;\n"
+					+ "  padding:5px 0;\n"
+					+ "}\n"
+					
+					+ "tbody tr:nth-child(even){\n"
+					+ "  background:#ECF0F1;\n"
+					+ "}\n"
+					
+					+ "tbody td:nth-child(even){\n"
+					+ "  background:#ECF0F1;\n"
+					+ "}\n"
+					
+					+ ".fixed{\n"
+					+ "  top:0;\n"
+					+ "  position:fixed;\n"
+					+ "  width:auto;\n"
+					+ "  display:none;\n"
+					+ "  border:none;\n"
+					+ "}\n"
+					
+					+ ".scrollMore{\n"
+					+ "  margin-top:600px;\n"
+					+ "}\n"
+					
+					+ ".up{\n"
+					+ "  cursor:pointer;\n"
+					+ "}");
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			FileWriter fw = new FileWriter(new File("reset.css"));			
+			fw.write("html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,"
+					+ "dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,"
+					+ "legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,"
+					+ "hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:"
+					+ "inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:"
+					+ "block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:"
+					+ "after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}");
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

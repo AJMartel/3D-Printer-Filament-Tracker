@@ -32,19 +32,19 @@ public class AddPrintDialog extends JFrame {
 	
 	private static final long 	serialVersionUID 		= 1L;
 	
-	private JTextField 			amountUsedTextField 	= new JTextField();
-	private JDateChooser 		date 					= new JDateChooser();
-	private JComboBox 			filamentUsedComboBox 	= new JComboBox();
-	private JScrollPane 		descriptionScrollPane 	= new JScrollPane();
-	private JTextPane 			descriptionTextPane 	= new JTextPane();
-	private JLabel 				filamentUsedLabel 		= new JLabel("Filament Used");
-	private JLabel 				dateLabel 				= new JLabel("Date");
-	private JLabel 				descriptionLabel 		= new JLabel("Description");
-	private JLabel 				amountUsedLabel 		= new JLabel("Amount Used");
-	private JButton 			addPrintButton 			= new JButton("Add New Print");
-	private JButton 			deletePrintButton		= new JButton("Delete");
-	private JButton 			cancelButton 			= new JButton("Cancel");
-	private DateFormat 			format					= new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
+	private final JTextField 	amountUsedTextField 	= new JTextField();
+	private final JDateChooser 	date 					= new JDateChooser();
+	private final JComboBox 	filamentUsedComboBox 	= new JComboBox();
+	private final JScrollPane 	descriptionScrollPane 	= new JScrollPane();
+	private final JTextPane 	descriptionTextPane 	= new JTextPane();
+	private final JLabel 		filamentUsedLabel 		= new JLabel("Filament Used");
+	private final JLabel 		dateLabel 				= new JLabel("Date");
+	private final JLabel 		descriptionLabel 		= new JLabel("Description");
+	private final JLabel 		amountUsedLabel 		= new JLabel("Amount Used");
+	private final JButton 		addPrintButton 			= new JButton("Add New Print");
+	private final JButton 		deletePrintButton		= new JButton("Delete");
+	private final JButton 		cancelButton 			= new JButton("Cancel");
+	private final DateFormat 	format					= new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
 	private String				errorMessage;
 	private Boolean				hasErrors;
 
@@ -60,7 +60,10 @@ public class AddPrintDialog extends JFrame {
 	public AddPrintDialog(int x, int y, boolean forEdit, int index) {
 		setTitle(forEdit == true ? "Edit Prints Dialog" : "Add Print Dialog");
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
-		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Icon.png")).getImage());
+		if (!forEdit)
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Icon.png")).getImage());
+		else
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Edit_Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
 		
@@ -71,8 +74,10 @@ public class AddPrintDialog extends JFrame {
 		filamentUsedComboBox.setBounds(104, 10, 187, 20);
 			
 		if (!forEdit){
-			for (int i = 0; i <= Main.index; i++) 
+			for (int i = 0; i <= Main.index; i++)
 				filamentUsedComboBox.addItem(Main.filaments.get(i).getName());
+				if (index != -1)
+					filamentUsedComboBox.setSelectedIndex(index);
 		} else {
 			filamentUsedLabel.setText("Print");
 			for (Print print : Main.filaments.get(index).getPrint())
@@ -240,4 +245,3 @@ public class AddPrintDialog extends JFrame {
 		}
 	}
 }
-
