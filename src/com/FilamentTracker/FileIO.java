@@ -75,11 +75,14 @@ public class FileIO {
 			AddFilamentDialog.filamentWeight.add("1.0kg");
 			AddFilamentDialog.filamentLength.add("330000mm");
 			save();
+			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
 		}
 
 		updateSaveFile();
-		if (updateFile)
+		if (updateFile) {
 			save();
+			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
+		}
 	}
 	
 	/**
