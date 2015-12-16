@@ -11,7 +11,7 @@ This is a small program I have been working on for the past couple weeks. It bas
 * Edit print/filament icon change.
 * changelog dialog added.
 
-## Update 1.1
+## Version 1.1
 * Users can now create filament type, weight, and length. These will be saved to the save file and will be used to populate the combo boxes on the add filament dialog screen.
 * The save file will auto update to the correct format when using v1.1.
 * Auto check for updates.
