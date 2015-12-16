@@ -15,7 +15,9 @@ This is a small program I have been working on for the past couple weeks. It bas
 * Users can now create filament type, weight, and length. These will be saved to the save file and will be used to populate the combo boxes on the add filament dialog screen.
 * The save file will auto update to the correct format when using v1.1.
 * Auto check for updates.
+
 [http://www.thingiverse.com/thing:1190757](http://www.thingiverse.com/thing:1190757)
+
 [https://www.youtube.com/watch?v=3JT2ombsjBg](https://www.youtube.com/watch?v=3JT2ombsjBg)
 
 ![Main Screen](http://i.imgur.com/bU9H0he.png)
