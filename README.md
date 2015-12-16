@@ -16,5 +16,7 @@ This is a small program I have been working on for the past couple weeks. It bas
 * The save file will auto update to the correct format when using v1.1.
 * Auto check for updates.
 
+[https://www.youtube.com/watch?v=3JT2ombsjBg](https://www.youtube.com/watch?v=3JT2ombsjBg)
+
 ![Main Screen](http://i.imgur.com/bU9H0he.png)
 ![Add Filament](http://i.imgur.com/nU90xzq.png)![Add Print](http://i.imgur.com/zRKCyuX.png)
