@@ -1,10 +1,10 @@
-Current Version: v1.1
+Current Version: v1.2
 
 # 3D Printer Filament Tracker
 
 This is a small program I have been working on for the past couple weeks. It basically keeps track of your 3D printer filaments. It allows you to add/ edit filaments and prints.
 
-## Version 1.2 (Coming Soon)
+## Version 1.2
 * Auto save the info file every 5 minutes if a save is needed.
 * New format and look for the export to HTML.
 * Add print using the right click menu.
