@@ -93,7 +93,7 @@ public class Filament {
 		Iterator<Print> printIterator = print.iterator();
 		while (printIterator.hasNext()) {
 			Print print = printIterator.next();
-			output += String.format("%-19s%-13s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()) + "mm", print.getDescription() + "\n");
+			output += String.format("%-19s%-13s%-8s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()) + "mm", Main.percentFormat.format(print.getAmountUsed() / this.getLength()) ,print.getDescription() + "\n");
 		}
 		return output;
 	}

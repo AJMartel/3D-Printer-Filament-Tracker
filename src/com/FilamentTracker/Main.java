@@ -131,11 +131,11 @@ public class Main extends JFrame {
 	private final JMenuItem 			addFilamentMenuItem = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
 	private final JMenuItem 			addPrintMenuItem 	= new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
 	private final JMenuItem 			updateMenuItem 		= new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
-	private final JMenuItem 			changeLogMenuItem	= new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("Changelog_Icon.gif") : new ImageIcon(getClass().getResource("Changelog_Icon.gif")));
+	private final JMenuItem 			changeLogMenuItem	= new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("Changelog_Icon.png") : new ImageIcon(getClass().getResource("Changelog_Icon.png")));
 	private final JMenuItem 			aboutMenuItem 		= new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
 	private final JPopupMenu			popupMenu			= new JPopupMenu();
 	private final JMenuItem 			editPopupMenuItem 	= new JMenuItem("Edit Filament", System.getProperty("DEBUG") != null ? new ImageIcon("Edit_Filament_Icon.png") : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")));
-	private final JMenuItem 			deletePopupMenuItem = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("Delete_Icon.gif") : new ImageIcon(getClass().getResource("Delete_Icon.gif")));
+	private final JMenuItem 			deletePopupMenuItem = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("Delete_Icon.png") : new ImageIcon(getClass().getResource("Delete_Icon.png")));
 	private final JMenuItem 			aPrintPopupMenuItem = new JMenuItem("Add Print", addPrintMenuItem.getIcon());	
 	private final JMenuItem 			ePrintPopupMenuItem = new JMenuItem("Edit Prints",  System.getProperty("DEBUG") != null ? new ImageIcon("Edit_Print_Icon.png") : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")));
 	private final JSeparator 			separator1 			= new JSeparator();
@@ -376,7 +376,7 @@ public class Main extends JFrame {
 		printsTextArea.setEditable(false);
 		printsTextArea.setFont(new Font("Lucida Console", Font.PLAIN, 11));
 		printHeaderTextArea.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		printHeaderTextArea.setText(String.format("%-19s%-13s%s", "Date", "Amount Used", "Description"));
+		printHeaderTextArea.setText(String.format("%-19s%-13s%-8s%s", "Date", "Amount Used", "% Used", "Description"));
 		printHeaderTextArea.setEditable(false);
 		printHeaderTextArea.setBackground(Color.CYAN);
 

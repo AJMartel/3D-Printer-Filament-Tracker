@@ -40,7 +40,7 @@ public class Export {
 					+ "   </head>\n"
 					+ "   <date>" + dateFormat.format(date) + "</date>\n"
 					+ "   <h1>" + System.getProperty("user.name") + "'s 3D Printer Filament Report</h1>\n"
-					+ "   <table class=\"purple\">\n"
+					+ "   <table class=\"blue\">\n"
 					+ "      <thead>\n"
 					+ "         <tr>\n"
 					+ "            <th style=\"width: 14.6%\">Filament Name</th>\n"
@@ -67,8 +67,9 @@ public class Export {
 						+ "            <thead>\n"
 						+ "               <tr>\n"
 						+ "                  <th style=\"width: 20%\">Print Date</th>\n"
-						+ "                  <th style=\"width: 20%\">Filament Used</th>\n"
-						+ "                  <th style=\"width: 60%\">Description</th>\n"
+						+ "                  <th style=\"width: 20%\">Amount Used</th>\n"
+						+ "                  <th style=\"width: 10%\">% Used</th>\n"
+						+ "                  <th style=\"width: 50%\">Description</th>\n"
 						+ "               </tr>\n"
 						+ "            </thead>\n"
 						+ "            <tbody>\n");
@@ -78,6 +79,7 @@ public class Export {
 					fw.write( "               <tr>\n"
 							+ "                  <td>" + print.getDate() + "</td>\n"
 							+ "                  <td>" + Main.numberFormat.format(print.getAmountUsed()) + "mm</td>\n"
+							+ "					 <td>" + Main.percentFormat.format(print.getAmountUsed() / filament.getLength()) + "</td>\n"
 							+ "                  <td>" + print.getDescription() + "</td>\n"
 							+ "               </tr>\n");
 				}
@@ -216,11 +218,11 @@ public class Export {
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
 				fw.write(String.format("\n%s\n%-19s%-15s%-17s%-17s%-17s", separator, filament.getName(), filament.getType(), filament.getWeight(), Main.numberFormat.format(filament.getLength()) + "mm", Main.numberFormat.format(filament.getLRemaining()) + "mm", Main.percentFormat.format(filament.getPRemaining())));
-				fw.write(String.format("\n\t%-19s%-13s%s", "Print Date", "Amount Used", "Print Description"));
+				fw.write(String.format("\n\t%-19s%-13s%-8s%s", "Print Date", "Amount Used", "% Used", "Print Description"));
 				Iterator<Print> printIterator = filament.getPrint().iterator();
 				while (printIterator.hasNext()){
 					Print print = printIterator.next();
-					fw.write(String.format("\n\t%-19s%-13s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), print.getDescription()));
+					fw.write(String.format("\n\t%-19s%-13s%-8s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), print.getDescription()));
 				}
 			}
 			fw.close();
