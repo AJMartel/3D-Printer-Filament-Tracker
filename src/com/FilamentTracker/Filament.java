@@ -15,11 +15,32 @@ public class Filament {
 	private String 				name;
 	private String 				type;
 	private String 				weight;
+	private String 				cost;
 	private int 				index;
 	private double 				length;
 	private double 				lRemaining;
 	private double 				pRemaining;
 	private ArrayList<Print> 	print = new ArrayList<Print>();
+	
+	/**
+     *	FUNCTION:	Filament
+     *	PURPOSE:	Constructor.
+	 * 
+	 * @param index The index of the new filament
+	 * @param name The name of the new filament
+	 * @param type The type of the new filament
+	 * @param weight The weight of the new filament
+	 * @param length The length of the new filament
+	 * @param cost The cost of the new filament 
+	 */
+	public Filament(int index, String name, String type, String weight, Double length, String cost) {
+		this.index = index;
+		this.name = name;
+		this.type = type;
+		this.weight = weight;
+		this.length = length;
+		this.cost = cost;
+	}
 	
 	/**
      *	FUNCTION:	Filament
@@ -37,6 +58,7 @@ public class Filament {
 		this.type = type;
 		this.weight = weight;
 		this.length = length;
+		this.cost = "$0.00";
 	}
 	
 	/*
@@ -47,6 +69,7 @@ public class Filament {
 	public String getType() {return this.type;}
 	public String getWeight() {return this.weight;}
 	public Double getLength() {return this.length;}
+	public String getCost() {return this.cost;}
 	public Double getLRemaining() {return this.lRemaining;}
 	public Double getPRemaining() {return this.pRemaining;}
 	public ArrayList<Print> getPrint() {return this.print;}
@@ -59,6 +82,7 @@ public class Filament {
 	public void setType(String type) {this.type= type;}
 	public void setWeight(String weight) {this.weight = weight;}
 	public void setLength(Double length) {this.length = length;}
+	public void setCost(String cost) {this.cost = cost;}
 	public void setLRemaining(Double lRemaining) {this.lRemaining = lRemaining;}
 	public void setPRemaining(Double pRemaining) {this.pRemaining = pRemaining;}
 	
@@ -93,7 +117,7 @@ public class Filament {
 		Iterator<Print> printIterator = print.iterator();
 		while (printIterator.hasNext()) {
 			Print print = printIterator.next();
-			output += String.format("%-19s%-13s%-8s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()) + "mm", Main.percentFormat.format(print.getAmountUsed() / this.getLength()) ,print.getDescription() + "\n");
+			output += String.format("%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()) + "mm", Main.percentFormat.format(print.getAmountUsed() / this.getLength()) , Main.costFormat.format((print.getAmountUsed() / this.getLength()) * Double.parseDouble(this.getCost().replaceAll("[^\\d.-]", ""))) , print.getDescription() + "\n");
 		}
 		return output;
 	}

@@ -1,16 +1,23 @@
 /* 
+ * make a cost format and format accordingly
+ * test the cost feature
+ * fix cost saving to checkbox. not going as cost format for some reason
+ * 
  * ****POTENTIAL UPDATES****
  * grey out/or remove combo box filaments that have no filament left
  * fix table sort to sort by numeric values opposed to the string
  * sort prints by date
- * add cost field when creating a new filament
- * 		show cost of each print on table
  * add some sort of stats feature that shows the total number of filaments, prints, cost, ...
  * 		print at the bottom of the report
  * 		maybe add to info file
  * add checking to see if the user has modified any fields when updating a print or filament. and check for negative values
  * improve about dialog
  * improve icon
+ * 
+ * Version 1.3 (Coming Soon)
+ * DONE *** Add % used to each print
+ * Add a cost field to the filament and for each print
+ * Stats feature showing total number of prints, filament used, cost, etc.
  * 
  * Version 1.2
  * DONE *** Auto save the info file every 5 minutes if a save is needed
@@ -125,6 +132,7 @@ public class Main extends JFrame {
 	private final JMenu 				editMenuBar 		= new JMenu("Edit");
 	private final JMenu 				helpMenuBar 		= new JMenu("Help");
 	private final JMenuItem 			saveMenuItem 		= new JMenuItem("Save", System.getProperty("DEBUG") != null ? new ImageIcon("Save_Icon.png") : new ImageIcon(getClass().getResource("Save_Icon.png")));
+	private final JMenuItem 			statsMenuItem 		= new JMenuItem("Stats", System.getProperty("DEBUG") != null ? new ImageIcon("Stats_Icon.png") : new ImageIcon(getClass().getResource("Stats_Icon.png")));
 	private final JMenuItem 			exportHTMLMenuItem 	= new JMenuItem("HTML File", System.getProperty("DEBUG") != null ? new ImageIcon("HTML_Icon.png") : new ImageIcon(getClass().getResource("HTML_Icon.png")));
 	private final JMenuItem 			exportTextMenuItem 	= new JMenuItem("Text File", System.getProperty("DEBUG") != null ? new ImageIcon("Text_Icon.png") : new ImageIcon(getClass().getResource("Text_Icon.png")));
 	private final JMenuItem 			exitMenuItem 		= new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
@@ -151,6 +159,7 @@ public class Main extends JFrame {
 	public static ArrayList<Filament> 	filaments 			= new ArrayList<Filament>();
 	public static NumberFormat			percentFormat 		= NumberFormat.getPercentInstance();
 	public static NumberFormat 			numberFormat		= new DecimalFormat("#0.00"); 
+	public static NumberFormat 			costFormat		= new DecimalFormat("$#0.00"); 
 	private static boolean				tableMade			= false;
 	public static int 					index 				= -1;
 	public static boolean				saveNeeded;
@@ -165,7 +174,7 @@ public class Main extends JFrame {
 	 */
 	public Main() throws IOException {
 		setTitle("3D Printer Filament Tracker");
-		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Icon.jpg").getImage() : new ImageIcon(getClass().getResource("Icon.jpg")).getImage());
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Icon.png").getImage() : new ImageIcon(getClass().getResource("Icon.png")).getImage());
 		setResizable(false);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((int)((screenSize.getWidth() / 2) - (921 / 2)), (int)((screenSize.getHeight() / 2) - (546 / 2)), 921, 546);
@@ -189,6 +198,7 @@ public class Main extends JFrame {
 		mainMenuBar.setBounds(0, 0, 915, 21);
 		mainMenuBar.add(fileMenuBar);
 		fileMenuBar.add(saveMenuItem);
+		fileMenuBar.add(statsMenuItem);
 		fileMenuBar.add(exportMenuBar);
 		exportMenuBar.add(exportHTMLMenuItem);
 		exportMenuBar.add(exportTextMenuItem);
@@ -204,6 +214,9 @@ public class Main extends JFrame {
 		//Menu bar mnemonics and accelerators
 		saveMenuItem.setMnemonic(KeyEvent.VK_S);
 		saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+
+		statsMenuItem.setMnemonic(KeyEvent.VK_Q);
+		statsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
 		
 		exportHTMLMenuItem.setMnemonic(KeyEvent.VK_H);
 		exportHTMLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.ALT_MASK));
@@ -232,8 +245,12 @@ public class Main extends JFrame {
 		//Menu item action listeners
 		saveMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
-				if (saveNeeded)
-					FileIO.save();
+				FileIO.save();
+			}
+		});
+		statsMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+				//TODO: open stats screen
 			}
 		});
 		exportHTMLMenuItem.addActionListener(new ActionListener() {
@@ -287,7 +304,7 @@ public class Main extends JFrame {
 
 		//Filament Table
 		filamentTable.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Index", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Length Remaining", "% Remaining" }) {
+				new String[] { "Index", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Length Remaining", "% Remaining", "Filament Cost" }) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -307,6 +324,7 @@ public class Main extends JFrame {
 		filamentTable.getColumnModel().getColumn(4).setPreferredWidth(100);	//Length
 		filamentTable.getColumnModel().getColumn(5).setPreferredWidth(110);	//Length Remaining
 		filamentTable.getColumnModel().getColumn(6).setPreferredWidth(85);	//Percent Remaining
+		filamentTable.getColumnModel().getColumn(7).setPreferredWidth(85);	//Percent Remaining
 
 		filamentTable.addMouseListener(new MouseListener() {
 			public void mouseExited(MouseEvent arg0) {}
@@ -376,7 +394,7 @@ public class Main extends JFrame {
 		printsTextArea.setEditable(false);
 		printsTextArea.setFont(new Font("Lucida Console", Font.PLAIN, 11));
 		printHeaderTextArea.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		printHeaderTextArea.setText(String.format("%-19s%-13s%-8s%s", "Date", "Amount Used", "% Used", "Description"));
+		printHeaderTextArea.setText(String.format("%-19s%-13s%-8s%-7s%s", "Date", "Amount Used", "% Used", "Cost", "Description"));
 		printHeaderTextArea.setEditable(false);
 		printHeaderTextArea.setBackground(Color.CYAN);
 
@@ -439,7 +457,7 @@ public class Main extends JFrame {
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
 				setRemainingFilament(filament);
-				tableModel.addRow(new Object[] {filament.getIndex() + 1, filament.getName(), filament.getType(), filament.getWeight(), numberFormat.format(filament.getLength()) + "mm", numberFormat.format(filament.getLRemaining()) + "mm", percentFormat.format(filament.getPRemaining())});
+				tableModel.addRow(new Object[] {filament.getIndex() + 1, filament.getName(), filament.getType(), filament.getWeight(), numberFormat.format(filament.getLength()) + "mm", numberFormat.format(filament.getLRemaining()) + "mm", percentFormat.format(filament.getPRemaining()), filament.getCost()});
 				tableMade = true;
 			}
 		updateTableColors(filamentTable);

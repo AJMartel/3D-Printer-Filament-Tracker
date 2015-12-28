@@ -41,8 +41,13 @@ public class FileIO {
 				while (st.hasMoreTokens()) {
 					line = st.nextToken();
 					if (line.equalsIgnoreCase("[Filament]")) { //filament information
-						Main.index = Integer.parseInt(st.nextToken());
-						Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
+						if (st.countTokens() == 5) {
+							Main.index = Integer.parseInt(st.nextToken());
+							Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
+						} else if (st.countTokens() == 6) { //update to include cost
+							Main.index = Integer.parseInt(st.nextToken());
+							Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()), st.nextToken()));
+						}
 					} else if (line.equalsIgnoreCase("[Print]")) { //print information
 						Main.filaments.get(Main.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
 					} else if (line.equalsIgnoreCase("[FilamentType]")) {
@@ -63,6 +68,12 @@ public class FileIO {
 						st2.nextToken();
 						while (st2.hasMoreTokens())
 							AddFilamentDialog.filamentLength.add(st2.nextToken());
+					} else if (line.equalsIgnoreCase("[FilamentCost]")) {
+						updateFile = false;
+						StringTokenizer st2 = new StringTokenizer(tmp, ":");
+						st2.nextToken();
+						while (st2.hasMoreTokens())
+							AddFilamentDialog.filamentCost.add(st2.nextToken());
 					}
 				}
 			}
@@ -74,6 +85,7 @@ public class FileIO {
 			AddFilamentDialog.filamentType.add("PLA (1.75mm)");
 			AddFilamentDialog.filamentWeight.add("1.0kg");
 			AddFilamentDialog.filamentLength.add("330000mm");
+			AddFilamentDialog.filamentCost.add("$25.00");
 			save();
 			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
 		}
@@ -104,11 +116,15 @@ public class FileIO {
 			for (String length : AddFilamentDialog.filamentLength) {
 				fw.write(":" + length);
 			}
+			fw.write("\n[FilamentCost]");
+			for (String cost : AddFilamentDialog.filamentCost) {
+				fw.write(":" + cost);
+			}
 			fw.write("\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
-				fw.write("[Filament]:" + filament.getIndex() + ":" + filament.getName() + ":" + filament.getType() + ":" + filament.getWeight() + ":" + filament.getLength() + "\n");
+				fw.write("[Filament]:" + filament.getIndex() + ":" + filament.getName() + ":" + filament.getType() + ":" + filament.getWeight() + ":" + filament.getLength() + ":" + filament.getCost() + "\n");
 				Iterator<Print> printIterator = filament.getPrint().iterator();
 				while (printIterator.hasNext()){
 					Print print = printIterator.next();
@@ -135,6 +151,8 @@ public class FileIO {
 				AddFilamentDialog.filamentWeight.add(filament.getWeight());
 			if (!AddFilamentDialog.filamentLength.contains(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm")))
 				AddFilamentDialog.filamentLength.add(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm"));
+			if (!AddFilamentDialog.filamentCost.contains(filament.getCost()))
+				AddFilamentDialog.filamentCost.add(filament.getCost());
 		}
 	}
 }

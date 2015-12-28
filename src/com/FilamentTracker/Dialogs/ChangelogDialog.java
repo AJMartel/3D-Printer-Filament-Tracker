@@ -35,6 +35,11 @@ public class ChangelogDialog extends JFrame {
 													+ "* Changed menu item accelerator to use ALT mask instead of CTRL mask.\n"
 													+ "* Added thingiverse link to about dialog.\n"
 													+ "* Small code updates.\n";
+
+	private final String 		version1_3 			= "Version 1.3\n"
+													+ "* Add % used to each print.\n"
+													+ "* Add a cost field to the filament and for each print.\n"
+													+ "* Stats feature showing total number of prints, filament used, cost, etc.\n";
 		
 	/**
 	 * FUNCTION:	Changelog
@@ -53,7 +58,7 @@ public class ChangelogDialog extends JFrame {
 		scrollPane.setBounds(0, 0, 550, 272);
 		scrollPane.setViewportView(changelogTextPane);
 		
-		changelogTextPane.setText(version1_2 + "\n" + version1_1 + "\n" + version1_0);
+		changelogTextPane.setText(version1_3 + "\n" + version1_2 + "\n" + version1_1 + "\n" + version1_0);
 		changelogTextPane.setCaretPosition(0);
 		changelogTextPane.setEditable(false);
 		

@@ -43,12 +43,13 @@ public class Export {
 					+ "   <table class=\"blue\">\n"
 					+ "      <thead>\n"
 					+ "         <tr>\n"
-					+ "            <th style=\"width: 14.6%\">Filament Name</th>\n"
-					+ "            <th style=\"width: 14.6%\">Filament Type</th>\n"
-					+ "            <th style=\"width: 14.6%\">Filament Weight</th>\n"
-					+ "            <th style=\"width: 18.6%\">Filament Length</th>\n"
-					+ "            <th style=\"width: 18.6%\">Filament Length Remaining</th>\n"
-					+ "            <th style=\"width: 18.6%\">Filament Percent Remaining</th>\n"
+					+ "            <th style=\"width: 12.6%\">Filament Name</th>\n"
+					+ "            <th style=\"width: 12.6%\">Filament Type</th>\n"
+					+ "            <th style=\"width: 12.6%\">Filament Weight</th>\n"
+					+ "            <th style=\"width: 16.6%\">Filament Length</th>\n"
+					+ "            <th style=\"width: 16.6%\">Filament Length Remaining</th>\n"
+					+ "            <th style=\"width: 17.6%\">Filament Percent Remaining</th>\n"
+					+ "            <th style=\"width: 11%\">Filament Cost</th>\n"
 					+ "         </tr>\n"
 					+ "      </thead>\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
@@ -61,15 +62,17 @@ public class Export {
 						+ "         <th>" + Main.numberFormat.format(filament.getLength()) + "mm</th>\n"
 						+ "         <th>" + Main.numberFormat.format(filament.getLRemaining()) + "mm</th>\n"
 						+ "         <th>" + Main.percentFormat.format(filament.getPRemaining()) + "</th>\n"
+						+ "         <th>" + filament.getCost() + "</th>\n"
 						+ "      </tr>\n"
-						+ "      <td colspan = 6>\n"
+						+ "      <td colspan = 7>\n"
 						+ "         <table class=\"blue\">\n"
 						+ "            <thead>\n"
 						+ "               <tr>\n"
 						+ "                  <th style=\"width: 20%\">Print Date</th>\n"
 						+ "                  <th style=\"width: 20%\">Amount Used</th>\n"
 						+ "                  <th style=\"width: 10%\">% Used</th>\n"
-						+ "                  <th style=\"width: 50%\">Description</th>\n"
+						+ "                  <th style=\"width: 10%\">Cost</th>\n"
+						+ "                  <th style=\"width: 40%\">Description</th>\n"
 						+ "               </tr>\n"
 						+ "            </thead>\n"
 						+ "            <tbody>\n");
@@ -80,6 +83,7 @@ public class Export {
 							+ "                  <td>" + print.getDate() + "</td>\n"
 							+ "                  <td>" + Main.numberFormat.format(print.getAmountUsed()) + "mm</td>\n"
 							+ "					 <td>" + Main.percentFormat.format(print.getAmountUsed() / filament.getLength()) + "</td>\n"
+							+ "                  <td>" + Main.costFormat.format((print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", ""))) + "</td>\n"
 							+ "                  <td>" + print.getDescription() + "</td>\n"
 							+ "               </tr>\n");
 				}
@@ -218,11 +222,11 @@ public class Export {
 			while (filamentIterator.hasNext()){
 				Filament filament = filamentIterator.next();
 				fw.write(String.format("\n%s\n%-19s%-15s%-17s%-17s%-17s", separator, filament.getName(), filament.getType(), filament.getWeight(), Main.numberFormat.format(filament.getLength()) + "mm", Main.numberFormat.format(filament.getLRemaining()) + "mm", Main.percentFormat.format(filament.getPRemaining())));
-				fw.write(String.format("\n\t%-19s%-13s%-8s%s", "Print Date", "Amount Used", "% Used", "Print Description"));
+				fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", "Print Date", "Amount Used", "% Used", "Cost", "Print Description"));
 				Iterator<Print> printIterator = filament.getPrint().iterator();
 				while (printIterator.hasNext()){
 					Print print = printIterator.next();
-					fw.write(String.format("\n\t%-19s%-13s%-8s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), print.getDescription()));
+					fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), (print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", "")), print.getDescription()));
 				}
 			}
 			fw.close();
