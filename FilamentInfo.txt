@@ -1,29 +1,25 @@
-[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test2
+[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test:test2
 [FilamentWeight]:1.0kg
 [FilamentLength]:330000.0mm:200000.0mm
-[FilamentCost]:$0.00:$22.00
-[Filament]:0:Orange:PLA (1.75mm):1.0kg:330000.0:$22.00
-[Print]:Wed, Nov 25, 2015:Big vase:28000.0
-[Print]:Thu, Nov 26, 2015:Lighter Case:3500.0
-[Print]:Fri, Nov 27, 2015:Calib Cube:830.82
-[Print]:Sun, Oct 11, 2015:qwer:280000.0
-[Filament]:1:Black:PLA (3.0mm):1.0kg:330000.0:$22.00
-[Print]:Mon, Nov 30, 2015:Something big:234324.993
-[Print]:Wed, Dec 16, 2015:ads:1.0
-[Print]:Tue, Oct 06, 2015:ds:23.0
-[Print]:Wed, Jan 21, 2015:12:123.0
-[Filament]:2:Blue:New pla:1.0kg:330000.0:$22.00
-[Print]:Mon, Nov 30, 2015:all:110000.0
-[Filament]:3:Red:test2:1.0kg:200000.0:$22.00
-[Print]:Wed, Dec 02, 2015:jdf jfh lhj sdlj lh sj hf hf h h h dfaldjhbanld asjfh a:45000.0
-[Print]:Thu, Dec 03, 2015:ert:1234.0
-[Print]:Wed, Jan 13, 2016:asd:123.0
-[Print]:Wed, Aug 19, 2015:qwe:321.0
-[Print]:Wed, Jul 22, 2015:aqwe:321.0
-[Filament]:4:Hatchbox Green:PLA (1.75mm):1.0kg:330000.0:$22.00
-[Print]:Mon, Dec 14, 2015:Penrose tirangle for the gift exchange:19098.1
-[Print]:Fri, May 22, 2015:123:123.0
-[Print]:Mon, Jan 04, 2016:2:12.0
-[Print]:Wed, Oct 21, 2015:sdf:300000.0
-[Filament]:5:asd:PLA (1.75mm):1.0kg:330000.0:$22.00
-[Print]:Tue, Jan 12, 2016:asd:321322.0
+[FilamentCost]:$22.00:$30.00:$35.00
+[Filament]:0:Hatchbox Green:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Mon, Dec 14, 2015:Penrose tirangle christmas gift for Alison:19098.1
+[Print]:Tue, Dec 22, 2015:Predator Head (no mask) christmas gift for Greg:17343.4
+[Print]:Tue, Dec 29, 2015:Endstop holder:872.9
+[Print]:Mon, Dec 07, 2015:Vase christmas gift for mom:19574.7
+[Filament]:1:Hatchbox Black:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Tue, Dec 15, 2015:Alien head christmas gift for dad:18609.5
+[Print]:Mon, Dec 21, 2015:Predator head christmas gift for Mark:14074.7
+[Print]:Mon, Dec 07, 2015:Kristines tree leg:11017.2
+[Filament]:2:Blue:PLA (1.75mm):1.0kg:330000.0:$30.00
+[Print]:Mon, Dec 07, 2015:Helix christmas gift for Sam:21684.5
+[Print]:Wed, Nov 18, 2015:Big low poly squirtle:13498.0
+[Filament]:3:Red:PLA (1.75mm):1.0kg:330000.0:$35.00
+[Print]:Mon, Dec 07, 2015:Maryland turtle christmas gift for Lin:14216.7
+[Print]:Mon, Dec 07, 2015:Part of rattle christmas gift for Megan & Jon:12356.4
+[Filament]:4:Hatchbox White:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Mon, Jan 04, 2016:Marks Predator head stand:2474.1
+[Print]:Mon, Jan 04, 2016:Quick Revive:6893.2
+[Filament]:5:Hatchbox Pink:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Filament]:6:Hatchbox Silver:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Filament]:7:Hatchbox Orange:PLA (1.75mm):1.0kg:330000.0:$22.00
