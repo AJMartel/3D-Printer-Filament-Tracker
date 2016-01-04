@@ -217,6 +217,8 @@ public class Export {
 	public static void exportToText() {
 		try {
 			FileWriter fw = new FileWriter(new File("Report_" + saveFileDateFormat.format(date) + ".txt"));
+			fw.write(dateFormat.format(date) + "\n");
+			fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");
 			fw.write(String.format("%-19s%-15s%-17s%-17s%-17s", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Filament Length Remaining", "Filament Percent Remaining"));
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
 			while (filamentIterator.hasNext()){
@@ -226,7 +228,7 @@ public class Export {
 				Iterator<Print> printIterator = filament.getPrint().iterator();
 				while (printIterator.hasNext()){
 					Print print = printIterator.next();
-					fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), (print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", "")), print.getDescription()));
+					fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), Main.costFormat.format((print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", ""))), print.getDescription()));
 				}
 			}
 			fw.close();

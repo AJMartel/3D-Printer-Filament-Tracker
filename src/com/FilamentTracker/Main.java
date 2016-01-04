@@ -1,7 +1,4 @@
 /* 
- * make a cost format and format accordingly
- * test the cost feature
- * fix cost saving to checkbox. not going as cost format for some reason
  * 
  * ****POTENTIAL UPDATES****
  * grey out/or remove combo box filaments that have no filament left
@@ -16,8 +13,8 @@
  * 
  * Version 1.3 (Coming Soon)
  * DONE *** Add % used to each print
- * Add a cost field to the filament and for each print
- * Stats feature showing total number of prints, filament used, cost, etc.
+ * DOEN *** Add a cost field to the filament and for each print
+ * DONE *** Stats dialog showing graph of cost and number of prints
  * 
  * Version 1.2
  * DONE *** Auto save the info file every 5 minutes if a save is needed
@@ -92,8 +89,8 @@ import com.FilamentTracker.Dialogs.AboutDialog;
 import com.FilamentTracker.Dialogs.AddFilamentDialog;
 import com.FilamentTracker.Dialogs.AddPrintDialog;
 import com.FilamentTracker.Dialogs.ChangelogDialog;
+import com.FilamentTracker.Dialogs.StatsDialog;
 import com.toedter.calendar.JDateChooser;
-
 
 /**
  *	FILENAME:		Main.java
@@ -159,7 +156,7 @@ public class Main extends JFrame {
 	public static ArrayList<Filament> 	filaments 			= new ArrayList<Filament>();
 	public static NumberFormat			percentFormat 		= NumberFormat.getPercentInstance();
 	public static NumberFormat 			numberFormat		= new DecimalFormat("#0.00"); 
-	public static NumberFormat 			costFormat		= new DecimalFormat("$#0.00"); 
+	public static NumberFormat 			costFormat			= new DecimalFormat("$#0.00"); 
 	private static boolean				tableMade			= false;
 	public static int 					index 				= -1;
 	public static boolean				saveNeeded;
@@ -250,7 +247,8 @@ public class Main extends JFrame {
 		});
 		statsMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
-				//TODO: open stats screen
+				final StatsDialog statsDialog = new StatsDialog(getX(), getY());
+				statsDialog.setVisible(true);
 			}
 		});
 		exportHTMLMenuItem.addActionListener(new ActionListener() {

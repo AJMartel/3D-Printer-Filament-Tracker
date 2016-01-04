@@ -246,16 +246,16 @@ public class AddFilamentDialog extends JFrame {
 						if (filamentLengthCustomField.isEditable())
 							AddFilamentDialog.filamentLength.add(filamentLength.replaceAll("[^\\d.]", "").concat("mm"));
 						if (filamentCostCustomField.isEditable())
-							AddFilamentDialog.filamentCost.add(filamentCost);
+							AddFilamentDialog.filamentCost.add("$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", ""))));
 
-						Main.filaments.add(Main.index += 1, new Filament(Main.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")), filamentCost));
+						Main.filaments.add(Main.index += 1, new Filament(Main.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")), "$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", "")))));
 					}
 					else {
 						Main.filaments.get(index).setName(filamentName);
 						Main.filaments.get(index).setType(filamentType);
 						Main.filaments.get(index).setWeight(filamentWeight);
 						Main.filaments.get(index).setLength(Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")));
-						Main.filaments.get(index).setCost(filamentCost);
+						Main.filaments.get(index).setCost("$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", ""))));
 					}
 					Main.updateTable();
 					Main.updatePrintArea();
