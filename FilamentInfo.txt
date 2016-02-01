@@ -1,7 +1,7 @@
-[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test:test2
-[FilamentWeight]:1.0kg
-[FilamentLength]:330000.0mm:200000.0mm
-[FilamentCost]:$22.00:$30.00:$35.00
+[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test:test2:PLA (1.75mm):PLA (1.75mm)
+[FilamentWeight]:1.0kg:1.0kg:1.0kg
+[FilamentLength]:330000.0mm:200000.0mm:330000mm:330000mm
+[FilamentCost]:$22.00:$30.00:$35.00:$25.00:$25.00
 [Filament]:0:Hatchbox Green:PLA (1.75mm):1.0kg:330000.0:$22.00
 [Print]:Mon, Dec 14, 2015:Penrose tirangle christmas gift for Alison:19098.1
 [Print]:Tue, Dec 22, 2015:Predator Head (no mask) christmas gift for Greg:17343.4

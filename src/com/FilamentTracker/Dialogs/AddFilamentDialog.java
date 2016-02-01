@@ -65,9 +65,9 @@ public class AddFilamentDialog extends JFrame {
 		setTitle(forEdit == true ? "Edit Filament Dialog" : "Add Filament Dialog");
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 365);
 		if (!forEdit)
-			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Filament_Icon.png")).getImage());
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Filament_Icon.png")).getImage());
 		else
-			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Edit_Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")).getImage());
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Edit_Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
 

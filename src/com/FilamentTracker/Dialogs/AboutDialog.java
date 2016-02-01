@@ -24,7 +24,7 @@ public class AboutDialog extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public static final String VERSION			= "v1.3";
-	private final JLabel pictureLabel 			= new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("About_Window_Icon.png") : new ImageIcon(getClass().getResource("About_Window_Icon.png")));
+	private final JLabel pictureLabel 			= new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Window_Icon.png") : new ImageIcon(getClass().getResource("About_Window_Icon.png")));
 	private final JLabel programNameLabel 		= new JLabel("3D Printer Filament Tracker");
 	private final JLabel versionLabel 			= new JLabel(VERSION);
 	private final JLabel infoLabel 				= new JLabel("<html>Feel free to contact me if you have any questions or comments.</html>", JLabel.CENTER);
@@ -42,7 +42,7 @@ public class AboutDialog extends JFrame {
 	public AboutDialog(int x, int y) {
 		setTitle("About 3D Printer Filament Tracker");
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
-		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("About_Icon.png").getImage() : new ImageIcon(getClass().getResource("About_Icon.png")).getImage());
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Icon.png").getImage() : new ImageIcon(getClass().getResource("About_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
 		

@@ -51,7 +51,7 @@ public class ChangelogDialog extends JFrame {
 	public ChangelogDialog(int x, int y) {
 		setTitle("Changelog");
 		setBounds((int)((921 / 2) - (550 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 550, 301);
-		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Changelog_Icon.png").getImage() : new ImageIcon(getClass().getResource("Changelog_Icon.png")).getImage());
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Changelog_Icon.png").getImage() : new ImageIcon(getClass().getResource("Changelog_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
 		

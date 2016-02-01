@@ -61,9 +61,9 @@ public class AddPrintDialog extends JFrame {
 		setTitle(forEdit == true ? "Edit Prints Dialog" : "Add Print Dialog");
 		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
 		if (!forEdit)
-			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Icon.png")).getImage());
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Icon.png")).getImage());
 		else
-			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Edit_Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")).getImage());
+			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Edit_Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
 		

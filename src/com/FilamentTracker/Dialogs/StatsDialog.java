@@ -62,7 +62,7 @@ public class StatsDialog extends JFrame {
 	public StatsDialog(int x, int y) {
 		setTitle("Print Stats");
 		setBounds((int) ((921 / 2) - (700 / 2)) + x, (int)((546 / 2) - (700 / 2)) + y, 700, 700);
-		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("Stats_Icon.png").getImage() : new ImageIcon(getClass().getResource("Stats_Icon.png")).getImage());
+		setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Stats_Icon.png").getImage() : new ImageIcon(getClass().getResource("Stats_Icon.png")).getImage());
 		getContentPane().setLayout(null);
 
 		initializeArrayList();
