@@ -15,15 +15,16 @@ public class AutoSave extends Thread {
 	 * PURPOSE:		Thread to check if the info file needs to be saved every 5 minutes.
 	 */
     public void run() {
-        try {
-        	if (Main.saveNeeded) {
-        		FileIO.save();
-    			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
-        	}
-			sleep(300000);
-			run();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    	while (true) {
+	        try {
+	        	if (Main.saveNeeded) {
+	        		FileIO.save();
+	    			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
+	        	}
+				Thread.sleep(300000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	    }
     }
 }

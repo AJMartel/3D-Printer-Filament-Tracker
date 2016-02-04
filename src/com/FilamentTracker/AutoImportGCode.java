@@ -22,7 +22,7 @@ public class AutoImportGCode extends Thread {
 	static String repetierDate;
 	File simplify3DFile = null;
 	File repetierFile = null;
-	public static  DateFormat printDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+	public static DateFormat printDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
 	public static ArrayList<Print> printStream	= new ArrayList<Print>();
 	
 	/**
@@ -30,46 +30,72 @@ public class AutoImportGCode extends Thread {
 	 * PURPOSE:		
 	 */
     public void run() {
-        try {
-        	if (hasSimplify3D) {
-	        	if (!(simplify3DDate.equalsIgnoreCase(Export.dateFormat.format(simplify3DFile.lastModified())))) {
-	        		simplify3DDate = Export.dateFormat.format(simplify3DFile.lastModified());
-	        		addToStream("Simplify3D", simplify3DFile);
-	        		if (System.getProperty("DEBUG") != null)
-	        			System.out.println("Simplify3D gcode file has been updated.");
+    	while (true) {
+	        try {
+	        	if (hasSimplify3D) { //gcode file size is set to 0, then set to final size
+		        	if (!(simplify3DDate.equalsIgnoreCase(Export.dateFormat.format(simplify3DFile.lastModified())))) {
+		        		while (simplify3DFile.length() == 0){ 
+		        			sleep(10);
+		        		}
+		        		simplify3DDate = Export.dateFormat.format(simplify3DFile.lastModified());
+	        			addToStream("Simplify3D", simplify3DFile);
+	        			if (System.getProperty("DEBUG") != null)
+	        				System.out.println("Simplify3D gcode file has been updated.");
+		        	}
 	        	}
-        	}
-        	if (hasRepetier) {
-	        	if (!(repetierDate.equalsIgnoreCase(Export.dateFormat.format(repetierFile.lastModified())))) {
-	        		repetierDate = Export.dateFormat.format(repetierFile.lastModified());
-	        		addToStream("Repetier", repetierFile);
-	        		if (System.getProperty("DEBUG") != null)
-	        			System.out.println("Repetier gcode file has been updated.");
+	        	if (hasRepetier) { //gcode file is removed than created. Size increments 
+	        		if(repetierFile.isFile()) { 
+			        	if (!(repetierDate.equalsIgnoreCase(Export.dateFormat.format(repetierFile.lastModified())))) {
+			        		long repetierFileSize = -1;
+			        		while (repetierFile.length() > repetierFileSize){
+			        			repetierFileSize = repetierFile.length();
+			        			sleep(200);
+			        		};
+			        		repetierDate = Export.dateFormat.format(repetierFile.lastModified());
+			        		addToStream("Repetier", repetierFile);
+			        		if (System.getProperty("DEBUG") != null)
+			        			System.out.println("Repetier gcode file has been updated.");
+			        	}
+	        		}
 	        	}
-        	}
-        	
-//        	for (Print print : printStream) {
-//				System.out.println(print.getDate() + " " + print.getAmountUsed() + " " + print.getDescription());
-//			}
-        	
-			sleep(1000);
-			run();
-		} catch (InterruptedException | IOException e) {
-			e.printStackTrace();
-		}
+	
+	        	
+	        	Thread.sleep(200);
+			} catch (InterruptedException | IOException e) {
+				e.printStackTrace();
+			}
+    	}
     }
     
+    /**
+     * FUNCTION:	checkIfFilesExist
+     * PURPOSE:	
+     */
     public void checkIfFilesExist() {
-		if (new File(System.getenv("APPDATA") + "/../Local/Simplify3D/S3D-Software/temp.gcode").isFile()) {
-			hasSimplify3D = true;
-			simplify3DFile = new File(System.getenv("APPDATA") + "/../Local/Simplify3D/S3D-Software/temp.gcode");
-			simplify3DDate = Export.dateFormat.format(simplify3DFile.lastModified());
-		}
-		if (new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode").isFile()) {
-			hasRepetier = true;
-			repetierFile = new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode");
-			repetierDate = Export.dateFormat.format(repetierFile.lastModified());
-		}
+    	if (System.getProperty("os.name").contains("Windows")) {
+			if (new File(System.getenv("APPDATA") + "/../Local/Simplify3D/S3D-Software/temp.gcode").isFile()) {
+				hasSimplify3D = true;
+				simplify3DFile = new File(System.getenv("APPDATA") + "/../Local/Simplify3D/S3D-Software/temp.gcode");
+				simplify3DDate = Export.dateFormat.format(simplify3DFile.lastModified());
+			}
+			if (new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode").isFile()) {
+				hasRepetier = true;
+				repetierFile = new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode");
+				repetierDate = Export.dateFormat.format(repetierFile.lastModified());
+			}
+    	}
+    	if (System.getProperty("os.name").contains("Linux")) {
+			if (new File("/root/.local/share/RepetierHost/temp.gcode").isFile()) {
+				hasSimplify3D = true;
+				simplify3DFile = new File("/root/.local/share/RepetierHost/temp.gcode");
+				simplify3DDate = Export.dateFormat.format(simplify3DFile.lastModified());
+			}
+			if (new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode").isFile()) {
+				hasRepetier = true;
+				repetierFile = new File(System.getenv("APPDATA") + "/../Local/RepetierHost/composition.gcode");
+				repetierDate = Export.dateFormat.format(repetierFile.lastModified());
+			}
+    	}
 		this.start();
     }
     
@@ -110,22 +136,27 @@ public class AutoImportGCode extends Thread {
 		
 		ReversedLinesFileReader object = new ReversedLinesFileReader(file);
 		String line = object.readLine();
-		while(!line.isEmpty())
+		while(!line.isEmpty() || !line.contains("\n"))
 		{
-			if(line.contains(compareString))
+			if(line.contains(compareString)) {
+				object.close();
 				return line;
+			}
 			
-			if (counter++ < 10) {
-		    	line = object.readLine();
+			if (counter++ < 200) {
+				line = object.readLine();
 			}
 			else
 		    	break;
 		}
+		object.close();
 		return null;
     }
 	
 	/**
-	 * 
+     * FUNCTION:	addToStream
+     * PURPOSE:	
+     * 
 	 * @param slicer
 	 * @param file
 	 * @throws IOException
