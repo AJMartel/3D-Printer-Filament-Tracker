@@ -19,42 +19,42 @@ import com.FilamentTracker.FileIO;
 import com.FilamentTracker.Main;
 
 /**
- *	FILENAME:		AddFilamentDialog.java
- *	DESCRIPTION:	This class creates and opens the add/edit filament dialog.
- *	
+ * FILENAME: 	AddFilamentDialog.java 
+ * DESCRIPTION: This class creates and opens the add/edit filament dialog.
+ * 
  * @author Andrew Comer
  */
 public class AddFilamentDialog extends JFrame {
-	
-	private static final long	serialVersionUID			= 1L;
-	
-	private final JLabel			filamentNameLabel			= new JLabel("Filament Name");
-	private final JLabel			filamentTypeLabel			= new JLabel("Filament Type");
-	private final JLabel			filamentWeightLabel			= new JLabel("Filament Weight");
-	private final JLabel			filamentLengthLabel			= new JLabel("Filament Length");
-	private final JLabel			filamentCostLabel 			= new JLabel("Filament Length");
-	private final JTextField		filamentNameField			= new JTextField();
-	private final JTextField		filamentTypeCustomField		= new JTextField();
-	private final JTextField		filamentWeightCustomField	= new JTextField();
-	private final JTextField		filamentLengthCustomField	= new JTextField();
+
+	private static final long serialVersionUID = 1L;
+
+	private final JLabel 			filamentNameLabel 			= new JLabel("Filament Name");
+	private final JLabel 			filamentTypeLabel 			= new JLabel("Filament Type");
+	private final JLabel 			filamentWeightLabel 		= new JLabel("Filament Weight");
+	private final JLabel 			filamentLengthLabel 		= new JLabel("Filament Length");
+	private final JLabel 			filamentCostLabel 			= new JLabel("Filament Cost");
+	private final JTextField 		filamentNameField 			= new JTextField();
+	private final JTextField 		filamentTypeCustomField 	= new JTextField();
+	private final JTextField 		filamentWeightCustomField 	= new JTextField();
+	private final JTextField 		filamentLengthCustomField 	= new JTextField();
 	private final JTextField 		filamentCostCustomField 	= new JTextField();
-	private final JComboBox			filamentTypeComboBox		= new JComboBox();
-	private final JComboBox			filamentWeightComboBox		= new JComboBox();
-	private final JComboBox			filamentLengthComboBox		= new JComboBox();
+	private final JComboBox 		filamentTypeComboBox 		= new JComboBox();
+	private final JComboBox 		filamentWeightComboBox 		= new JComboBox();
+	private final JComboBox 		filamentLengthComboBox 		= new JComboBox();
 	private final JComboBox 		filamentCostComboBox 		= new JComboBox();
-	private final JButton			addFilamentButton			= new JButton("Add New Filament");
-	private final JButton			cancelButton				= new JButton("Cancel");
-	public static ArrayList<String>	filamentType				= new ArrayList<String>();
-	public static ArrayList<String>	filamentWeight				= new ArrayList<String>();
-	public static ArrayList<String>	filamentLength				= new ArrayList<String>();
-	public static ArrayList<String>	filamentCost				= new ArrayList<String>();
-	private String					errorMessage;
-	private Boolean					hasErrors;
-	private Boolean					customField;
+	private final JButton 			addFilamentButton 			= new JButton("Add New Filament");
+	private final JButton 			cancelButton 				= new JButton("Cancel");
+	public static ArrayList<String> filamentType 				= new ArrayList<String>();
+	public static ArrayList<String> filamentWeight 				= new ArrayList<String>();
+	public static ArrayList<String> filamentLength 				= new ArrayList<String>();
+	public static ArrayList<String> filamentCost 				= new ArrayList<String>();
+	private String 					errorMessage;
+	private Boolean 				hasErrors;
+	private Boolean 				customField;
 
 	/**
-	 * FUNCTION:	AddFilamentDialog
-	 * PURPOSE:		Constructor.
+	 * FUNCTION: 	AddFilamentDialog 
+	 * PURPOSE: 	Constructor.
 	 * 
 	 * @param x X coordinate of the main frame
 	 * @param y Y coordinate of the main frame
@@ -63,7 +63,7 @@ public class AddFilamentDialog extends JFrame {
 	 */
 	public AddFilamentDialog(int x, int y, boolean forEdit, int index) {
 		setTitle(forEdit == true ? "Edit Filament Dialog" : "Add Filament Dialog");
-		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 365);
+		setBounds((int) ((921 / 2) - (308 / 2)) + x, (int) ((546 / 2) - (301 / 2)) + y, 308, 365);
 		if (!forEdit)
 			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Filament_Icon.png")).getImage());
 		else
@@ -71,7 +71,7 @@ public class AddFilamentDialog extends JFrame {
 		setLayout(null);
 		setResizable(false);
 
-		//Name
+		// Name
 		filamentNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentNameLabel.setBounds(10, 12, 98, 17);
 
@@ -79,7 +79,7 @@ public class AddFilamentDialog extends JFrame {
 		filamentNameField.setColumns(10);
 		filamentNameField.setBounds(118, 9, 174, 22);
 
-		//Type
+		// Type
 		filamentTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentTypeLabel.setBounds(10, 45, 98, 17);
 
@@ -95,16 +95,16 @@ public class AddFilamentDialog extends JFrame {
 				if (filamentTypeComboBox.getSelectedIndex() == filamentType.size())
 					filamentTypeCustomField.setEditable(true);
 				else
-					filamentTypeCustomField.setEditable(false);				
+					filamentTypeCustomField.setEditable(false);
 			}
 		});
 
 		filamentTypeCustomField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentTypeCustomField.setColumns(10);
 		filamentTypeCustomField.setBounds(118, 76, 174, 20);
-		filamentTypeCustomField.setEditable(false);	
+		filamentTypeCustomField.setEditable(false);
 
-		//Weight
+		// Weight
 		filamentWeightLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentWeightLabel.setBounds(10, 110, 98, 17);
 
@@ -128,8 +128,8 @@ public class AddFilamentDialog extends JFrame {
 		filamentWeightCustomField.setColumns(10);
 		filamentWeightCustomField.setBounds(118, 141, 174, 20);
 		filamentWeightCustomField.setEditable(false);
-		
-		//Length
+
+		// Length
 		filamentLengthLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentLengthLabel.setBounds(10, 175, 98, 17);
 
@@ -153,8 +153,8 @@ public class AddFilamentDialog extends JFrame {
 		filamentLengthCustomField.setColumns(10);
 		filamentLengthCustomField.setBounds(118, 206, 174, 20);
 		filamentLengthCustomField.setEditable(false);
-		
-		//Cost		
+
+		// Cost
 		filamentCostLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentCostLabel.setBounds(10, 240, 98, 17);
 
@@ -173,13 +173,13 @@ public class AddFilamentDialog extends JFrame {
 					filamentCostCustomField.setEditable(false);
 			}
 		});
-		
+
 		filamentCostCustomField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentCostCustomField.setEditable(false);
 		filamentCostCustomField.setColumns(10);
 		filamentCostCustomField.setBounds(118, 271, 174, 20);
 
-		//Add Button
+		// Add Button
 		addFilamentButton.setBounds(10, 302, 136, 23);
 		addFilamentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
@@ -187,27 +187,27 @@ public class AddFilamentDialog extends JFrame {
 
 				hasErrors = false;
 				errorMessage = "";
-				
+
 				filamentName = filamentNameField.getText().trim();
 				if (filamentName.equals(""))
 					errorMessage(0);
-				
+
 				Iterator<Filament> filamentIterator = Main.filaments.iterator();
-				while (filamentIterator.hasNext()){
+				while (filamentIterator.hasNext()) {
 					String name = filamentIterator.next().getName();
 					if (filamentName.equals(name))
 						if (!forEdit)
 							errorMessage(1);
 				}
-				
-				if (filamentTypeCustomField.isEditable()) { //Custom type
+
+				if (filamentTypeCustomField.isEditable()) { // Custom type
 					filamentType = filamentTypeCustomField.getText().trim();
 					if (filamentType.equals(""))
 						errorMessage(2);
 				} else
 					filamentType = filamentTypeComboBox.getSelectedItem().toString();
 
-				if (filamentWeightCustomField.isEditable()) { //Custom weight
+				if (filamentWeightCustomField.isEditable()) { // Custom weight
 					filamentWeight = filamentWeightCustomField.getText().trim();
 					if (filamentWeight.equals(""))
 						errorMessage(3);
@@ -218,25 +218,27 @@ public class AddFilamentDialog extends JFrame {
 					filamentLength = filamentLengthCustomField.getText().trim();
 					if (filamentLength.equals(""))
 						errorMessage(4);
-					if (forEdit){
-						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
+					if (forEdit) {
+						if (Double.parseDouble(
+								filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
 							errorMessage(5);
 					}
 				} else {
 					filamentLength = filamentLengthComboBox.getSelectedItem().toString();
 					if (forEdit) {
-						if (Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
+						if (Double.parseDouble(
+								filamentLength.replaceAll("[^\\d.-]", "")) < Main.filaments.get(index).getLength() - Main.filaments.get(index).getLRemaining())
 							errorMessage(5);
 					}
 				}
-				
-				if (filamentCostCustomField.isEditable()) { //Custom cost
+
+				if (filamentCostCustomField.isEditable()) { // Custom cost
 					filamentCost = filamentCostCustomField.getText().trim();
 					if (filamentCost.equals(""))
 						errorMessage(6);
 				} else
 					filamentCost = filamentCostComboBox.getSelectedItem().toString();
-				
+
 				if (!hasErrors) {
 					if (!forEdit) {
 						if (filamentTypeCustomField.isEditable())
@@ -248,9 +250,9 @@ public class AddFilamentDialog extends JFrame {
 						if (filamentCostCustomField.isEditable())
 							AddFilamentDialog.filamentCost.add("$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", ""))));
 
-						Main.filaments.add(Main.index += 1, new Filament(Main.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")), "$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", "")))));
-					}
-					else {
+						Main.filaments.add(Main.index += 1,
+								new Filament(Main.index, filamentName, filamentType, filamentWeight, Double.parseDouble(filamentLength.replaceAll("[^\\d.-]", "")), "$" + Main.numberFormat.format(Double.parseDouble(filamentCost.replaceAll("[^\\d.-]", "")))));
+					} else {
 						Main.filaments.get(index).setName(filamentName);
 						Main.filaments.get(index).setType(filamentType);
 						Main.filaments.get(index).setWeight(filamentWeight);
@@ -267,19 +269,19 @@ public class AddFilamentDialog extends JFrame {
 			}
 		});
 
-		//Cancel Button
+		// Cancel Button
 		cancelButton.setBounds(156, 302, 136, 23);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
 				dispose();
 			}
 		});
-		
-		//Add everything to content pane
+
+		// Add everything to content pane
 		add(filamentNameLabel);
 		add(filamentNameField);
 		add(filamentTypeLabel);
-		add(filamentTypeComboBox);	
+		add(filamentTypeComboBox);
 		add(filamentTypeCustomField);
 		add(filamentWeightLabel);
 		add(filamentWeightComboBox);
@@ -292,14 +294,14 @@ public class AddFilamentDialog extends JFrame {
 		add(filamentCostCustomField);
 		add(addFilamentButton);
 		add(cancelButton);
-		
-		//If the user selects to edit the filament
+
+		// If the user selects to edit the filament
 		if (forEdit) {
 			customField = true;
 			filamentNameField.setText(Main.filaments.get(index).getName());
-			
+
 			for (int i = 0; i < filamentTypeComboBox.getItemCount() - 1; i++) {
-				if (Main.filaments.get(index).getType().equals(filamentTypeComboBox.getItemAt(i))){
+				if (Main.filaments.get(index).getType().equals(filamentTypeComboBox.getItemAt(i))) {
 					filamentTypeComboBox.setSelectedIndex(i);
 					customField = false;
 				}
@@ -310,9 +312,9 @@ public class AddFilamentDialog extends JFrame {
 			}
 
 			customField = true;
-			
+
 			for (int i = 0; i < filamentWeightComboBox.getItemCount() - 1; i++) {
-				if (Main.filaments.get(index).getWeight().equals(filamentWeightComboBox.getItemAt(i))){
+				if (Main.filaments.get(index).getWeight().equals(filamentWeightComboBox.getItemAt(i))) {
 					filamentWeightComboBox.setSelectedIndex(i);
 					customField = false;
 				}
@@ -323,9 +325,10 @@ public class AddFilamentDialog extends JFrame {
 			}
 
 			customField = true;
-			
+
 			for (int i = 0; i < filamentLengthComboBox.getItemCount() - 1; i++) {
-				if (Main.filaments.get(index).getLength().toString().concat("mm").equals(filamentLengthComboBox.getItemAt(i))){
+				if (Main.filaments.get(index).getLength().toString().concat("mm")
+						.equals(filamentLengthComboBox.getItemAt(i))) {
 					filamentLengthComboBox.setSelectedIndex(i);
 					customField = false;
 				}
@@ -334,11 +337,11 @@ public class AddFilamentDialog extends JFrame {
 				filamentLengthComboBox.setSelectedIndex(filamentLengthComboBox.getItemCount() - 1);
 				filamentLengthCustomField.setText(Main.filaments.get(index).getLength().toString());
 			}
-			
+
 			customField = true;
-			
+
 			for (int i = 0; i < filamentCostComboBox.getItemCount() - 1; i++) {
-				if (Main.filaments.get(index).getCost().equals(filamentCostComboBox.getItemAt(i))){
+				if (Main.filaments.get(index).getCost().equals(filamentCostComboBox.getItemAt(i))) {
 					filamentCostComboBox.setSelectedIndex(i);
 					customField = false;
 				}
@@ -347,18 +350,18 @@ public class AddFilamentDialog extends JFrame {
 				filamentCostComboBox.setSelectedIndex(filamentCostComboBox.getItemCount() - 1);
 				filamentCostCustomField.setText(Main.filaments.get(index).getCost());
 			}
-			
+
 			addFilamentButton.setText("Edit Filament");
 		}
 	}
-	
+
 	/**
-	 * FUNCTION:	errorMessage
-	 * PURPOSE:		Alert the user of any errors
+	 * FUNCTION: 	errorMessage 
+	 * PURPOSE: 	Alert the user of any errors
 	 * 
 	 * @param flag Number for specific error message
 	 */
-	private void errorMessage(int flag){
+	private void errorMessage(int flag) {
 		switch (flag) {
 		case 0:
 			errorMessage += "Please enter a name for the filament.\n";

@@ -13,24 +13,23 @@ import javax.swing.JOptionPane;
 
 import com.FilamentTracker.Dialogs.AddFilamentDialog;
 
-
 /**
- *	FILENAME:		FileIO.java
- *	DESCRIPTION:	This class controls all the save file input/output actions.
- *	
- *	@author Andrew Comer
+ * FILENAME: 	FileIO.java 
+ * DESCRIPTION: This class controls all the save file input/output actions.
+ * 
+ * @author Andrew Comer
  */
 public class FileIO {
-	
-	private final static File 	fileName = new File("FilamentInfo.txt");
+
+	private final static File fileName = new File("FilamentInfo.txt");
 
 	/**
-	 * FUNTION:	initializeObjects
-	 * PURPOSE:	Reads information from the save file into Filament and Print objects.
+	 * FUNCTION: 	initializeObjects 
+	 * PURPOSE: 	Reads information from the save file into Filament and Print objects.
 	 * 
 	 * @throws IOException
 	 */
-	public synchronized static void initializeObjects() throws IOException{
+	public synchronized static void initializeObjects() throws IOException {
 		String line;
 		boolean updateFile = true;
 		try {
@@ -40,15 +39,15 @@ public class FileIO {
 				StringTokenizer st = new StringTokenizer(tmp, ":");
 				while (st.hasMoreTokens()) {
 					line = st.nextToken();
-					if (line.equalsIgnoreCase("[Filament]")) { //filament information
+					if (line.equalsIgnoreCase("[Filament]")) { // filament information
 						if (st.countTokens() == 5) {
 							Main.index = Integer.parseInt(st.nextToken());
 							Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken())));
-						} else if (st.countTokens() == 6) { //update to include cost
+						} else if (st.countTokens() == 6) { // update to include cost
 							Main.index = Integer.parseInt(st.nextToken());
 							Main.filaments.add(Main.index, new Filament(Main.index, st.nextToken(), st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()), st.nextToken()));
 						}
-					} else if (line.equalsIgnoreCase("[Print]")) { //print information
+					} else if (line.equalsIgnoreCase("[Print]")) { // print information
 						Main.filaments.get(Main.index).addPrint(st.nextToken(), st.nextToken(), Double.parseDouble(st.nextToken()));
 					} else if (line.equalsIgnoreCase("[FilamentType]")) {
 						updateFile = false;
@@ -96,10 +95,10 @@ public class FileIO {
 			Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
 		}
 	}
-	
+
 	/**
-	 * FUNCTION:	save
-	 * PURPOSE:		Reads information from the Filament and Print objects into a save file.
+	 * FUNCTION: 	save 
+	 * PURPOSE: 	Reads information from the Filament and Print objects into a save file.
 	 */
 	public synchronized static void save() {
 		try {
@@ -122,11 +121,11 @@ public class FileIO {
 			}
 			fw.write("\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
-			while (filamentIterator.hasNext()){
+			while (filamentIterator.hasNext()) {
 				Filament filament = filamentIterator.next();
 				fw.write("[Filament]:" + filament.getIndex() + ":" + filament.getName() + ":" + filament.getType() + ":" + filament.getWeight() + ":" + filament.getLength() + ":" + filament.getCost() + "\n");
 				Iterator<Print> printIterator = filament.getPrint().iterator();
-				while (printIterator.hasNext()){
+				while (printIterator.hasNext()) {
 					Print print = printIterator.next();
 					fw.write("[Print]:" + print.getDate() + ":" + print.getDescription() + ":" + print.getAmountUsed() + "\n");
 				}
@@ -140,8 +139,8 @@ public class FileIO {
 	}
 
 	/**
-	 * FUNCTION:	updateSaveFile
-	 * PURPOSE:		Updates the save file to be used with a newer version of the program
+	 * FUNCTION: 	updateSaveFile 
+	 * PURPOSE: 	Updates the save file to be used with a newer version of the program
 	 */
 	public synchronized static void updateSaveFile() {
 		for (Filament filament : Main.filaments) {

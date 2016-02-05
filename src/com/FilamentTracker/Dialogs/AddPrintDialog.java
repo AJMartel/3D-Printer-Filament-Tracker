@@ -23,15 +23,15 @@ import com.FilamentTracker.Print;
 import com.toedter.calendar.JDateChooser;
 
 /**
- *	FILENAME:		AddPrintDialog.java
- *	DESCRIPTION:	This class creates and opens the add/edit/delete print dialog.
- *	
+ * FILENAME: 	AddPrintDialog.java 
+ * DESCRIPTION: This class creates and opens the add/edit/delete print dialog.
+ * 
  * @author Andrew Comer
  */
 public class AddPrintDialog extends JFrame {
-	
-	private static final long 	serialVersionUID 		= 1L;
-	
+
+	private static final long serialVersionUID = 1L;
+
 	private final JTextField 	amountUsedTextField 	= new JTextField();
 	private final JDateChooser 	date 					= new JDateChooser();
 	private final JComboBox 	filamentUsedComboBox 	= new JComboBox();
@@ -42,15 +42,15 @@ public class AddPrintDialog extends JFrame {
 	private final JLabel 		descriptionLabel 		= new JLabel("Description");
 	private final JLabel 		amountUsedLabel 		= new JLabel("Amount Used");
 	private final JButton 		addPrintButton 			= new JButton("Add New Print");
-	private final JButton 		deletePrintButton		= new JButton("Delete");
+	private final JButton 		deletePrintButton 		= new JButton("Delete");
 	private final JButton 		cancelButton 			= new JButton("Cancel");
-	private final DateFormat 	format					= new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
-	private String				errorMessage;
-	private Boolean				hasErrors;
+	private final DateFormat 	format 					= new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
+	private String 				errorMessage;
+	private Boolean 			hasErrors;
 
 	/**
-	 * FUNCTION:	AddPrintDialog
-	 * PURPOSE:		Constructor.
+	 * FUNCTION: 	AddPrintDialog 
+	 * PURPOSE: 	Constructor.
 	 * 
 	 * @param x X coordinate of the main frame
 	 * @param y Y coordinate of the main frame
@@ -59,30 +59,30 @@ public class AddPrintDialog extends JFrame {
 	 */
 	public AddPrintDialog(int x, int y, boolean forEdit, int index) {
 		setTitle(forEdit == true ? "Edit Prints Dialog" : "Add Print Dialog");
-		setBounds((int)((921 / 2) - (308 / 2)) + x, (int)((546 / 2) - (301 / 2)) + y, 308, 301);
+		setBounds((int) ((921 / 2) - (308 / 2)) + x, (int) ((546 / 2) - (301 / 2)) + y, 308, 301);
 		if (!forEdit)
 			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Icon.png")).getImage());
 		else
 			setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Edit_Print_Icon.png").getImage() : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")).getImage());
 		setLayout(null);
 		setResizable(false);
-		
-		//Filament Used
+
+		// Filament Used
 		filamentUsedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		filamentUsedLabel.setBounds(10, 12, 84, 17);
-		
+
 		filamentUsedComboBox.setBounds(104, 10, 187, 20);
-			
-		if (!forEdit){
+
+		if (!forEdit) {
 			for (int i = 0; i <= Main.index; i++)
 				filamentUsedComboBox.addItem(Main.filaments.get(i).getName());
-				if (index != -1)
-					filamentUsedComboBox.setSelectedIndex(index);
+			if (index != -1)
+				filamentUsedComboBox.setSelectedIndex(index);
 		} else {
 			filamentUsedLabel.setText("Print");
 			for (Print print : Main.filaments.get(index).getPrint())
 				filamentUsedComboBox.addItem(print.getDescription());
-			
+
 			filamentUsedComboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -95,46 +95,46 @@ public class AddPrintDialog extends JFrame {
 				}
 			});
 		}
-		
-		//Print Date
+
+		// Print Date
 		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateLabel.setBounds(10, 43, 29, 17);
-		
+
 		date.setBounds(104, 41, 187, 20);
 		date.getDateEditor().setEnabled(false);
-		
-		//Print Description
+
+		// Print Description
 		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		descriptionLabel.setBounds(10, 126, 68, 17);
-		
+
 		descriptionScrollPane.setBounds(104, 72, 187, 124);
 		descriptionScrollPane.setViewportView(descriptionTextPane);
-		
-		//Amount of Filament Used
+
+		// Amount of Filament Used
 		amountUsedLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		amountUsedLabel.setBounds(10, 209, 83, 17);
-		
+
 		amountUsedTextField.setBounds(104, 207, 187, 20);
 		amountUsedTextField.setColumns(10);
-		
-		//Add Button
+
+		// Add Button
 		addPrintButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				hasErrors = false;
 				errorMessage = "";
-				
+
 				if (Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getPRemaining() == 0.0)
 					errorMessage(1);
-				
+
 				if (date.getDate() == null)
 					errorMessage(2);
-				
+
 				if (descriptionTextPane.getText().trim().equals(""))
 					errorMessage(3);
-				
+
 				if (!(amountUsedTextField.getText().trim().equals(""))) {
-					if(!forEdit){
+					if (!forEdit) {
 						if (Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")) > Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getLRemaining())
 							errorMessage(4);
 					} else {
@@ -143,7 +143,7 @@ public class AddPrintDialog extends JFrame {
 					}
 				} else
 					errorMessage(5);
-				
+
 				if (!hasErrors) {
 					if (!forEdit)
 						Main.addPrint(filamentUsedComboBox.getSelectedIndex(), date, descriptionTextPane.getText(), Double.parseDouble(amountUsedTextField.getText().replaceAll("[^\\d.-]", "")));
@@ -160,8 +160,8 @@ public class AddPrintDialog extends JFrame {
 					JOptionPane.showMessageDialog(null, errorMessage);
 			}
 		});
-		
-		//Delete button
+
+		// Delete button
 		deletePrintButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main.filaments.get(index).getPrint().remove(filamentUsedComboBox.getSelectedIndex());
@@ -172,14 +172,14 @@ public class AddPrintDialog extends JFrame {
 				dispose();
 			}
 		});
-		
-		//Cancel Button
+
+		// Cancel Button
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		
+
 		if (forEdit) {
 			addPrintButton.setBounds(8, 238, 89, 23);
 			cancelButton.setBounds(202, 238, 89, 23);
@@ -189,8 +189,8 @@ public class AddPrintDialog extends JFrame {
 			addPrintButton.setBounds(10, 238, 136, 23);
 			cancelButton.setBounds(155, 238, 136, 23);
 		}
-		
-		//Add everything to content pane
+
+		// Add everything to content pane
 		add(date);
 		add(filamentUsedComboBox);
 		add(descriptionScrollPane);
@@ -202,7 +202,7 @@ public class AddPrintDialog extends JFrame {
 		add(addPrintButton);
 		add(cancelButton);
 		add(deletePrintButton);
-		
+
 		if (forEdit) {
 			try {
 				date.setDate(format.parse(Main.filaments.get(index).getPrint().get(0).getDate()));
@@ -213,14 +213,14 @@ public class AddPrintDialog extends JFrame {
 			amountUsedTextField.setText(Main.filaments.get(index).getPrint().get(0).getAmountUsed() + "");
 		}
 	}
-	
+
 	/**
-	 * FUNCTION:	errorMessage
-	 * PURPOSE:		Alert the user of any errors
+	 * FUNCTION: 	errorMessage 
+	 * PURPOSE: 	Alert the user of any errors
 	 * 
 	 * @param flag Number for specific error message
 	 */
-	private void errorMessage(int flag){
+	private void errorMessage(int flag) {
 		switch (flag) {
 		case 1:
 			errorMessage += "The filament you selected has no more plastic left.\n";

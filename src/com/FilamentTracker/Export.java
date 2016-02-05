@@ -10,27 +10,27 @@ import java.util.Date;
 import java.util.Iterator;
 
 /**
- *	FILENAME:		Export.java
- *	DESCRIPTION:	This class exports all the data in the table to a HTML or text file.
- *	
- *	@author Andrew Comer
+ * FILENAME:	Export.java
+ * DESCRIPTION:	This class exports all the data in the table to a HTML or text file.
+ *
+ * @author Andrew Comer
  */
 public class Export {
 
-   public static  DateFormat 	dateFormat 			= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-   private static DateFormat 	saveFileDateFormat 	= new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-   private static Date 			date 				= new Date();
-   private static String 		separator 			=  "====================================================================================================";
+	public static  DateFormat 	dateFormat 			= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private static DateFormat 	saveFileDateFormat 	= new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+	private static Date 		date 				= new Date();
+	private static String 		separator 			=  "====================================================================================================";
 	   
 	/**
-     *	FUNCTION:	exportToHTML
-     *	PURPOSE:	Exports the data to a HTML file.
+	 * FUNCTION: 	exportToHTML 
+	 * PURPOSE: 	Exports the data to a HTML file.
 	 */
 	public static void exportToHTML() {
 		createCSSFiles();
 		try {
 			FileWriter fw = new FileWriter(new File("Report_" + saveFileDateFormat.format(date) + ".html"));
-			fw.write("<!DOCTYPE html>\n"
+			fw.write( "<!DOCTYPE html>\n"
 					+ "<html >\n"
 					+ "   <head>\n"
 					+ "      <meta charset=\"UTF-8\">\n"
@@ -53,7 +53,7 @@ public class Export {
 					+ "         </tr>\n"
 					+ "      </thead>\n");
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
-			while (filamentIterator.hasNext()){
+			while (filamentIterator.hasNext()) {
 				Filament filament = filamentIterator.next();
 				fw.write( "      <tr>\n"
 						+ "         <th>" + filament.getName() + "</th>\n"
@@ -77,7 +77,7 @@ public class Export {
 						+ "            </thead>\n"
 						+ "            <tbody>\n");
 				Iterator<Print> printIterator = filament.getPrint().iterator();
-				while (printIterator.hasNext()){
+				while (printIterator.hasNext()) {
 					Print print = printIterator.next();
 					fw.write( "               <tr>\n"
 							+ "                  <td>" + print.getDate() + "</td>\n"
@@ -105,8 +105,8 @@ public class Export {
 			
 			
 	/**
-     *	FUNCTION:	createCSSFiles
-     *	PURPOSE:	Creates the CSS files to format the HTML file.
+	 * FUNCTION:	createCSSFiles
+	 * PURPOSE:		Creates the CSS files to format the HTML file.
 	 */
 	public static void createCSSFiles() {
 		try {
@@ -211,8 +211,8 @@ public class Export {
 	}
 
 	/**
-     *	FUNCTION:	exportToHTML
-     *	PURPOSE:	Exports the data to a text file.
+	 * FUNCTION:	exportToHTML
+	 * PURPOSE:		Exports the data to a text file.
 	 */
 	public static void exportToText() {
 		try {
@@ -221,12 +221,12 @@ public class Export {
 			fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");
 			fw.write(String.format("%-19s%-15s%-17s%-17s%-17s", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Filament Length Remaining", "Filament Percent Remaining"));
 			Iterator<Filament> filamentIterator = Main.filaments.iterator();
-			while (filamentIterator.hasNext()){
+			while (filamentIterator.hasNext()) {
 				Filament filament = filamentIterator.next();
 				fw.write(String.format("\n%s\n%-19s%-15s%-17s%-17s%-17s", separator, filament.getName(), filament.getType(), filament.getWeight(), Main.numberFormat.format(filament.getLength()) + "mm", Main.numberFormat.format(filament.getLRemaining()) + "mm", Main.percentFormat.format(filament.getPRemaining())));
 				fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", "Print Date", "Amount Used", "% Used", "Cost", "Print Description"));
 				Iterator<Print> printIterator = filament.getPrint().iterator();
-				while (printIterator.hasNext()){
+				while (printIterator.hasNext()) {
 					Print print = printIterator.next();
 					fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), Main.costFormat.format((print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", ""))), print.getDescription()));
 				}
