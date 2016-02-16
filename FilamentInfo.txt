@@ -1,7 +1,7 @@
-[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test:test2:PLA (1.75mm):PLA (1.75mm)
-[FilamentWeight]:1.0kg:1.0kg:1.0kg
-[FilamentLength]:330000.0mm:200000.0mm:330000mm:330000mm
-[FilamentCost]:$22.00:$30.00:$35.00:$25.00:$25.00
+[FilamentType]:PLA (1.75mm):PLA (3.0mm):New pla:test:test2
+[FilamentWeight]:1.0kg
+[FilamentLength]:330000.0mm:200000.0mm
+[FilamentCost]:$22.00:$30.00:$35.00
 [Filament]:0:Hatchbox Green:PLA (1.75mm):1.0kg:330000.0:$22.00
 [Print]:Mon, Dec 14, 2015:Penrose tirangle christmas gift for Alison:19098.1
 [Print]:Tue, Dec 22, 2015:Predator Head (no mask) christmas gift for Greg:17343.4
@@ -20,6 +20,15 @@
 [Filament]:4:Hatchbox White:PLA (1.75mm):1.0kg:330000.0:$22.00
 [Print]:Mon, Jan 04, 2016:Marks Predator head stand:2474.1
 [Print]:Mon, Jan 04, 2016:Quick Revive:6893.2
+[Print]:Tue, Jan 05, 2016:Speed Cola:8803.4
+[Print]:Wed, Jan 06, 2016:Juggernog FAILED:6647.9
+[Print]:Sat, Jan 23, 2016:Juggernog:8813.1
+[Print]:Sun, Jan 24, 2016:Double Tap:8637.8
 [Filament]:5:Hatchbox Pink:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Sun, Jan 10, 2016:4 section tray:4792.5
+[Print]:Wed, Jan 20, 2016:4 sections tray:7289.3
 [Filament]:6:Hatchbox Silver:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Fri, Feb 05, 2016:Super bowl trophy:64599.9
 [Filament]:7:Hatchbox Orange:PLA (1.75mm):1.0kg:330000.0:$22.00
+[Print]:Sat, Jan 09, 2016:Small traffic cone:349.7
+[Print]:Sat, Jan 09, 2016:Drawer parts holder:19082.4
