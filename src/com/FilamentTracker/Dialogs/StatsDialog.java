@@ -36,6 +36,7 @@ import com.FilamentTracker.Print;
  * DESCRIPTION: This class creates and opens the stats dialog.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class StatsDialog extends JFrame {
     private static final long       serialVersionUID        = 1L;
@@ -354,6 +355,7 @@ public class StatsDialog extends JFrame {
      * FUNCTION:    resetData 
      * PURPOSE:     Resets the data and sets the new dataset for the graph.
      * 
+     * @param year The year to reset
      * @return The dataset of the graph
      */
     public DefaultCategoryDataset resetData(int year) {

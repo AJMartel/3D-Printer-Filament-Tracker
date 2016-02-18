@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -18,10 +20,11 @@ import com.FilamentTracker.Dialogs.AddFilamentDialog;
  * DESCRIPTION: This class controls all the save file input/output actions.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class FileIO {
 
-    private final static File fileName = new File("FilamentInfo.txt");
+    private static File fileName = new File("FilamentInfo.txt");
 
     /**
      * FUNCTION:    initializeObjects 
@@ -32,6 +35,9 @@ public class FileIO {
     public synchronized static void initializeObjects() throws IOException {
         String line;
         boolean updateFile = true;
+        
+        migrateFile();
+        
         try {
             Scanner scan = new Scanner(fileName);
             while (scan.hasNextLine()) {
@@ -140,7 +146,7 @@ public class FileIO {
 
     /**
      * FUNCTION:    updateSaveFile 
-     * PURPOSE:     Updates the save file to be used with a newer version of the program
+     * PURPOSE:     Updates the save file to be used with a newer version of the program.
      */
     public synchronized static void updateSaveFile() {
         for (Filament filament : Main.filaments) {
@@ -152,6 +158,24 @@ public class FileIO {
                 AddFilamentDialog.filamentLength.add(filament.getLength().toString().replaceAll("[^\\d.-]", "").concat("mm"));
             if (!AddFilamentDialog.filamentCost.contains(filament.getCost()))
                 AddFilamentDialog.filamentCost.add(filament.getCost());
+        }
+    }
+    
+    /**
+     * FUNCTION:    migrateFile 
+     * PURPOSE:     Moves the info file from the current directory to the local directory.
+     * 
+     * @throws IOException 
+     */
+    public synchronized static void migrateFile() throws IOException {
+        if (System.getProperty("os.name").contains("Windows")) {
+            if (!new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt").isFile()){
+                if (!new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker").isDirectory())
+                    new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker").mkdirs();
+                if (new File("FilamentInfo.txt").isFile())
+                    Files.copy(Paths.get("FilamentInfo.txt"), Paths.get(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt"));
+            }
+            fileName = new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt");
         }
     }
 }

@@ -5,6 +5,7 @@ package com.FilamentTracker;
  * DESCRIPTION: This class contains the Print object that holds all information about the prints of each filament.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class Print {
 

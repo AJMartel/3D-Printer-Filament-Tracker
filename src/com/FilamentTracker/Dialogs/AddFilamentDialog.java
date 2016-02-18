@@ -23,6 +23,7 @@ import com.FilamentTracker.Main;
  * DESCRIPTION: This class creates and opens the add/edit filament dialog.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class AddFilamentDialog extends JFrame {
 

@@ -7,6 +7,7 @@ import java.util.Date;
  * DESCRIPTION: This class saves the info file if needed every 5 minute.
  *
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class AutoSave extends Thread {
 

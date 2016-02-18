@@ -27,6 +27,7 @@ import com.toedter.calendar.JDateChooser;
  * DESCRIPTION: This class creates and opens the add/edit/delete print dialog.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class AddPrintDialog extends JFrame {
 

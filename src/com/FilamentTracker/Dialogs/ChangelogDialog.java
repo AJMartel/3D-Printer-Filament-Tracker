@@ -10,6 +10,7 @@ import javax.swing.JTextPane;
  * DESCRIPTION: This class creates and opens the changelog for the versions of the program.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class ChangelogDialog extends JFrame {
 
@@ -33,11 +34,20 @@ public class ChangelogDialog extends JFrame {
                                                     + "* Changed menu item accelerator to use ALT mask instead of CTRL mask.\n" 
                                                     + "* Added thingiverse link to about dialog.\n" 
                                                     + "* Small code updates.\n";
-    
+
     private final String         version1_3         = "Version 1.3\n" 
                                                     + "* Add % used to each print.\n" 
                                                     + "* Add a cost field to the filament and for each print.\n" 
                                                     + "* Stats feature showing total number of prints, filament used, cost, etc.\n";
+
+    private final String         version1_4         = "Version 1.4\n"
+                                                    + "* Allow program to mimize to tray. Allowing program to run in background for print stream purposes.\n"
+                                                    + "* Will automatically import prints from gcode files. (Repetier Host slic3r & Simplify 3D). \n"
+                                                    + "* Imported prints from gcode will show in new print stream dialog.\n"
+                                                    + "* Print stream dialog shows the user prints that have occured while the program is running.\n"
+                                                    + "* Added tool tips to various components.\n"
+                                                    + "* Save file will now be stored in the local folder. \"C:\\Users\\<user name>\\AppData\\Local\\3D Printer Filament Tracker\\FilamentInfo.txt\".\n"
+                                                    + "* Various code improvements.\n";
 
     /**
      * FUNCTION:    Changelog 
@@ -48,15 +58,15 @@ public class ChangelogDialog extends JFrame {
      */
     public ChangelogDialog(int x, int y) {
         setTitle("Changelog");
-        setBounds((int) ((921 / 2) - (550 / 2)) + x, (int) ((546 / 2) - (301 / 2)) + y, 550, 301);
+        setBounds((int) ((921 / 2) - (700 / 2)) + x, (int) ((546 / 2) - (301 / 2)) + y, 700, 301);
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Changelog_Icon.png").getImage() : new ImageIcon(getClass().getResource("Changelog_Icon.png")).getImage());
         setLayout(null);
         setResizable(false);
 
-        scrollPane.setBounds(0, 0, 550, 272);
+        scrollPane.setBounds(0, 0, 700, 272);
         scrollPane.setViewportView(changelogTextPane);
 
-        changelogTextPane.setText(version1_3 + "\n" + version1_2 + "\n" + version1_1 + "\n" + version1_0);
+        changelogTextPane.setText(version1_4 + "\n" + version1_3 + "\n" + version1_2 + "\n" + version1_1 + "\n" + version1_0);
         changelogTextPane.setCaretPosition(0);
         changelogTextPane.setEditable(false);
 

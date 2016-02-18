@@ -8,6 +8,7 @@ import java.util.Iterator;
  * DESCRIPTION: This class contains the Filament object that holds all information about the filaments.
  * 
  * @author Andrew Comer
+ * @email AndrewJComer@yahoo.com
  */
 public class Filament {
 
