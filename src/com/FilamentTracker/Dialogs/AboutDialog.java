@@ -22,8 +22,7 @@ import javax.swing.JPanel;
  */
 public class AboutDialog extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long   serialVersionUID    = 1L;
     public static final String  VERSION             = "v1.4";
     private final JLabel        pictureLabel        = new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Window_Icon.png") : new ImageIcon(getClass().getResource("About_Window_Icon.png")));
     private final JLabel        programNameLabel    = new JLabel("3D Printer Filament Tracker");

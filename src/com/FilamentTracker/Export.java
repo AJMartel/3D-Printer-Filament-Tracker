@@ -28,9 +28,12 @@ public class Export {
      * PURPOSE:     Exports the data to a HTML file.
      */
     public static void exportToHTML() {
+        if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+            new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
+        
         createCSSFiles();
         try {
-            FileWriter fw = new FileWriter(new File("Report_" + saveFileDateFormat.format(date) + ".html"));
+            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html"));
             fw.write( "<!DOCTYPE html>\n"
                     + "<html>\n"
                     + "    <head>\n"
@@ -95,7 +98,7 @@ public class Export {
             fw.write( "    </tbody>\n"
                     + "</table>\n");
             fw.close();
-            Desktop.getDesktop().browse(new File("Report_" + saveFileDateFormat.format(date) + ".html").toURI());
+            Desktop.getDesktop().browse(new File("C:/Users/" + System.getProperty("user.name") + "/AppData/Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html").toURI());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,7 +111,7 @@ public class Export {
      */
     public static void createCSSFiles() {
         try {
-            FileWriter fw = new FileWriter(new File("style.css"));
+            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/style.css"));
             fw.write( "<body{\n"
                     + "    font:1.0em normal Arial,sans-serif;\n"
                     + "    color:#34495E;\n"
@@ -194,7 +197,7 @@ public class Export {
         }
         
         try {
-            FileWriter fw = new FileWriter(new File("reset.css"));            
+            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/reset.css"));            
             fw.write( "html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,"
                     + "dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,"
                     + "legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,"
@@ -213,8 +216,11 @@ public class Export {
      * PURPOSE:     Exports the data to a text file.
      */
     public static void exportToText() {
+        if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+            new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
+        
         try {
-            FileWriter fw = new FileWriter(new File("Report_" + saveFileDateFormat.format(date) + ".txt"));
+            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".txt"));
             fw.write(dateFormat.format(date) + "\n");
             fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");
             fw.write(String.format("%-19s%-15s%-17s%-17s%-17s", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Filament Length Remaining", "Filament Percent Remaining"));
@@ -230,7 +236,7 @@ public class Export {
                 }
             }
             fw.close();
-            Desktop.getDesktop().browse(new File("Report_" + saveFileDateFormat.format(date) + ".txt").toURI());
+            Desktop.getDesktop().browse(new File("C:/Users/" + System.getProperty("user.name") + "/AppData/Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".txt").toURI());
         } catch (IOException e) {
             e.printStackTrace();
         }

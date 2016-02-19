@@ -46,7 +46,7 @@ public class ChangelogDialog extends JFrame {
                                                     + "* Imported prints from gcode will show in new print stream dialog.\n"
                                                     + "* Print stream dialog shows the user prints that have occured while the program is running.\n"
                                                     + "* Added tool tips to various components.\n"
-                                                    + "* Save file will now be stored in the local folder. \"C:\\Users\\<user name>\\AppData\\Local\\3D Printer Filament Tracker\\FilamentInfo.txt\".\n"
+                                                    + "* Save file and reports will now be stored in the local folder. \"C:\\Users\\<user name>\\AppData\\Local\\3DPrinterFilamentTracker\\FilamentInfo.txt\".\n"
                                                     + "* Various code improvements.\n";
 
     /**

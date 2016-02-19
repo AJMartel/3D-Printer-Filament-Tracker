@@ -169,13 +169,13 @@ public class FileIO {
      */
     public synchronized static void migrateFile() throws IOException {
         if (System.getProperty("os.name").contains("Windows")) {
-            if (!new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt").isFile()){
-                if (!new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker").isDirectory())
-                    new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker").mkdirs();
+            if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/FilamentInfo.txt").isFile()){
+                if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker").isDirectory())
+                    new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker").mkdirs();
                 if (new File("FilamentInfo.txt").isFile())
-                    Files.copy(Paths.get("FilamentInfo.txt"), Paths.get(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt"));
+                    Files.copy(Paths.get("FilamentInfo.txt"), Paths.get(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/FilamentInfo.txt"));
             }
-            fileName = new File(System.getenv("APPDATA") + "/../Local/3D Printer Filament Tracker/FilamentInfo.txt");
+            fileName = new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/FilamentInfo.txt");
         }
     }
 }
