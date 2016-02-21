@@ -30,7 +30,6 @@
  * DONE *** move filament.txt to a folder in appdata/local folder
  * DONE *** make reports folder in local, move generated report to there
  * DONE *** make menuitem to open folder location
- * comment out options stuff and test then release
  * 
  * Version 1.3
  * DONE *** Add % used to each print
@@ -238,7 +237,7 @@ public class Main extends JFrame {
         mainMenuBar.add(editMenuBar);
         editMenuBar.add(addFilamentMenuItem);
         editMenuBar.add(addPrintMenuItem);
-        editMenuBar.add(settingstMenuItem);
+        //editMenuBar.add(settingstMenuItem);
         mainMenuBar.add(helpMenuBar);
         helpMenuBar.add(updateMenuItem);
         helpMenuBar.add(changeLogMenuItem);

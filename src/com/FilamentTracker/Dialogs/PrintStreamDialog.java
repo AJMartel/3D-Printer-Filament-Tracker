@@ -84,7 +84,7 @@ public class PrintStreamDialog extends JFrame {
         addPrintButton.setBounds(222, 161, 138, 23);
         addPrintButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                for (int index : list.getSelectedIndices()) {
+                for (int index : list.getSelectedIndices()) { // add checks if filament is over the amount left
                     Print print = AutoImportGCode.printStream.get(index);
                     Main.filaments.get(filamentComboBox.getSelectedIndex()).addPrint(print.getDate(), print.getDescription(), print.getAmountUsed());
                     Main.saveNeeded = true;
