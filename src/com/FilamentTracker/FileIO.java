@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 import com.FilamentTracker.Dialogs.AddFilamentDialog;
+import com.FilamentTracker.Dialogs.SettingsDialog;
 
 /**
  * FILENAME:    FileIO.java 
@@ -35,7 +36,7 @@ public class FileIO {
     public synchronized static void initializeObjects() throws IOException {
         String line;
         boolean updateFile = true;
-        
+                
         migrateFile();
         
         try {

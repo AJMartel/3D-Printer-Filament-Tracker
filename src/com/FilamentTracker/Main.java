@@ -18,6 +18,9 @@
  *      -Location of info and reports files.
  *      -Autosave on/off or time 
  * Add tooltips for the buttons
+ * Add log4j2 logging/ settings option to log
+ * Make a OS specific class that keeps track of OS specific variables (i.e. file locations)
+ * save file for print stream, incase program is exited and the stream items are not removed/added to filament
  *      
  * Version 1.4
  * DONE *** Fix locations of icons (point to com/... folder) so I don't have two of each image in my repo.
@@ -237,7 +240,7 @@ public class Main extends JFrame {
         mainMenuBar.add(editMenuBar);
         editMenuBar.add(addFilamentMenuItem);
         editMenuBar.add(addPrintMenuItem);
-        //editMenuBar.add(settingstMenuItem);
+        editMenuBar.add(settingstMenuItem);
         mainMenuBar.add(helpMenuBar);
         helpMenuBar.add(updateMenuItem);
         helpMenuBar.add(changeLogMenuItem);
