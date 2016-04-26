@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 /**
- * FILENAME:    ChangelogDialog.java 
+ * FILENAME:    ChangelogDialog.java<P>
  * DESCRIPTION: This class creates and opens the changelog for the versions of the program.
  * 
  * @author Andrew Comer
@@ -50,7 +50,7 @@ public class ChangelogDialog extends JFrame {
                                                     + "* Various code improvements.\n";
 
     /**
-     * FUNCTION:    Changelog 
+     * FUNCTION:    Changelog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame

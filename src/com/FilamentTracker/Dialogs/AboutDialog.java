@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * FILENAME:    AboutDialog.java 
+ * FILENAME:    AboutDialog.java<P>
  * DESCRIPTION: This class creates and opens the about dialog.
  * 
  * @author Andrew Comer
@@ -33,7 +33,7 @@ public class AboutDialog extends JFrame {
     private final JPanel        nameAndVersionPanel = new JPanel();
 
     /**
-     * FUNCTION:    aboutDialog 
+     * FUNCTION:    aboutDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame

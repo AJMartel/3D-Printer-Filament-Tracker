@@ -3,7 +3,7 @@ package com.FilamentTracker;
 import java.util.Date;
 
 /**
- * FILENAME:    AutoSave.java 
+ * FILENAME:    AutoSave.java<P>
  * DESCRIPTION: This class saves the info file if needed every 5 minute.
  *
  * @author Andrew Comer
@@ -12,7 +12,7 @@ import java.util.Date;
 public class AutoSave extends Thread {
 
     /**
-     * FUNCTION:    run 
+     * FUNCTION:    run<P>
      * PURPOSE:     Thread to check if the info file needs to be saved every 5 minutes.
      */
     public void run() {

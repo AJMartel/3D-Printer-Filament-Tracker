@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 /**
- * FILENAME:    Export.java
+ * FILENAME:    Export.java<P>
  * DESCRIPTION: This class exports all the data in the table to a HTML or text file.
  *
  * @author Andrew Comer
@@ -24,7 +24,7 @@ public class Export {
     private static String       separator           =  "====================================================================================================";
        
     /**
-     * FUNCTION:    exportToHTML 
+     * FUNCTION:    exportToHTML<P>
      * PURPOSE:     Exports the data to a HTML file.
      */
     public static void exportToHTML() {
@@ -106,7 +106,7 @@ public class Export {
             
             
     /**
-     * FUNCTION:    createCSSFiles
+     * FUNCTION:    createCSSFiles<P>
      * PURPOSE:     Creates the CSS files to format the HTML file.
      */
     public static void createCSSFiles() {
@@ -212,7 +212,7 @@ public class Export {
     }
 
     /**
-     * FUNCTION:    exportToHTML
+     * FUNCTION:    exportToHTML<P>
      * PURPOSE:     Exports the data to a text file.
      */
     public static void exportToText() {

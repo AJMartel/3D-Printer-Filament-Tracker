@@ -23,7 +23,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * FILENAME:    SettingsDialog.java 
+ * FILENAME:    SettingsDialog.java<P>
  * DESCRIPTION: This class creates and opens the settings dialog.
  * 
  * @author Andrew Comer
@@ -46,7 +46,7 @@ public class SettingsDialog extends JFrame {
     JSeparator separator_1 = new JSeparator();
 
     /**
-     * FUNCTION:    SettingsDialog 
+     * FUNCTION:    SettingsDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame

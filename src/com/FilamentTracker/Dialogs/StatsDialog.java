@@ -32,7 +32,7 @@ import com.FilamentTracker.Main;
 import com.FilamentTracker.Print;
 
 /**
- * FILENAME:    StatsDialog.java 
+ * FILENAME:    StatsDialog.java<P>
  * DESCRIPTION: This class creates and opens the stats dialog.
  * 
  * @author Andrew Comer
@@ -60,7 +60,7 @@ public class StatsDialog extends JFrame {
     private int                     titleState2             = 0;
 
     /**
-     * FUNCTION:    StatsDialog 
+     * FUNCTION:    StatsDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame
@@ -179,7 +179,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    populateStats 
+     * FUNCTION:    populateStats<P>
      * PURPOSE:     Populates the stats test areas.
      */
     public void populateStats() {
@@ -201,7 +201,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    getNumberCostOfPrints 
+     * FUNCTION:    getNumberCostOfPrints<P>
      * PURPOSE:     Gets the number of prints and the cost of prints.
      * 
      * @param index Index of the printsPerYear array list to start at
@@ -215,7 +215,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    getHighestPrintCostCount 
+     * FUNCTION:    getHighestPrintCostCount<P>
      * PURPOSE:     Gets the highest print cost and total prints.
      * 
      * @param index Index of the printsPerYear array list to start at
@@ -235,7 +235,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    initializeArrayList 
+     * FUNCTION:    initializeArrayList<P>
      * PURPOSE:     Add the 0 values to the array list.
      */
     public void initializeArrayList() {
@@ -245,7 +245,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    getNewData 
+     * FUNCTION:    getNewData<P>
      * PURPOSE:     Loops through all the prints and sets the print count and cost value for each month.
      * 
      * @param year The year to find prints for
@@ -340,7 +340,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    incrementMonthCount 
+     * FUNCTION:    incrementMonthCount<P>
      * PURPOSE:     Adds each print and cost to its month totals.
      * 
      * @param month The month to add to
@@ -352,7 +352,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    resetData 
+     * FUNCTION:    resetData<P>
      * PURPOSE:     Resets the data and sets the new dataset for the graph.
      * 
      * @param year The year to reset
@@ -382,7 +382,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    resetChart 
+     * FUNCTION:    resetChart<P>
      * PURPOSE:     Creates a new graph with new data
      * 
      * @param year The year to get data for
@@ -424,7 +424,7 @@ public class StatsDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    refreshChart 
+     * FUNCTION:    refreshChart<P>
      * PURPOSE:     Refreshes the graph to show the new one with new data.
      * 
      * @param graphPanel The panel the graph is on

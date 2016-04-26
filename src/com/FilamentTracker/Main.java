@@ -124,7 +124,7 @@ import com.FilamentTracker.Dialogs.StatsDialog;
 import com.toedter.calendar.JDateChooser;
 
 /**
- * FILENAME:    Main.java 
+ * FILENAME:    Main.java<P>
  * DESCRIPTION: This is the main class for the program.
  * 
  * @author Andrew Comer
@@ -133,7 +133,7 @@ import com.toedter.calendar.JDateChooser;
 public class Main extends JFrame {
 
     /**
-     * FUNCTION:    main 
+     * FUNCTION:    main<P>
      * PURPOSE:     Creates the main frame
      * 
      * @param args Input arguments
@@ -199,7 +199,7 @@ public class Main extends JFrame {
     private static int                 selectedRow;
 
     /**
-     * FUNCTION:    Main 
+     * FUNCTION:    Main<P>
      * PURPOSE:     populates the main frame of the component.
      * 
      * @throws IOException
@@ -513,7 +513,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    updateTable 
+     * FUNCTION:    updateTable<P>
      * PURPOSE:     Generates the table form the filaments object
      */
     public static void updateTable() {
@@ -532,7 +532,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    setRemainingFilament 
+     * FUNCTION:    setRemainingFilament<P>
      * PURPOSE:     Determines and sets the length/percent remaining for all filament objects.
      * 
      * @param filament Filament object
@@ -550,7 +550,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    addPrint 
+     * FUNCTION:    addPrint<P>
      * PURPOSE:     Creates a new print for a selected filament.
      * 
      * @param filamentIndex Index of the filament used
@@ -569,7 +569,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    updatePrintArea 
+     * FUNCTION:    updatePrintArea<P>
      * PURPOSE:     Updates the print information area with prints done by the selected filament.
      */
     public static void updatePrintArea() {
@@ -579,7 +579,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    updateTableColors 
+     * FUNCTION:    updateTableColors<P>
      * PURPOSE:     Updates the each row color to indicate the filament level.
      * 
      * @param table Filament table.
@@ -604,7 +604,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    closingSave 
+     * FUNCTION:    closingSave<P>
      * PURPOSE:     Prompts the user to save the file if necessary.
      */
     private void closingSave() {
@@ -640,7 +640,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * FUNCTION:    checkForUpdates 
+     * FUNCTION:    checkForUpdates<P>
      * PURPOSE:     Checks if a newer version of the program is available and informs the user if so.
      * 
      * @throws IOException
@@ -668,7 +668,7 @@ public class Main extends JFrame {
     }
     
     /**
-     * FUNCTION:    tray 
+     * FUNCTION:    tray<P>
      * PURPOSE:     In charge of all the tray operations.
      */
     private void tray() {

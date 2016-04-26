@@ -19,7 +19,7 @@ import com.FilamentTracker.Main;
 import com.FilamentTracker.Print;
 
 /**
- * FILENAME:    AboutDialog.java 
+ * FILENAME:    AboutDialog.java<P>
  * DESCRIPTION: This class creates and opens the about dialog.
  * 
  * @author Andrew Comer
@@ -37,7 +37,7 @@ public class PrintStreamDialog extends JFrame {
     private static DefaultListModel<String> model               = new DefaultListModel<String>();
 
     /**
-     * FUNCTION:    aboutDialog 
+     * FUNCTION:    aboutDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame
@@ -102,7 +102,7 @@ public class PrintStreamDialog extends JFrame {
     }
     
     /**
-     * FUNCTION:    populateList 
+     * FUNCTION:    populateList<P>
      * PURPOSE:     Populates the list with print stream entries.
      */
     public void populateList() {
@@ -114,7 +114,7 @@ public class PrintStreamDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    updateList 
+     * FUNCTION:    updateList<P>
      * PURPOSE:     Updates the list with new entries.
      */
     public static void updateList() {
@@ -124,7 +124,7 @@ public class PrintStreamDialog extends JFrame {
     }
     
     /**
-     * FUNCTION:    removeSelected 
+     * FUNCTION:    removeSelected<P>
      * PURPOSE:     Removes selected items from the list.
      */
     public void removeSelected() {

@@ -23,7 +23,7 @@ import com.FilamentTracker.Print;
 import com.toedter.calendar.JDateChooser;
 
 /**
- * FILENAME:    AddPrintDialog.java 
+ * FILENAME:    AddPrintDialog.java<P>
  * DESCRIPTION: This class creates and opens the add/edit/delete print dialog.
  * 
  * @author Andrew Comer
@@ -50,7 +50,7 @@ public class AddPrintDialog extends JFrame {
     private Boolean             hasErrors;
 
     /**
-     * FUNCTION:    AddPrintDialog 
+     * FUNCTION:    AddPrintDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame
@@ -125,8 +125,10 @@ public class AddPrintDialog extends JFrame {
                 hasErrors = false;
                 errorMessage = "";
 
-                if (Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getPRemaining() == 0.0)
-                    errorMessage(1);
+                if (!forEdit){
+                    if (Main.filaments.get(filamentUsedComboBox.getSelectedIndex()).getPRemaining() == 0.0)
+                        errorMessage(1);
+                }
 
                 if (date.getDate() == null)
                     errorMessage(2);
@@ -216,7 +218,7 @@ public class AddPrintDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    errorMessage 
+     * FUNCTION:    errorMessage<P>
      * PURPOSE:     Alert the user of any errors
      * 
      * @param flag Number for specific error message

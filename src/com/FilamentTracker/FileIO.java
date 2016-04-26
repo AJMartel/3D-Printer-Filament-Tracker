@@ -17,7 +17,7 @@ import com.FilamentTracker.Dialogs.AddFilamentDialog;
 import com.FilamentTracker.Dialogs.SettingsDialog;
 
 /**
- * FILENAME:    FileIO.java 
+ * FILENAME:    FileIO.java<P>
  * DESCRIPTION: This class controls all the save file input/output actions.
  * 
  * @author Andrew Comer
@@ -28,7 +28,7 @@ public class FileIO {
     private static File fileName = new File("FilamentInfo.txt");
 
     /**
-     * FUNCTION:    initializeObjects 
+     * FUNCTION:    initializeObjects<P>
      * PURPOSE:     Reads information from the save file into Filament and Print objects.
      * 
      * @throws IOException
@@ -104,7 +104,7 @@ public class FileIO {
     }
 
     /**
-     * FUNCTION:    save 
+     * FUNCTION:    save<P>
      * PURPOSE:     Reads information from the Filament and Print objects into a save file.
      */
     public synchronized static void save() {
@@ -146,7 +146,7 @@ public class FileIO {
     }
 
     /**
-     * FUNCTION:    updateSaveFile 
+     * FUNCTION:    updateSaveFile<P>
      * PURPOSE:     Updates the save file to be used with a newer version of the program.
      */
     public synchronized static void updateSaveFile() {
@@ -163,7 +163,7 @@ public class FileIO {
     }
     
     /**
-     * FUNCTION:    migrateFile 
+     * FUNCTION:    migrateFile<P>
      * PURPOSE:     Moves the info file from the current directory to the local directory.
      * 
      * @throws IOException 

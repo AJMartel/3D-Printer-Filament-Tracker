@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * FILENAME:    Filament.java 
+ * FILENAME:    Filament.java<P>
  * DESCRIPTION: This class contains the Filament object that holds all information about the filaments.
  * 
  * @author Andrew Comer
@@ -23,7 +23,7 @@ public class Filament {
     private ArrayList<Print>    print = new ArrayList<Print>();
 
     /**
-     * FUNCTION:    Filament 
+     * FUNCTION:    Filament<P>
      * PURPOSE:     Constructor.
      * 
      * @param index The index of the new filament
@@ -43,7 +43,7 @@ public class Filament {
     }
 
     /**
-     * FUNCTION:    Filament 
+     * FUNCTION:    Filament<P>
      * PURPOSE:     Constructor.
      * 
      * @param index The index of the new filament
@@ -87,7 +87,7 @@ public class Filament {
     public void setPRemaining(Double pRemaining) { this.pRemaining = pRemaining; }
 
     /**
-     * FUNCTION:    addPrint 
+     * FUNCTION:    addPrint<P>
      * PURPOSE:     Adds a new print to the filament.
      * 
      * @param date The date of the print
@@ -99,7 +99,7 @@ public class Filament {
     }
 
     /**
-     * FUNCTION:    getPrints 
+     * FUNCTION:    getPrints<P>
      * PURPOSE:     Returns a string with print information to be shown to the user.
      * 
      * @return String A string of all the prints

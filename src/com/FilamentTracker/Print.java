@@ -1,7 +1,7 @@
 package com.FilamentTracker;
 
 /**
- * FILENAME:    Print.java 
+ * FILENAME:    Print.java<P>
  * DESCRIPTION: This class contains the Print object that holds all information about the prints of each filament.
  * 
  * @author Andrew Comer
@@ -14,7 +14,7 @@ public class Print {
     private double amountUsed;
 
     /**
-     * FUNCTION:    Print 
+     * FUNCTION:    Print<P>
      * PURPOSE:     Constructor.
      *
      * @param date The date the print occurred

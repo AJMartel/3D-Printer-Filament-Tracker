@@ -19,7 +19,7 @@ import com.FilamentTracker.FileIO;
 import com.FilamentTracker.Main;
 
 /**
- * FILENAME:    AddFilamentDialog.java 
+ * FILENAME:    AddFilamentDialog.java<P>
  * DESCRIPTION: This class creates and opens the add/edit filament dialog.
  * 
  * @author Andrew Comer
@@ -54,7 +54,7 @@ public class AddFilamentDialog extends JFrame {
     private Boolean                 customField;
 
     /**
-     * FUNCTION:    AddFilamentDialog 
+     * FUNCTION:    AddFilamentDialog<P>
      * PURPOSE:     Constructor.
      * 
      * @param x X coordinate of the main frame
@@ -358,7 +358,7 @@ public class AddFilamentDialog extends JFrame {
     }
 
     /**
-     * FUNCTION:    errorMessage 
+     * FUNCTION:    errorMessage<P>
      * PURPOSE:     Alert the user of any errors
      * 
      * @param flag Number for specific error message
