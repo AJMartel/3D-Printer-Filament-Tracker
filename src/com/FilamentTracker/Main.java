@@ -86,6 +86,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -96,6 +97,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -130,7 +132,8 @@ import com.toedter.calendar.JDateChooser;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class Main extends JFrame {
+public class Main extends JFrame
+{
 
     /**
      * FUNCTION:    main<P>
@@ -138,73 +141,88 @@ public class Main extends JFrame {
      * 
      * @param args Input arguments
      */
-    public static void main(final String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
+    public static void main(final String[] args)
+    {
+        EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    final Main frame = new Main();
-                    frame.setVisible(true);
-                    frame.setResizable(false);
-                } catch (final Exception e) {
+                    if (args.length > 0)
+                    {
+                        final Main frame = new Main(1);
+                        frame.setResizable(false);
+                    }
+                    else
+                    {
+                        final Main frame = new Main(0);
+                        frame.setResizable(false);
+                    }
+                }
+                catch (final Exception e)
+                {
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    private static final long          serialVersionUID         = 1L;
-    private final JMenuBar             mainMenuBar              = new JMenuBar();
-    private final JMenu                fileMenuBar              = new JMenu("File");
-    private final JMenu                exportMenuBar            = new JMenu("Export");
-    private final JMenu                editMenuBar              = new JMenu("Edit");
-    private final JMenu                helpMenuBar              = new JMenu("Help");
-    private final JMenuItem            saveMenuItem             = new JMenuItem("Save", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Save_Icon.png") : new ImageIcon(getClass().getResource("Save_Icon.png")));
-    private final JMenuItem            openFolderMenuItem       = new JMenuItem("Open Local Folder", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Open_Folder_Icon.png") : new ImageIcon(getClass().getResource("Open_Folder_Icon.png")));
-    private final JMenuItem            printStreamMenuItem      = new JMenuItem("Print Stream", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Stream_Icon.png") : new ImageIcon(getClass().getResource("Print_Stream_Icon.png")));
-    private final JMenuItem            statsMenuItem            = new JMenuItem("Stats", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Stats_Icon.png") : new ImageIcon(getClass().getResource("Stats_Icon.png")));
-    private final JMenuItem            exportHTMLMenuItem       = new JMenuItem("HTML File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/HTML_Icon.png") : new ImageIcon(getClass().getResource("HTML_Icon.png")));
-    private final JMenuItem            exportTextMenuItem       = new JMenuItem("Text File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Text_Icon.png") : new ImageIcon(getClass().getResource("Text_Icon.png")));
-    private final JMenuItem            exitMenuItem             = new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
-    private final JMenuItem            addFilamentMenuItem      = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
-    private final JMenuItem            addPrintMenuItem         = new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
-    private final JMenuItem            settingstMenuItem        = new JMenuItem("Settings", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
-    private final JMenuItem            updateMenuItem           = new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
-    private final JMenuItem            changeLogMenuItem        = new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Changelog_Icon.png") : new ImageIcon(getClass().getResource("Changelog_Icon.png")));
-    private final JMenuItem            aboutMenuItem            = new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
-    private final JPopupMenu           popupMenu                = new JPopupMenu();
-    private final JMenuItem            editPopupMenuItem        = new JMenuItem("Edit Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Filament_Icon.png") : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")));
-    private final JMenuItem            deletePopupMenuItem      = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Delete_Icon.png") : new ImageIcon(getClass().getResource("Delete_Icon.png")));
-    private final JMenuItem            addPrintPopupMenuItem    = new JMenuItem("Add Print", addPrintMenuItem.getIcon());
-    private final JMenuItem            editPrintPopupMenuItem   = new JMenuItem("Edit Prints", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Print_Icon.png") : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")));
-    private final JSeparator           separator1               = new JSeparator();
-    private final JSeparator           separator2               = new JSeparator();
-    private static JLabel              printInfoLabel           = new JLabel("");
-    private final JLabel               donationLabel            = new JLabel("Donations");
-    public static JLabel               autoSaveLabel            = new JLabel("");
-    private final JScrollPane          tableScrollPane          = new JScrollPane();
-    private final JScrollPane          printScrollPane          = new JScrollPane();
-    public final static JTable         filamentTable            = new JTable();
-    private final JTextArea            printHeaderTextArea      = new JTextArea();
-    private final static JTextArea     printsTextArea           = new JTextArea();
-    public static ArrayList<Filament>  filaments                = new ArrayList<Filament>();
-    public static NumberFormat         percentFormat            = NumberFormat.getPercentInstance();
-    public static NumberFormat         numberFormat             = new DecimalFormat("#0.00");
-    public static NumberFormat         costFormat               = new DecimalFormat("$#0.00");
-    private static boolean             tableMade                = false;
-    public static int                  index                    = -1;
-    public static TrayIcon             trayIcon;
-    public static boolean              saveNeeded;
-    private static DefaultTableModel   tableModel;
-    private static int                 selectedRow;
+    private static final long         serialVersionUID       = 1L;
+    private final JMenuBar            mainMenuBar            = new JMenuBar();
+    private final JMenu               fileMenuBar            = new JMenu("File");
+    private final JMenu               exportMenuBar          = new JMenu("Export");
+    private final JMenu               editMenuBar            = new JMenu("Edit");
+    private final JMenu               helpMenuBar            = new JMenu("Help");
+    private final JMenuItem           saveMenuItem           = new JMenuItem("Save", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Save_Icon.png") : new ImageIcon(getClass().getResource("Save_Icon.png")));
+    private final JMenuItem           openFolderMenuItem     = new JMenuItem("Open Local Folder", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Open_Folder_Icon.png") : new ImageIcon(getClass().getResource("Open_Folder_Icon.png")));
+    private final JMenuItem           printStreamMenuItem    = new JMenuItem("Print Stream", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Stream_Icon.png") : new ImageIcon(getClass().getResource("Print_Stream_Icon.png")));
+    private final JMenuItem           statsMenuItem          = new JMenuItem("Stats", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Stats_Icon.png") : new ImageIcon(getClass().getResource("Stats_Icon.png")));
+    private final JMenuItem           exportHTMLMenuItem     = new JMenuItem("HTML File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/HTML_Icon.png") : new ImageIcon(getClass().getResource("HTML_Icon.png")));
+    private final JMenuItem           exportTextMenuItem     = new JMenuItem("Text File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Text_Icon.png") : new ImageIcon(getClass().getResource("Text_Icon.png")));
+    private final JMenuItem           exitMenuItem           = new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
+    private final JMenuItem           addFilamentMenuItem    = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
+    private final JMenuItem           addPrintMenuItem       = new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
+    private final JMenuItem           settingstMenuItem      = new JMenuItem("Settings", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
+    private final JMenuItem           updateMenuItem         = new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
+    private final JMenuItem           changeLogMenuItem      = new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Changelog_Icon.png") : new ImageIcon(getClass().getResource("Changelog_Icon.png")));
+    private final JMenuItem           aboutMenuItem          = new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
+    private final JPopupMenu          popupMenu              = new JPopupMenu();
+    private final JMenuItem           editPopupMenuItem      = new JMenuItem("Edit Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Filament_Icon.png") : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")));
+    private final JMenuItem           deletePopupMenuItem    = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Delete_Icon.png") : new ImageIcon(getClass().getResource("Delete_Icon.png")));
+    private final JMenuItem           addPrintPopupMenuItem  = new JMenuItem("Add Print", addPrintMenuItem.getIcon());
+    private final JMenuItem           editPrintPopupMenuItem = new JMenuItem("Edit Prints", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Print_Icon.png") : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")));
+    private final JSeparator          separator1             = new JSeparator();
+    private final JSeparator          separator2             = new JSeparator();
+    private static JLabel             printInfoLabel         = new JLabel("");
+    private final JLabel              donationLabel          = new JLabel("Donations");
+    public static JLabel              autoSaveLabel          = new JLabel("");
+    private final JScrollPane         tableScrollPane        = new JScrollPane();
+    private final JScrollPane         printScrollPane        = new JScrollPane();
+    public final static JTable        filamentTable          = new JTable();
+    private final JTextArea           printHeaderTextArea    = new JTextArea();
+    private final static JTextArea    printsTextArea         = new JTextArea();
+    public static ArrayList<Filament> filaments              = new ArrayList<Filament>();
+    public static NumberFormat        percentFormat          = NumberFormat.getPercentInstance();
+    public static NumberFormat        numberFormat           = new DecimalFormat("#0.00");
+    public static NumberFormat        costFormat             = new DecimalFormat("$#0.00");
+    private static boolean            tableMade              = false;
+    public static int                 index                  = -1;
+    public static TrayIcon            trayIcon;
+    public static boolean             saveNeeded;
+    private static DefaultTableModel  tableModel;
+    private static int                selectedRow;
 
     /**
      * FUNCTION:    Main<P>
      * PURPOSE:     populates the main frame of the component.
      * 
+     * @param trayMode Runs the program and immediately puts it in the tray.
      * @throws IOException
      */
-    public Main() throws IOException {
+    public Main(int trayMode) throws IOException
+    {
         setTitle("3D Printer Filament Tracker " + AboutDialog.VERSION);
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Filament_Icon.png")).getImage());
         setResizable(false);
@@ -214,14 +232,16 @@ public class Main extends JFrame {
 
         percentFormat.setMinimumFractionDigits(2);
 
-        addWindowListener(new WindowListener() {
-            public void windowOpened(WindowEvent arg0) {}
-            public void windowClosed(WindowEvent arg0) {}
-            public void windowIconified(WindowEvent arg0) {}
-            public void windowActivated(WindowEvent arg0) {}
-            public void windowDeiconified(WindowEvent arg0) {}
-            public void windowDeactivated(WindowEvent arg0) {}
-            public void windowClosing(WindowEvent arg0) {
+        addWindowListener(new WindowListener()
+        {
+            public void windowOpened(WindowEvent arg0){}
+            public void windowClosed(WindowEvent arg0){}
+            public void windowIconified(WindowEvent arg0){}
+            public void windowActivated(WindowEvent arg0){}
+            public void windowDeiconified(WindowEvent arg0){}
+            public void windowDeactivated(WindowEvent arg0){}
+            public void windowClosing(WindowEvent arg0)
+            {
                 closingSave();
             }
         });
@@ -249,7 +269,7 @@ public class Main extends JFrame {
         // Menu bar mnemonics and accelerators
         saveMenuItem.setMnemonic(KeyEvent.VK_S);
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
-        
+
         openFolderMenuItem.setMnemonic(KeyEvent.VK_L);
         openFolderMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.ALT_MASK));
 
@@ -287,91 +307,134 @@ public class Main extends JFrame {
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
 
         // Menu item action listeners
-        saveMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        saveMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 FileIO.save();
             }
         });
-        openFolderMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
-                try {
-                    Desktop.getDesktop().open(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker"));
-                } catch (IOException e) {
+        openFolderMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
+                try
+                {
+                    Desktop.getDesktop().open(new File(OSSpecificVariables.windowsMainDirectory));
+                }
+                catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }
         });
-        printStreamMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        printStreamMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final PrintStreamDialog printStreamDialog = new PrintStreamDialog(getX(), getY());
                 printStreamDialog.setVisible(true);
             }
         });
-        statsMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        statsMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final StatsDialog statsDialog = new StatsDialog(getX(), getY());
                 statsDialog.setVisible(true);
             }
         });
-        exportHTMLMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        exportHTMLMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 Export.exportToHTML();
             }
         });
-        exportTextMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        exportTextMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 Export.exportToText();
             }
         });
-        exitMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        exitMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 closingSave();
             }
         });
-        addFilamentMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        addFilamentMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final AddFilamentDialog addFilamentDialog = new AddFilamentDialog(getX(), getY(), false, -1);
                 addFilamentDialog.setVisible(true);
             }
         });
-        addPrintMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        addPrintMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), false, -1);
                 addPrintDialog.setVisible(true);
             }
         });
-        settingstMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
-                final SettingsDialog settingsDialog = new SettingsDialog(getX(), getY());
-                settingsDialog.setVisible(true);
-            }
-        });
-        updateMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
-                try {
-                    checkForUpdates();
-                } catch (IOException e) {
+        settingstMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
+                try
+                {
+                    SettingsDialog settingsDialog;
+                    settingsDialog = new SettingsDialog(getX(), getY());
+                    settingsDialog.setVisible(true);
+                }
+                catch (FileNotFoundException e)
+                {
                     e.printStackTrace();
                 }
             }
         });
-        changeLogMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        updateMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
+                try
+                {
+                    checkForUpdates();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        changeLogMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final ChangelogDialog ChangelogDialog = new ChangelogDialog(getX(), getY());
                 ChangelogDialog.setVisible(true);
             }
         });
-        aboutMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent arg0) {
+        aboutMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(final ActionEvent arg0)
+            {
                 final AboutDialog AboutDialog = new AboutDialog(getX(), getY());
                 AboutDialog.setVisible(true);
             }
         });
 
         // Filament Table
-        filamentTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Index", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Length Remaining", "% Remaining", "Filament Cost" }) {
+        filamentTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Index", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Length Remaining", "% Remaining", "Filament Cost" })
+        {
             private static final long serialVersionUID = 1L;
-            public boolean isCellEditable(int row, int column) {
+
+            public boolean isCellEditable(int row, int column)
+            {
                 return false;
             }
         });
@@ -382,26 +445,30 @@ public class Main extends JFrame {
         tableScrollPane.setViewportView(filamentTable);
 
         // Set widths of each column in the table
-        filamentTable.getColumnModel().getColumn(0).setPreferredWidth(40);  // Index
+        filamentTable.getColumnModel().getColumn(0).setPreferredWidth(40); // Index
         filamentTable.getColumnModel().getColumn(1).setPreferredWidth(145); // Name
-        filamentTable.getColumnModel().getColumn(2).setPreferredWidth(90);  // Type
+        filamentTable.getColumnModel().getColumn(2).setPreferredWidth(90); // Type
         filamentTable.getColumnModel().getColumn(3).setPreferredWidth(100); // Weight
         filamentTable.getColumnModel().getColumn(4).setPreferredWidth(100); // Length
         filamentTable.getColumnModel().getColumn(5).setPreferredWidth(110); // Length Remaining
-        filamentTable.getColumnModel().getColumn(6).setPreferredWidth(85);  // Percent Remaining
-        filamentTable.getColumnModel().getColumn(7).setPreferredWidth(85);  // Percent Remaining
+        filamentTable.getColumnModel().getColumn(6).setPreferredWidth(85); // Percent Remaining
+        filamentTable.getColumnModel().getColumn(7).setPreferredWidth(85); // Percent Remaining
 
-        filamentTable.addMouseListener(new MouseListener() {
-            public void mouseExited(MouseEvent arg0) {}
-            public void mouseEntered(MouseEvent arg0) {
+        filamentTable.addMouseListener(new MouseListener()
+        {
+            public void mouseExited(MouseEvent arg0){}
+            public void mouseEntered(MouseEvent arg0)
+            {
                 MenuSelectionManager.defaultManager().clearSelectedPath();
             }
-            public void mouseClicked(MouseEvent arg0) {}
-            public void mouseReleased(MouseEvent arg0) {}
-            public void mousePressed(MouseEvent arg0) {
+            public void mouseClicked(MouseEvent arg0){}
+            public void mouseReleased(MouseEvent arg0){}
+            public void mousePressed(MouseEvent arg0)
+            {
                 filamentTable.setRowSelectionInterval(filamentTable.rowAtPoint(arg0.getPoint()), filamentTable.rowAtPoint(arg0.getPoint()));
                 selectedRow = filamentTable.rowAtPoint(arg0.getPoint());
-                if (SwingUtilities.isRightMouseButton(arg0)) {
+                if (SwingUtilities.isRightMouseButton(arg0))
+                {
                     editPrintPopupMenuItem.setEnabled(filaments.get(filamentTable.getSelectedRow()).getPrint().isEmpty() == true ? false : true);
                 }
                 updatePrintArea();
@@ -415,37 +482,47 @@ public class Main extends JFrame {
         popupMenu.add(addPrintPopupMenuItem);
         popupMenu.add(editPrintPopupMenuItem);
 
-        editPopupMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        editPopupMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 final AddFilamentDialog addFilamentDialog = new AddFilamentDialog(getX(), getY(), true, (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
                 addFilamentDialog.setVisible(true);
             }
         });
-        deletePopupMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        deletePopupMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 Object[] options = { "Yes", "No" };
-                switch (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + filamentTable.getValueAt(filamentTable.getSelectedRow(), 1) + " filament?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0])) {
-                case 0: // Delete
-                    filaments.remove((int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
-                    for (Filament filament : filaments) {
-                        if (filament.getIndex() > (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1)
-                            filament.setIndex(filament.getIndex() - 1);
-                    }
-                    index -= 1;
-                    updateTable();
-                    saveNeeded = true;
-                    break;
+                switch (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + filamentTable.getValueAt(filamentTable.getSelectedRow(), 1) + " filament?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]))
+                {
+                    case 0: // Delete
+                        filaments.remove((int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
+                        for (Filament filament : filaments)
+                        {
+                            if (filament.getIndex() > (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1)
+                                filament.setIndex(filament.getIndex() - 1);
+                        }
+                        index -= 1;
+                        updateTable();
+                        saveNeeded = true;
+                        break;
                 }
             }
         });
-        addPrintPopupMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        addPrintPopupMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), false, (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
                 addPrintDialog.setVisible(true);
             }
         });
-        editPrintPopupMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        editPrintPopupMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 final AddPrintDialog addPrintDialog = new AddPrintDialog(getX(), getY(), true, (int) filamentTable.getValueAt(filamentTable.getSelectedRow(), 0) - 1);
                 addPrintDialog.setVisible(true);
             }
@@ -474,15 +551,20 @@ public class Main extends JFrame {
 
         donationLabel.setForeground(Color.BLUE);
         donationLabel.setBounds(845, 493, 60, 14);
-        donationLabel.addMouseListener(new MouseListener() {
-            public void mouseReleased(MouseEvent arg0) {}
-            public void mousePressed(MouseEvent arg0) {}
-            public void mouseExited(MouseEvent arg0) {}
-            public void mouseEntered(MouseEvent arg0) {}
-            public void mouseClicked(MouseEvent arg0) {
-                try {
+        donationLabel.addMouseListener(new MouseListener()
+        {
+            public void mouseReleased(MouseEvent arg0){}
+            public void mousePressed(MouseEvent arg0){}
+            public void mouseExited(MouseEvent arg0){}
+            public void mouseEntered(MouseEvent arg0){}
+            public void mouseClicked(MouseEvent arg0)
+            {
+                try
+                {
                     Desktop.getDesktop().browse(URI.create("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CKF9ND26CTW34&lc=US&item_name=3D%20Printer%20Filament%20Tracker&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"));
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -498,6 +580,9 @@ public class Main extends JFrame {
         add(autoSaveLabel);
         add(donationLabel);
 
+        // Initialize the singleton ConfigFile object
+        com.FilamentTracker.ConfigFile.getInstance();
+        
         // Create filament objects from file and create table from objects
         FileIO.initializeObjects();
         updateTable();
@@ -510,19 +595,34 @@ public class Main extends JFrame {
 
         // Start auto import gcode thread
         new AutoImportGCode().start();
+        
+        if (trayMode == 1)
+        {
+            setVisible(false);
+            tray();
+        }
+        else
+        {
+            setVisible(true);
+        }
     }
 
     /**
      * FUNCTION:    updateTable<P>
      * PURPOSE:     Generates the table form the filaments object
      */
-    public static void updateTable() {
-        if (tableMade) {
+    public static void updateTable()
+    {
+        if (tableMade)
+        {
             for (int i = tableModel.getRowCount() - 1; i >= 0; i--)
+            {
                 tableModel.removeRow(i);
+            }
         }
         Iterator<Filament> filamentIterator = filaments.iterator();
-        while (filamentIterator.hasNext()) {
+        while (filamentIterator.hasNext())
+        {
             Filament filament = filamentIterator.next();
             setRemainingFilament(filament);
             tableModel.addRow(new Object[] { filament.getIndex() + 1, filament.getName(), filament.getType(), filament.getWeight(), numberFormat.format(filament.getLength()) + "mm", numberFormat.format(filament.getLRemaining()) + "mm", percentFormat.format(filament.getPRemaining()), filament.getCost() });
@@ -537,11 +637,13 @@ public class Main extends JFrame {
      * 
      * @param filament Filament object
      */
-    private static void setRemainingFilament(Filament filament) {
+    private static void setRemainingFilament(Filament filament)
+    {
         Double totalAmountUsed = 0.0;
         filament.setLRemaining(filament.getLength());
         Iterator<Print> printIterator = filament.getPrint().iterator();
-        while (printIterator.hasNext()) {
+        while (printIterator.hasNext())
+        {
             Print print = printIterator.next();
             totalAmountUsed += print.getAmountUsed();
         }
@@ -558,11 +660,15 @@ public class Main extends JFrame {
      * @param description Short description of the print
      * @param amountUsed Amount of filament used during print
      */
-    public static void addPrint(int filamentIndex, JDateChooser date, String description, double amountUsed) {
+    public static void addPrint(int filamentIndex, JDateChooser date, String description, double amountUsed)
+    {
         filaments.get(filamentIndex).addPrint(date.getDate().toString().substring(0, 3) + "," + date.getDate().toString().substring(3, 10) + "," + date.getDate().toString().substring(23, 28), description, amountUsed);
-        if (filamentTable.getSelectedRow() != -1) {
+        if (filamentTable.getSelectedRow() != -1)
+        {
             if (filamentIndex == Integer.parseInt(filamentTable.getValueAt(filamentTable.getSelectedRow(), 0).toString()) - 1)
+            {
                 updatePrintArea();
+            }
         }
         saveNeeded = true;
         updateTable();
@@ -572,7 +678,8 @@ public class Main extends JFrame {
      * FUNCTION:    updatePrintArea<P>
      * PURPOSE:     Updates the print information area with prints done by the selected filament.
      */
-    public static void updatePrintArea() {
+    public static void updatePrintArea()
+    {
         printInfoLabel.setText("Prints for " + filaments.get(selectedRow).getName() + " Filament.");
         printsTextArea.setText(filaments.get(Integer.parseInt(filamentTable.getValueAt(selectedRow, 0).toString()) - 1).getPrints());
         printsTextArea.setCaretPosition(0);
@@ -584,20 +691,32 @@ public class Main extends JFrame {
      * 
      * @param table Filament table.
      */
-    private static void updateTableColors(final JTable table) {
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+    private static void updateTableColors(final JTable table)
+    {
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
+        {
             private static final long serialVersionUID = 1L;
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col)
+            {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
                 double percentLeft = Double.parseDouble(filamentTable.getValueAt(row, 6).toString().replaceAll("[^\\d.-]", ""));
-                if (percentLeft > 50.0) {
+                if (percentLeft > 50.0)
+                {
                     setBackground(Color.GREEN);
-                } else if (percentLeft > 20.0) {
+                }
+                else if (percentLeft > 20.0)
+                {
                     setBackground(Color.YELLOW);
-                } else if (percentLeft > 0.0) {
+                }
+                else if (percentLeft > 0.0)
+                {
                     setBackground(Color.RED);
-                } else
+                }
+                else
+                {
                     setBackground(Color.GRAY);
+                }
                 return this;
             }
         });
@@ -607,35 +726,85 @@ public class Main extends JFrame {
      * FUNCTION:    closingSave<P>
      * PURPOSE:     Prompts the user to save the file if necessary.
      */
-    private void closingSave() {
-        Object[] options = { "Minimize to tray", "Exit", "Cancel" };
-        switch (JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0])) {
-        case 0:
-            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            tray();
-            break;
-        case 1:
-            if (saveNeeded) {
-                Object[] options2 = { "Yes", "No", "Cancel" };
-                switch (JOptionPane.showOptionDialog(null, "Would you like to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0])) {
+    private void closingSave()
+    {
+        if (ConfigFile.getInstance().getPromptOnExit()) //Ask on close
+        {
+            JCheckBox checkbox = new JCheckBox("Do not show this message again.");
+            Object[] params = {"Minimize to tray", "Exit", "Cancel", new JLabel("\n"), checkbox};
+//            int n = JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]);
+//            boolean dontShow = checkbox.isSelected();
+            
+            //
+            // Will need to make own frame
+            //
+            
+            
+            switch (JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]))
+            {
                 case 0:
-                    FileIO.save();
-                    System.exit(0);
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    tray();
                     break;
                 case 1:
-                    System.exit(0);
+                    if (saveNeeded)
+                    {
+                        Object[] options2 = { "Yes", "No", "Cancel" };
+                        switch (JOptionPane.showOptionDialog(null, "Would you like to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]))
+                        {
+                            case 0:
+                                FileIO.save();
+                                System.exit(0);
+                                break;
+                            case 1:
+                                System.exit(0);
+                                break;
+                            case 2:
+                                setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        System.exit(0);
+                    }
                     break;
                 case 2:
                     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                     break;
-                }
-            } else {
-                System.exit(0);
             }
-            break;
-        case 2:
-            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-            break;
+        }
+        else
+        {
+            if (ConfigFile.getInstance().getMinimizeToTrayOnExit() == 0) // Yes
+            {
+                setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                tray();
+            }
+            else
+            {
+                if (saveNeeded)
+                {
+                    Object[] options2 = { "Yes", "No", "Cancel" };
+                    switch (JOptionPane.showOptionDialog(null, "Would you like to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]))
+                    {
+                        case 0:
+                            FileIO.save();
+                            System.exit(0);
+                            break;
+                        case 1:
+                            System.exit(0);
+                            break;
+                        case 2:
+                            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                            break;
+                    }
+                }
+                else
+                {
+                    System.exit(0);
+                }
+            }
         }
     }
 
@@ -645,34 +814,42 @@ public class Main extends JFrame {
      * 
      * @throws IOException
      */
-    private void checkForUpdates() throws IOException {
-        try {
+    private void checkForUpdates() throws IOException
+    {
+        try
+        {
             URL oracle = new URL("https://raw.githubusercontent.com/MrOwnership/3D-Printer-Filament-Tracker/master/README.md");
             BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
-            if (!(in.readLine().equals("Current Version: " + AboutDialog.VERSION))) {
+            if (!(in.readLine().equals("Current Version: " + AboutDialog.VERSION)))
+            {
                 Object[] options = { "Yes", "No" };
-                switch (JOptionPane.showOptionDialog(null, "A newer version is available.\nWould you like to download it now?", "Update Available", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0])) {
-                case 0:
-                    Desktop.getDesktop().browse(URI.create("https://github.com/MrOwnership/3D-Printer-Filament-Tracker"));
-                    Desktop.getDesktop().browse(URI.create("http://www.thingiverse.com/thing:1190757"));
-                    System.exit(0);
-                    break;
-                case 1:
-                    break;
+                switch (JOptionPane.showOptionDialog(null, "A newer version is available.\nWould you like to download it now?", "Update Available", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]))
+                {
+                    case 0:
+                        Desktop.getDesktop().browse(URI.create("https://github.com/MrOwnership/3D-Printer-Filament-Tracker"));
+                        Desktop.getDesktop().browse(URI.create("http://www.thingiverse.com/thing:1190757"));
+                        System.exit(0);
+                        break;
+                    case 1:
+                        break;
                 }
             }
             in.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * FUNCTION:    tray<P>
      * PURPOSE:     In charge of all the tray operations.
      */
-    private void tray() {
-        if (!SystemTray.isSupported()) {
+    private void tray()
+    {
+        if (!SystemTray.isSupported())
+        {
             System.out.println("SystemTray is not supported");
             return;
         }
@@ -684,31 +861,38 @@ public class Main extends JFrame {
         MenuItem showItem = new MenuItem("Show");
         MenuItem printStreamItem = new MenuItem("Open Print Stream");
         MenuItem exitItem = new MenuItem("Exit");
-        
 
-        trayIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        trayIcon.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 tray.remove(trayIcon);
                 setVisible(true);
             }
         });
 
-        showItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        showItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 tray.remove(trayIcon);
                 setVisible(true);
             }
         });
 
-        printStreamItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        printStreamItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 final PrintStreamDialog printStreamDialog = new PrintStreamDialog(getX(), getY());
                 printStreamDialog.setVisible(true);
             }
         });
 
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        exitItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 tray.remove(trayIcon);
                 System.exit(0);
             }
@@ -721,10 +905,13 @@ public class Main extends JFrame {
 
         trayIcon.setPopupMenu(popup);
 
-        try {
+        try
+        {
             tray.add(trayIcon);
             setVisible(false);
-        } catch (AWTException e) {
+        }
+        catch (AWTException e)
+        {
             System.out.println("TrayIcon could not be added.");
         }
     }

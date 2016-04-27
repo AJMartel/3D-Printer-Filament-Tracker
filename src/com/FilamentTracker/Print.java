@@ -7,7 +7,8 @@ package com.FilamentTracker;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class Print {
+public class Print
+{
 
     private String date;
     private String description;
@@ -21,7 +22,8 @@ public class Print {
      * @param description The description of the print
      * @param amountUsed The amount of filament used in the print
      */
-    public Print(String date, String description, Double amountUsed) {
+    public Print(String date, String description, Double amountUsed)
+    {
         this.date = date;
         this.description = description;
         this.amountUsed = amountUsed;

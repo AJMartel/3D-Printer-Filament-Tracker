@@ -9,21 +9,28 @@ import java.util.Date;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class AutoSave extends Thread {
+public class AutoSave extends Thread
+{
 
     /**
      * FUNCTION:    run<P>
      * PURPOSE:     Thread to check if the info file needs to be saved every 5 minutes.
      */
-    public void run() {
-        while (true) {
-            try {
-                if (Main.saveNeeded) {
+    public void run()
+    {
+        while (true)
+        {
+            try
+            {
+                if (Main.saveNeeded)
+                {
                     FileIO.save();
                     Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
                 }
                 Thread.sleep(300000);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
         }

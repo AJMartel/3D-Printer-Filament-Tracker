@@ -20,17 +20,18 @@ import javax.swing.JPanel;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class AboutDialog extends JFrame {
+public class AboutDialog extends JFrame
+{
 
-    private static final long   serialVersionUID    = 1L;
-    public static final String  VERSION             = "v1.4";
-    private final JLabel        pictureLabel        = new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Window_Icon.png") : new ImageIcon(getClass().getResource("About_Window_Icon.png")));
-    private final JLabel        programNameLabel    = new JLabel("3D Printer Filament Tracker");
-    private final JLabel        versionLabel        = new JLabel(VERSION);
-    private final JLabel        infoLabel           = new JLabel("<html>Feel free to contact me if you have any questions or comments.</html>", JLabel.CENTER);
-    private final JLabel        emailLabel          = new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
-    private final JLabel        thingiverseLabel    = new JLabel("http://www.thingiverse.com/thing:1190757", JLabel.CENTER);
-    private final JPanel        nameAndVersionPanel = new JPanel();
+    private static final long  serialVersionUID    = 1L;
+    public static final String VERSION             = "v1.4";
+    private final JLabel       pictureLabel        = new JLabel(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Window_Icon.png") : new ImageIcon(getClass().getResource("About_Window_Icon.png")));
+    private final JLabel       programNameLabel    = new JLabel("3D Printer Filament Tracker");
+    private final JLabel       versionLabel        = new JLabel(VERSION);
+    private final JLabel       infoLabel           = new JLabel("<html>Feel free to contact me if you have any questions or comments.</html>", JLabel.CENTER);
+    private final JLabel       emailLabel          = new JLabel("AndrewJComer@yahoo.com", JLabel.CENTER);
+    private final JLabel       thingiverseLabel    = new JLabel("http://www.thingiverse.com/thing:1190757", JLabel.CENTER);
+    private final JPanel       nameAndVersionPanel = new JPanel();
 
     /**
      * FUNCTION:    aboutDialog<P>
@@ -39,7 +40,8 @@ public class AboutDialog extends JFrame {
      * @param x X coordinate of the main frame
      * @param y Y coordinate of the main frame
      */
-    public AboutDialog(int x, int y) {
+    public AboutDialog(int x, int y)
+    {
         setTitle("About 3D Printer Filament Tracker");
         setBounds((int) ((921 / 2) - (308 / 2)) + x, (int) ((546 / 2) - (301 / 2)) + y, 308, 301);
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Icon.png").getImage() : new ImageIcon(getClass().getResource("About_Icon.png")).getImage());
@@ -69,15 +71,20 @@ public class AboutDialog extends JFrame {
         thingiverseLabel.setBounds(12, 244, 276, 17);
         thingiverseLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         thingiverseLabel.setForeground(Color.BLUE);
-        thingiverseLabel.addMouseListener(new MouseListener() {
+        thingiverseLabel.addMouseListener(new MouseListener()
+        {
             public void mouseReleased(MouseEvent arg0) {}
             public void mousePressed(MouseEvent arg0) {}
             public void mouseExited(MouseEvent arg0) {}
             public void mouseEntered(MouseEvent arg0) {}
-            public void mouseClicked(MouseEvent arg0) {
-                try {
+            public void mouseClicked(MouseEvent arg0)
+            {
+                try
+                {
                     Desktop.getDesktop().browse(URI.create("http://www.thingiverse.com/thing:1190757"));
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }

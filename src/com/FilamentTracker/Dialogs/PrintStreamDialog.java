@@ -25,16 +25,17 @@ import com.FilamentTracker.Print;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class PrintStreamDialog extends JFrame {
+public class PrintStreamDialog extends JFrame
+{
 
-    private static final long               serialVersionUID    = 1L;
-    private final JTextArea                 listHeader          = new JTextArea(String.format("%-19s%-13s%s", "Date", "Amount Used", "Description"));
-    private final JScrollPane               scrollPane          = new JScrollPane();
-    public static JButton                   addPrintButton      = new JButton("Add Print");
-    public static JButton                   removePrintButton   = new JButton("Remove from stream");
-    private final JComboBox                 filamentComboBox    = new JComboBox();
-    private static JList                    list                = new JList();
-    private static DefaultListModel<String> model               = new DefaultListModel<String>();
+    private static final long               serialVersionUID  = 1L;
+    private final JTextArea                 listHeader        = new JTextArea(String.format("%-19s%-13s%s", "Date", "Amount Used", "Description"));
+    private final JScrollPane               scrollPane        = new JScrollPane();
+    public static JButton                   addPrintButton    = new JButton("Add Print");
+    public static JButton                   removePrintButton = new JButton("Remove from stream");
+    private final JComboBox<String>         filamentComboBox  = new JComboBox<String>();
+    private static JList<String>            list              = new JList<String>();
+    private static DefaultListModel<String> model             = new DefaultListModel<String>();
 
     /**
      * FUNCTION:    aboutDialog<P>
@@ -43,7 +44,8 @@ public class PrintStreamDialog extends JFrame {
      * @param x X coordinate of the main frame
      * @param y Y coordinate of the main frame
      */
-    public PrintStreamDialog(int x, int y) {
+    public PrintStreamDialog(int x, int y)
+    {
         setTitle("Print Stream");
         setBounds((int) ((921 / 2) - (533 / 2)) + x, (int) ((546 / 2) - (242 / 2)) + y, 533, 223);
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/Print_Stream_Icon.png").getImage() : new ImageIcon(getClass().getResource("Print_Stream_Icon.png")).getImage());
@@ -58,33 +60,41 @@ public class PrintStreamDialog extends JFrame {
         listHeader.setFont(new Font("Lucida Console", Font.PLAIN, 11));
         listHeader.setBackground(Color.CYAN);
         scrollPane.setColumnHeaderView(listHeader);
-        
-        
+
         removePrintButton.setBounds(374, 161, 138, 23);
-        removePrintButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+        removePrintButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
                 removeSelected();
             }
         });
-        
+
         filamentComboBox.setBounds(14, 162, 194, 20);
-        for (int i = 0; i <= Main.index; i++) {
+        for (int i = 0; i <= Main.index; i++)
+        {
             filamentComboBox.addItem(Main.filaments.get(i).getName());
             filamentComboBox.setSelectedIndex(0);
         }
-        
-        if (filamentComboBox.getItemAt(0) == null) {
+
+        if (filamentComboBox.getItemAt(0) == null)
+        {
             addPrintButton.setEnabled(false);
             removePrintButton.setEnabled(false);
-        } else {
+        }
+        else
+        {
             addPrintButton.setEnabled(true);
             removePrintButton.setEnabled(true);
         }
-        
+
         addPrintButton.setBounds(222, 161, 138, 23);
-        addPrintButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                for (int index : list.getSelectedIndices()) { // add checks if filament is over the amount left
+        addPrintButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+                for (int index : list.getSelectedIndices()) // add checks if filament is over the amount left
+                {
                     Print print = AutoImportGCode.printStream.get(index);
                     Main.filaments.get(filamentComboBox.getSelectedIndex()).addPrint(print.getDate(), print.getDescription(), print.getAmountUsed());
                     Main.saveNeeded = true;
@@ -94,20 +104,22 @@ public class PrintStreamDialog extends JFrame {
                 removeSelected();
             }
         });
-        
+
         add(addPrintButton);
         add(removePrintButton);
         add(filamentComboBox);
         add(scrollPane);
     }
-    
+
     /**
      * FUNCTION:    populateList<P>
      * PURPOSE:     Populates the list with print stream entries.
      */
-    public void populateList() {
+    public void populateList()
+    {
         model.clear();
-        for (Print print : AutoImportGCode.printStream) {
+        for (Print print : AutoImportGCode.printStream)
+        {
             model.addElement(String.format("%-19s%-13s%s", print.getDate(), print.getAmountUsed() + "mm", print.getDescription()));
         }
         list.setModel(model);
@@ -117,18 +129,23 @@ public class PrintStreamDialog extends JFrame {
      * FUNCTION:    updateList<P>
      * PURPOSE:     Updates the list with new entries.
      */
-    public static void updateList() {
+    public static void updateList()
+    {
         int index = AutoImportGCode.printStream.size() - 1;
         if (index != -1)
+        {
             model.addElement(String.format("%-19s%-13s%s", AutoImportGCode.printStream.get(index).getDate(), AutoImportGCode.printStream.get(index).getAmountUsed() + "mm", AutoImportGCode.printStream.get(index).getDescription()));
+        }
     }
-    
+
     /**
      * FUNCTION:    removeSelected<P>
      * PURPOSE:     Removes selected items from the list.
      */
-    public void removeSelected() {
-        for (int index = list.getSelectedIndices().length - 1; index >= 0; index--) {
+    public void removeSelected()
+    {
+        for (int index = list.getSelectedIndices().length - 1; index >= 0; index--)
+        {
             AutoImportGCode.printStream.remove(list.getSelectedIndices()[index]);
         }
         populateList();

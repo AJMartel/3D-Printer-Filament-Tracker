@@ -16,23 +16,28 @@ import java.util.Iterator;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class Export {
+public class Export
+{
 
-    public static  DateFormat   dateFormat          = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    private static DateFormat   saveFileDateFormat  = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-    private static Date         date                = new Date();
-    private static String       separator           =  "====================================================================================================";
-       
+    public static DateFormat  dateFormat         = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+    private static Date       date               = new Date();
+    private static String     separator          = "====================================================================================================";
+
     /**
      * FUNCTION:    exportToHTML<P>
      * PURPOSE:     Exports the data to a HTML file.
      */
-    public static void exportToHTML() {
+    public static void exportToHTML()
+    {
         if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+        {
             new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
-        
+        }
+
         createCSSFiles();
-        try {
+        try
+        {
             FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html"));
             fw.write( "<!DOCTYPE html>\n"
                     + "<html>\n"
@@ -57,7 +62,8 @@ public class Export {
                     + "            </tr>\n"
                     + "        </thead>\n");
             Iterator<Filament> filamentIterator = Main.filaments.iterator();
-            while (filamentIterator.hasNext()) {
+            while (filamentIterator.hasNext())
+            {
                 Filament filament = filamentIterator.next();
                 fw.write( "        <tr>\n"
                         + "            <th>" + filament.getName() + "</th>\n"
@@ -81,7 +87,8 @@ public class Export {
                         + "                </thead>\n"
                         + "                <tbody>\n");
                 Iterator<Print> printIterator = filament.getPrint().iterator();
-                while (printIterator.hasNext()) {
+                while (printIterator.hasNext())
+                {
                     Print print = printIterator.next();
                     fw.write( "                    <tr>\n"
                             + "                        <td>" + print.getDate() + "</td>\n"
@@ -99,7 +106,9 @@ public class Export {
                     + "</table>\n");
             fw.close();
             Desktop.getDesktop().browse(new File("C:/Users/" + System.getProperty("user.name") + "/AppData/Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html").toURI());
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -109,8 +118,10 @@ public class Export {
      * FUNCTION:    createCSSFiles<P>
      * PURPOSE:     Creates the CSS files to format the HTML file.
      */
-    public static void createCSSFiles() {
-        try {
+    public static void createCSSFiles()
+    {
+        try
+        {
             FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/style.css"));
             fw.write( "<body{\n"
                     + "    font:1.0em normal Arial,sans-serif;\n"
@@ -192,11 +203,14 @@ public class Export {
                     + "    cursor:pointer;\n"
                     + "}");
             fw.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         
-        try {
+        try
+        {
             FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/reset.css"));            
             fw.write( "html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,"
                     + "dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,"
@@ -206,7 +220,9 @@ public class Export {
                     + "block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:"
                     + "after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}");
             fw.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -215,29 +231,37 @@ public class Export {
      * FUNCTION:    exportToHTML<P>
      * PURPOSE:     Exports the data to a text file.
      */
-    public static void exportToText() {
+    public static void exportToText()
+    {
         if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+        {
             new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
-        
-        try {
+        }
+
+        try
+        {
             FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".txt"));
             fw.write(dateFormat.format(date) + "\n");
             fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");
             fw.write(String.format("%-19s%-15s%-17s%-17s%-17s", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Filament Length Remaining", "Filament Percent Remaining"));
             Iterator<Filament> filamentIterator = Main.filaments.iterator();
-            while (filamentIterator.hasNext()) {
+            while (filamentIterator.hasNext())
+            {
                 Filament filament = filamentIterator.next();
                 fw.write(String.format("\n%s\n%-19s%-15s%-17s%-17s%-17s", separator, filament.getName(), filament.getType(), filament.getWeight(), Main.numberFormat.format(filament.getLength()) + "mm", Main.numberFormat.format(filament.getLRemaining()) + "mm", Main.percentFormat.format(filament.getPRemaining())));
                 fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", "Print Date", "Amount Used", "% Used", "Cost", "Print Description"));
                 Iterator<Print> printIterator = filament.getPrint().iterator();
-                while (printIterator.hasNext()) {
+                while (printIterator.hasNext())
+                {
                     Print print = printIterator.next();
                     fw.write(String.format("\n\t%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()), Main.percentFormat.format(print.getAmountUsed() / filament.getLength()), Main.costFormat.format((print.getAmountUsed() / filament.getLength()) * Double.parseDouble(filament.getCost().replaceAll("[^\\d.-]", ""))), print.getDescription()));
                 }
             }
             fw.close();
             Desktop.getDesktop().browse(new File("C:/Users/" + System.getProperty("user.name") + "/AppData/Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".txt").toURI());
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

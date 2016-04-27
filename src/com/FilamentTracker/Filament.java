@@ -10,17 +10,18 @@ import java.util.Iterator;
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
  */
-public class Filament {
+public class Filament
+{
 
-    private String              name;
-    private String              type;
-    private String              weight;
-    private String              cost;
-    private int                 index;
-    private double              length;
-    private double              lRemaining;
-    private double              pRemaining;
-    private ArrayList<Print>    print = new ArrayList<Print>();
+    private String           name;
+    private String           type;
+    private String           weight;
+    private String           cost;
+    private int              index;
+    private double           length;
+    private double           lRemaining;
+    private double           pRemaining;
+    private ArrayList<Print> print = new ArrayList<Print>();
 
     /**
      * FUNCTION:    Filament<P>
@@ -33,7 +34,8 @@ public class Filament {
      * @param length The length of the new filament
      * @param cost The cost of the new filament
      */
-    public Filament(int index, String name, String type, String weight, Double length, String cost) {
+    public Filament(int index, String name, String type, String weight, Double length, String cost)
+    {
         this.index     = index;
         this.name     = name;
         this.type     = type;
@@ -52,7 +54,8 @@ public class Filament {
      * @param weight The weight of the new filament
      * @param length The length of the new filament
      */
-    public Filament(int index, String name, String type, String weight, Double length) {
+    public Filament(int index, String name, String type, String weight, Double length)
+    {
         this.index     = index;
         this.name     = name;
         this.type     = type;
@@ -94,7 +97,8 @@ public class Filament {
      * @param description The description of the print
      * @param used The amount of filament used
      */
-    public void addPrint(String date, String description, double used) {
+    public void addPrint(String date, String description, double used)
+    {
         print.add(new Print(date, description, used));
     }
 
@@ -104,10 +108,12 @@ public class Filament {
      * 
      * @return String A string of all the prints
      */
-    public String getPrints() {
+    public String getPrints()
+    {
         String output = "";
         Iterator<Print> printIterator = print.iterator();
-        while (printIterator.hasNext()) {
+        while (printIterator.hasNext())
+        {
             Print print = printIterator.next();
             output += String.format("%-19s%-13s%-8s%-7s%s", print.getDate(), Main.numberFormat.format(print.getAmountUsed()) + "mm", Main.percentFormat.format(print.getAmountUsed() / this.getLength()), Main.costFormat.format((print.getAmountUsed() / this.getLength()) * Double.parseDouble(this.getCost().replaceAll("[^\\d.-]", ""))), print.getDescription() + "\n");
         }
