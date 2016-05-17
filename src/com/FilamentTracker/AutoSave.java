@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * FILENAME:    AutoSave.java<P>
- * DESCRIPTION: This class saves the info file if needed every 5 minute.
+ * DESCRIPTION: This class saves the info file if needed every X minute.
  *
  * @author Andrew Comer
  * @email AndrewJComer@yahoo.com
@@ -14,7 +14,7 @@ public class AutoSave extends Thread
 
     /**
      * FUNCTION:    run<P>
-     * PURPOSE:     Thread to check if the info file needs to be saved every 5 minutes.
+     * PURPOSE:     Thread to check if the info file needs to be saved every X minutes.
      */
     public void run()
     {
@@ -27,7 +27,7 @@ public class AutoSave extends Thread
                     FileIO.save();
                     Main.autoSaveLabel.setText("Auto Save: " + new Date().toString());
                 }
-                Thread.sleep(300000);
+                Thread.sleep(ConfigFile.getInstance().getAutoSaveInterval() * 1000);
             }
             catch (InterruptedException e)
             {

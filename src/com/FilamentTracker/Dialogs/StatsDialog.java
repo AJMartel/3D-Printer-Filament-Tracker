@@ -200,9 +200,15 @@ public class StatsDialog extends JFrame
     {
         String yearStats = "", totalStats = "";
 
-        yearStats = "Total Number of Prints: \t" + (int) getNumberCostOfPrints(0) + "\nTotal Cost of Prints: \t" + Main.costFormat.format(getNumberCostOfPrints(12)) + "\nMost Prints (Month): \t" + getHighestPrintCostCount(0) + "\nHighest Cost (Month): \t" + getHighestPrintCostCount(12);
+        yearStats = "Total Number of Prints: \t" + (int) getNumberCostOfPrints(0) + 
+                    "\nTotal Cost of Prints: \t" + Main.costFormat.format(getNumberCostOfPrints(12)) + 
+                    "\nMost Prints (Month): \t" + getHighestPrintCostCount(0) + 
+                    "\nHighest Cost (Month): \t" + getHighestPrintCostCount(12);
 
-        totalStats = "Total Number of Prints: \t" + (int) getNumberCostOfPrints(24) + "\nTotal Cost of Prints: \t" + Main.costFormat.format(getNumberCostOfPrints(36)) + "\nMost Prints (Month): \t" + getHighestPrintCostCount(24) + "\nHighest Cost (Month): \t" + getHighestPrintCostCount(36);
+        totalStats = "Total Number of Prints: \t" + (int) getNumberCostOfPrints(24) + 
+                    "\nTotal Cost of Prints: \t" + Main.costFormat.format(getNumberCostOfPrints(36)) + 
+                    "\nMost Prints (Month): \t" + getHighestPrintCostCount(24) + 
+                    "\nHighest Cost (Month): \t" + getHighestPrintCostCount(36);
 
         yearStatsTextPane.setText(yearStats);
         totalStatsTextPane.setText(totalStats);
@@ -427,8 +433,7 @@ public class StatsDialog extends JFrame
                 title = "Print Count for Year " + year;
                 yAxis = "Number of Prints";
             }
-            else
-            // Total Number of prints
+            else // Total Number of prints
             {
                 title = "Total Print Count";
                 yAxis = "Number of Prints";

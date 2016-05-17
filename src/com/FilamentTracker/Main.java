@@ -731,22 +731,20 @@ public class Main extends JFrame
         if (ConfigFile.getInstance().getPromptOnExit()) //Ask on close
         {
             JCheckBox checkbox = new JCheckBox("Do not show this message again.");
-            Object[] params = {"Minimize to tray", "Exit", "Cancel", new JLabel("\n"), checkbox};
-//            int n = JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]);
-//            boolean dontShow = checkbox.isSelected();
-            
-            //
-            // Will need to make own frame
-            //
-            
-            
+            Object[] params = {"Minimize to tray", "Exit", "Cancel", checkbox};
             switch (JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]))
             {
-                case 0:
+                case 0: //Minimize to tray
+                    ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
+                    ConfigFile.getInstance().setMinimizeToTrayOnExit(0);
+                    ConfigFile.getInstance().saveConfigFile();
                     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     tray();
                     break;
-                case 1:
+                case 1: //Exit
+                    ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
+                    ConfigFile.getInstance().setMinimizeToTrayOnExit(1);
+                    ConfigFile.getInstance().saveConfigFile();
                     if (saveNeeded)
                     {
                         Object[] options2 = { "Yes", "No", "Cancel" };
@@ -769,7 +767,7 @@ public class Main extends JFrame
                         System.exit(0);
                     }
                     break;
-                case 2:
+                case 2: //Cancel
                     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                     break;
             }

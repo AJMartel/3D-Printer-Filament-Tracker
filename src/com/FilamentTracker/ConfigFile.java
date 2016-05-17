@@ -2,17 +2,20 @@ package com.FilamentTracker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class ConfigFile
 {
     public static ConfigFile configFileInstance   = null;
+
     //General
-    public int               minimizeToTrayOnExit = -1;  //0 - Yes : 1 - No : 2 - Ask
-    public boolean           promptOnExit         = true;
-    public int               autoSaveInterval     = -1;
-    public String            saveFileLocation     = "";
+    private int              minimizeToTrayOnExit = 0; //0 - Yes : 1 - No
+    private boolean          promptOnExit         = true;
+    private int              autoSaveInterval     = 5;
+    private String           saveFileLocation     = OSSpecificVariables.windowsMainDirectory;
 
     //Reports
 
@@ -22,39 +25,37 @@ public class ConfigFile
     {
         if (!new File(OSSpecificVariables.windowsConfigFileLocation).isFile())
         {
-            createConfigFile();
+            saveConfigFile();
         }
         else
         {
-            Scanner scan;
             try
             {
-                scan = new Scanner(new File(OSSpecificVariables.windowsConfigFileLocation));
-                
+                Scanner scan = new Scanner(new File(OSSpecificVariables.windowsConfigFileLocation));
                 StringTokenizer token = null;
-    
+
                 //Gets the minimize to tray property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 minimizeToTrayOnExit = Integer.parseInt(token.nextToken());
-    
+
                 //Gets the prompt on exit property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 promptOnExit = Boolean.parseBoolean(token.nextToken());
-    
+
                 //Gets the auto save interval property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 autoSaveInterval = Integer.parseInt(token.nextToken());
-    
+
                 //Gets the save file location property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 saveFileLocation = token.nextToken();
-    
+
                 scan.close();
-            
+
             }
             catch (FileNotFoundException e)
             {
@@ -80,15 +81,21 @@ public class ConfigFile
         return configFileInstance;
     }
 
-    private void createConfigFile()
-    {
-        //create the default config file
-        //maybe store it in the jar file and then just copy it to the location
-    }
-
     public void saveConfigFile()
     {
-        //save the config file when the user hits apply
+        try
+        {
+            FileWriter fw = new FileWriter(OSSpecificVariables.windowsConfigFileLocation);
+            fw.write("[Minimize to tray options]=" + minimizeToTrayOnExit + "\n");
+            fw.write("[Prompt on exit]=" + promptOnExit + "\n");
+            fw.write("[Auto save interval]=" + autoSaveInterval + "\n");
+            fw.write("[Save file location]=" + saveFileLocation + "\n");
+            fw.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public int getMinimizeToTrayOnExit(){return minimizeToTrayOnExit;}

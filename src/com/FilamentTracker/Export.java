@@ -18,7 +18,6 @@ import java.util.Iterator;
  */
 public class Export
 {
-
     public static DateFormat  dateFormat         = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     private static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
     private static Date       date               = new Date();
@@ -30,15 +29,15 @@ public class Export
      */
     public static void exportToHTML()
     {
-        if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+        if (!new File(OSSpecificVariables.windowsReportsLocation).isDirectory())
         {
-            new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
+            new File(OSSpecificVariables.windowsReportsLocation).mkdirs();
         }
 
         createCSSFiles();
         try
         {
-            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html"));
+            FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/Report_" + saveFileDateFormat.format(date) + ".html"));
             fw.write( "<!DOCTYPE html>\n"
                     + "<html>\n"
                     + "    <head>\n"
@@ -49,8 +48,8 @@ public class Export
                     + "    </head>\n"
                     + "    <date>" + dateFormat.format(date) + "</date>\n"
                     + "    <h1>" + System.getProperty("user.name") + "'s 3D Printer Filament Report</h1>\n"
-                    + "    <table class=\"blue\">\n"
-                    + "        <thead>\n"
+                    + "    <table class=\"filament\">\n"
+                    + "        <thead class=\"filamentthead\">\n"
                     + "            <tr>\n"
                     + "                <th style=\"width: 12.6%\">Filament Name</th>\n"
                     + "                <th style=\"width: 12.6%\">Filament Type</th>\n"
@@ -75,8 +74,8 @@ public class Export
                         + "            <th>" + filament.getCost() + "</th>\n"
                         + "        </tr>\n"
                         + "        <td colspan = 7>\n"
-                        + "            <table class=\"blue\">\n"
-                        + "                <thead>\n"
+                        + "            <table class=\"print\">\n"
+                        + "                <thead class=\"printthead\">\n"
                         + "                    <tr>\n"
                         + "                        <th style=\"width: 20%\">Print Date</th>\n"
                         + "                        <th style=\"width: 20%\">Amount Used</th>\n"
@@ -102,8 +101,8 @@ public class Export
                         + "            </table>\n"
                         + "        </td>\n");
             }
-            fw.write( "    </tbody>\n"
-                    + "</table>\n");
+            fw.write( "    </table>\n"
+                    + "</html>\n");
             fw.close();
             Desktop.getDesktop().browse(new File("C:/Users/" + System.getProperty("user.name") + "/AppData/Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".html").toURI());
         }
@@ -122,7 +121,7 @@ public class Export
     {
         try
         {
-            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/style.css"));
+            FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/style.css"));
             fw.write( "<body{\n"
                     + "    font:1.0em normal Arial,sans-serif;\n"
                     + "    color:#34495E;\n"
@@ -143,35 +142,30 @@ public class Export
                     + "    margin:20px 0;\n"
                     + "}\n"
                     
-                    + ".container{\n"
-                    + "    width:90%;\n"
-                    + "    margin:auto;\n"
-                    + "}\n"
-                    
                     + "table{\n"
                     + "    border-collapse:collapse;\n"
                     + "    width:95%;\n"
                     + "    margin:auto;\n"
                     + "}\n"
                     
-                    + ".blue{\n"
-                    + "    border:2px solid #1ABC9C;\n"
+                    + ".filament{\n"
+                    + "    border:2px solid #1ABC9C;\n" //boarder color
                     + "}\n"
                     
-                    + ".blue thead{\n"
-                    + "    background:#1ABC9C;\n"
+                    + ".filamentthead{\n"
+                    + "    background:#1ABC9C;\n" //fill color
                     + "}\n"
                     
-                    + ".purple{\n"
+                    + ".print{\n"
                     + "    border:2px solid #9B59B6;\n"
                     + "}\n"
                     
-                    + ".purple thead{\n"
+                    + ".printthead{\n"
                     + "    background:#9B59B6;\n"
                     + "}\n"
                     
                     + "thead{\n"
-                    + "    color:white;\n"
+                    + "    color:#FFFFFF;\n" //header text color
                     + "}\n"
                     
                     + "th,td{\n"
@@ -185,22 +179,6 @@ public class Export
                     
                     + "tbody td:nth-child(even){\n"
                     + "    background:#ECF0F1;\n"
-                    + "}\n"
-                    
-                    + ".fixed{\n"
-                    + "    top:0;\n"
-                    + "    position:fixed;\n"
-                    + "    width:auto;\n"
-                    + "    display:none;\n"
-                    + "    border:none;\n"
-                    + "}\n"
-                    
-                    + ".scrollMore{\n"
-                    + "    margin-top:600px;\n"
-                    + "}\n"
-                    
-                    + ".up{\n"
-                    + "    cursor:pointer;\n"
                     + "}");
             fw.close();
         }
@@ -208,10 +186,10 @@ public class Export
         {
             e.printStackTrace();
         }
-        
+
         try
         {
-            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/reset.css"));            
+            FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/reset.css"));            
             fw.write( "html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,"
                     + "dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,"
                     + "legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,"
@@ -233,14 +211,14 @@ public class Export
      */
     public static void exportToText()
     {
-        if (!new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").isDirectory())
+        if (!new File(OSSpecificVariables.windowsReportsLocation).isDirectory())
         {
-            new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports").mkdirs();
+            new File(OSSpecificVariables.windowsReportsLocation).mkdirs();
         }
 
         try
         {
-            FileWriter fw = new FileWriter(new File(System.getenv("APPDATA") + "/../Local/3DPrinterFilamentTracker/Reports/Report_" + saveFileDateFormat.format(date) + ".txt"));
+            FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/Report_" + saveFileDateFormat.format(date) + ".txt"));
             fw.write(dateFormat.format(date) + "\n");
             fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");
             fw.write(String.format("%-19s%-15s%-17s%-17s%-17s", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Filament Length Remaining", "Filament Percent Remaining"));
