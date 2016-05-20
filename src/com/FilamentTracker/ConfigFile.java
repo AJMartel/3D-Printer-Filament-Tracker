@@ -12,12 +12,26 @@ public class ConfigFile
     public static ConfigFile configFileInstance   = null;
 
     //General
-    private int              minimizeToTrayOnExit = 0; //0 - Yes : 1 - No
+    private int              minimizeToTrayOnExit = 0;
     private boolean          promptOnExit         = true;
     private int              autoSaveInterval     = 5;
     private String           saveFileLocation     = OSSpecificVariables.windowsMainDirectory;
 
     //Reports
+
+    //HTML Color
+    private int              timestampTextAlign   = 1;
+    private double           timestampTextSize    = 10.0;
+    private String           timestampColor       = "#00ffff";
+    private int              titleTextAlign       = 1;
+    private double           titleTextSize        = 15.0;
+    private String           titleColor           = "#0000ff";
+    private String           filamentBoarderColor = "#1ABC9C";
+    private String           filamentFillColor    = "#FA0C9C";
+    private String           printBoarderColor    = "#FF3C9C";
+    private String           printFillColor       = "#332C9C";
+    private String           tableHeaderColor     = "#FF3C9C";
+    private String           tableDataColor       = "#332C9C";
 
     //Logging
 
@@ -34,26 +48,81 @@ public class ConfigFile
                 Scanner scan = new Scanner(new File(OSSpecificVariables.windowsConfigFileLocation));
                 StringTokenizer token = null;
 
-                //Gets the minimize to tray property
+                /*  General  */
+                
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 minimizeToTrayOnExit = Integer.parseInt(token.nextToken());
 
-                //Gets the prompt on exit property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 promptOnExit = Boolean.parseBoolean(token.nextToken());
 
-                //Gets the auto save interval property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 autoSaveInterval = Integer.parseInt(token.nextToken());
 
-                //Gets the save file location property
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
                 saveFileLocation = token.nextToken();
 
+                /*  Reports  */
+                
+                
+                /*  HTML Color  */
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                timestampTextAlign = Integer.parseInt(token.nextToken());
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                timestampTextSize = Double.parseDouble(token.nextToken());
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                timestampColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                titleTextAlign = Integer.parseInt(token.nextToken());
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                titleTextSize = Double.parseDouble(token.nextToken());
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                titleColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                filamentBoarderColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                filamentFillColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                printBoarderColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                printFillColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                tableHeaderColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                tableDataColor = token.nextToken();
+                
+                
+                /*  Logging  */
+
+                
                 scan.close();
 
             }
@@ -90,6 +159,18 @@ public class ConfigFile
             fw.write("[Prompt on exit]=" + promptOnExit + "\n");
             fw.write("[Auto save interval]=" + autoSaveInterval + "\n");
             fw.write("[Save file location]=" + saveFileLocation + "\n");
+            fw.write("[Timestamp text alignment]=" + timestampTextAlign + "\n");
+            fw.write("[Timestamp text size]=" + timestampTextSize + "\n");
+            fw.write("[Timestamp text color]=" + timestampColor + "\n");
+            fw.write("[Title text alignment]=" + titleTextAlign + "\n");
+            fw.write("[Title text size]=" + titleTextSize + "\n");
+            fw.write("[Title text color]=" + titleColor + "\n");
+            fw.write("[Filament table boarder color]=" + filamentBoarderColor + "\n");
+            fw.write("[Filament table header color]=" + filamentFillColor + "\n");
+            fw.write("[Print table boarder color]=" + printBoarderColor + "\n");
+            fw.write("[Print table header color]=" + printFillColor + "\n");
+            fw.write("[Table header color]=" + tableHeaderColor + "\n");
+            fw.write("[Table data color]=" + tableDataColor + "\n");
             fw.close();
         }
         catch (IOException e)
@@ -102,9 +183,62 @@ public class ConfigFile
     public boolean getPromptOnExit(){return promptOnExit;}
     public int getAutoSaveInterval(){return autoSaveInterval;}
     public String getSaveFileLocation(){return saveFileLocation;}
+    public String getFilamentBoarderColor(){return filamentBoarderColor;}
+    public String getFilamentFillColor(){return filamentFillColor;}
+    public String getPrintBoarderColor(){return printBoarderColor;}
+    public String getTimestampColor(){return timestampColor;}
+    public String getTitleColor(){return titleColor;}
+    public String getTableHeaderColor(){return tableHeaderColor;}
+    public String getTableDataColor(){return tableDataColor;}
+    public String getPrintFillColor(){return printFillColor;}
+    public int getTimestampTextAlign(){return timestampTextAlign;}
+    public String getTimestampTextAlignString()
+    {
+        switch (timestampTextAlign)
+        {
+            case 0: //Left
+                return "left";
+            case 1: //Center
+                return "center";
+            case 2: //Right
+                return "right";
+            default:
+                return "left";
+        }
+    }
+    public double getTimestampTextSize(){return timestampTextSize;}
+    public int getTitleTextAlign(){return titleTextAlign;}
+    public String getTitleTextAlignString()
+    {
+        switch (titleTextAlign)
+        {
+            case 0: //Left
+                return "left";
+            case 1: //Center
+                return "center";
+            case 2: //Right
+                return "right";
+            default:
+                return "left";
+        }
+    }
+    public double getTitleTextSize(){return titleTextSize;}
+    
 
     public void setMinimizeToTrayOnExit(int minimizeToTrayOnExit){this.minimizeToTrayOnExit = minimizeToTrayOnExit;}
     public void setPromptOnExit(boolean promptOnExit){this.promptOnExit = promptOnExit;}
     public void setAutoSaveInterval(int autoSaveInterval){this.autoSaveInterval = autoSaveInterval;}
     public void setSaveFileLocation(String saveFileLocation){this.saveFileLocation = saveFileLocation;}
+    public void setFilamentBoarderColor(String filamentBoarderColor){this.filamentBoarderColor = filamentBoarderColor;}
+    public void setFilamentFillColor(String filamentFillColor){this.filamentFillColor = filamentFillColor;}
+    public void setPrintBoarderColor(String printBoarderColor){this.printBoarderColor = printBoarderColor;}
+    public void setPrintFillColor(String printFillColor){this.printFillColor = printFillColor;}
+    public void setTimestampColor(String timestampColor){this.timestampColor = timestampColor;}
+    public void setTitleColor(String titleColor){this.titleColor = titleColor;}
+    public void setTableHeaderColor(String tableHeaderColor){this.tableHeaderColor = tableHeaderColor;}
+    public void setTableDataColor(String tableDataColor){this.tableDataColor = tableDataColor;}
+    public void setTimestampTextAlign(int timestampTextAlign){this.timestampTextAlign = timestampTextAlign;}
+    public void setTimestampTextSize(double timestampTextSize){this.timestampTextSize = timestampTextSize;}
+    public void setTitleTextAlign(int titleTextAlign){this.titleTextAlign = titleTextAlign;}
+    public void setTitleTextSize(double titleTextSize){this.titleTextSize = titleTextSize;}
 }

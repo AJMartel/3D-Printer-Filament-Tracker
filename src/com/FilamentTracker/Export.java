@@ -46,7 +46,7 @@ public class Export
                     + "        <link rel=\"stylesheet\" href=\"reset.css\">\n"
                     + "        <link rel=\"stylesheet\" href=\"style.css\">\n"
                     + "    </head>\n"
-                    + "    <date>" + dateFormat.format(date) + "</date>\n"
+                    + "    <h1 class=\"date\">" + dateFormat.format(date) + "</h1>\n"
                     + "    <h1>" + System.getProperty("user.name") + "'s 3D Printer Filament Report</h1>\n"
                     + "    <table class=\"filament\">\n"
                     + "        <thead class=\"filamentthead\">\n"
@@ -122,50 +122,48 @@ public class Export
         try
         {
             FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/style.css"));
-            fw.write( "<body{\n"
-                    + "    font:1.0em normal Arial,sans-serif;\n"
-                    + "    color:#34495E;\n"
-                    + "}\n"
-                    
-                    + "h1{\n"
-                    + "    text-align:center;\n"
+            fw.write( "h1{\n"
+                    + "    text-align:" + ConfigFile.getInstance().getTitleTextAlignString() + ";\n"
                     + "    text-transform:uppercase;\n"
                     + "    letter-spacing:2px;\n"
-                    + "    font-size:1.5em;\n"
+                    + "    font-size:" + ConfigFile.getInstance().getTitleTextSize() / 10.0  + "em;\n"
                     + "    margin:20px 0;\n"
+                    + "    color:" + ConfigFile.getInstance().getTitleColor() + ";\n"
                     + "}\n"
                     
-                    + "date{\n"
-                    + "    text-align:left;\n"
+                    + ".date{\n"
+                    + "    text-align:" + ConfigFile.getInstance().getTimestampTextAlignString() + ";\n"
                     + "    letter-spacing:1px;\n"
-                    + "    font-size:1em;\n"
-                    + "    margin:20px 0;\n"
+                    + "    font-size:" + ConfigFile.getInstance().getTimestampTextSize() / 10.0  + "em;\n"
+                    + "    margin:0px 0;\n"
+                    + "    color:" + ConfigFile.getInstance().getTimestampColor() + ";\n"
                     + "}\n"
                     
                     + "table{\n"
                     + "    border-collapse:collapse;\n"
                     + "    width:95%;\n"
                     + "    margin:auto;\n"
+                    + "    color:" + ConfigFile.getInstance().getTableHeaderColor() + ";\n"
                     + "}\n"
                     
                     + ".filament{\n"
-                    + "    border:2px solid #1ABC9C;\n" //boarder color
+                    + "    border:2px solid " + ConfigFile.getInstance().getFilamentBoarderColor() + ";\n"
                     + "}\n"
                     
                     + ".filamentthead{\n"
-                    + "    background:#1ABC9C;\n" //fill color
+                    + "    background:" + ConfigFile.getInstance().getFilamentFillColor() + ";\n"
                     + "}\n"
                     
                     + ".print{\n"
-                    + "    border:2px solid #9B59B6;\n"
+                    + "    border:2px solid " + ConfigFile.getInstance().getPrintBoarderColor() + ";\n"
                     + "}\n"
                     
                     + ".printthead{\n"
-                    + "    background:#9B59B6;\n"
+                    + "    background:" + ConfigFile.getInstance().getPrintFillColor() + ";\n"
                     + "}\n"
                     
                     + "thead{\n"
-                    + "    color:#FFFFFF;\n" //header text color
+                    + "    color:" + ConfigFile.getInstance().getTableDataColor() + ";\n"
                     + "}\n"
                     
                     + "th,td{\n"
@@ -173,11 +171,11 @@ public class Export
                     + "    padding:5px 0;\n"
                     + "}\n"
                     
-                    + "tbody tr:nth-child(even){\n"
+                    + "tbody tr:nth-child(even){\n" //other table color
                     + "    background:#ECF0F1;\n"
                     + "}\n"
                     
-                    + "tbody td:nth-child(even){\n"
+                    + "tbody td:nth-child(even){\n" //mid print column color
                     + "    background:#ECF0F1;\n"
                     + "}");
             fw.close();
