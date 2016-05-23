@@ -32,6 +32,8 @@ public class ConfigFile
     private String           printFillColor       = "#332C9C";
     private String           tableHeaderColor     = "#FF3C9C";
     private String           tableDataColor       = "#332C9C";
+    private String           tableEvenColumnColor = "#FF3C9C";
+    private String           tableOddColumnColor  = "#332C9C";
 
     //Logging
 
@@ -119,6 +121,14 @@ public class ConfigFile
                 token.nextToken();
                 tableDataColor = token.nextToken();
                 
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                tableEvenColumnColor = token.nextToken();
+                
+                token = new StringTokenizer(scan.nextLine(), "=");
+                token.nextToken();
+                tableOddColumnColor = token.nextToken();
+                
                 
                 /*  Logging  */
 
@@ -171,6 +181,8 @@ public class ConfigFile
             fw.write("[Print table header color]=" + printFillColor + "\n");
             fw.write("[Table header color]=" + tableHeaderColor + "\n");
             fw.write("[Table data color]=" + tableDataColor + "\n");
+            fw.write("[Table even column color]=" + tableEvenColumnColor + "\n");
+            fw.write("[Table odd column color]=" + tableOddColumnColor + "\n");
             fw.close();
         }
         catch (IOException e)
@@ -190,6 +202,8 @@ public class ConfigFile
     public String getTitleColor(){return titleColor;}
     public String getTableHeaderColor(){return tableHeaderColor;}
     public String getTableDataColor(){return tableDataColor;}
+    public String getTableEvenColumnColor(){return tableEvenColumnColor;}
+    public String getTableOddColumnColor(){return tableOddColumnColor;}
     public String getPrintFillColor(){return printFillColor;}
     public int getTimestampTextAlign(){return timestampTextAlign;}
     public String getTimestampTextAlignString()
@@ -237,6 +251,8 @@ public class ConfigFile
     public void setTitleColor(String titleColor){this.titleColor = titleColor;}
     public void setTableHeaderColor(String tableHeaderColor){this.tableHeaderColor = tableHeaderColor;}
     public void setTableDataColor(String tableDataColor){this.tableDataColor = tableDataColor;}
+    public void setTableEvenColumnColor(String tableEvenColumnColor){this.tableEvenColumnColor = tableEvenColumnColor;}
+    public void setTableOddColumnColor(String tableOddColumnColor){this.tableOddColumnColor = tableOddColumnColor;}
     public void setTimestampTextAlign(int timestampTextAlign){this.timestampTextAlign = timestampTextAlign;}
     public void setTimestampTextSize(double timestampTextSize){this.timestampTextSize = timestampTextSize;}
     public void setTitleTextAlign(int titleTextAlign){this.titleTextAlign = titleTextAlign;}

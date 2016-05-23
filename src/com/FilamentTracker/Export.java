@@ -20,7 +20,6 @@ public class Export
 {
     public static DateFormat  dateFormat         = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
     private static DateFormat saveFileDateFormat = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
-    private static Date       date               = new Date();
     private static String     separator          = "====================================================================================================";
 
     /**
@@ -37,6 +36,7 @@ public class Export
         createCSSFiles();
         try
         {
+            Date date = new Date();
             FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/Report_" + saveFileDateFormat.format(date) + ".html"));
             fw.write( "<!DOCTYPE html>\n"
                     + "<html>\n"
@@ -143,7 +143,7 @@ public class Export
                     + "    border-collapse:collapse;\n"
                     + "    width:95%;\n"
                     + "    margin:auto;\n"
-                    + "    color:" + ConfigFile.getInstance().getTableHeaderColor() + ";\n"
+                    + "    color:" + ConfigFile.getInstance().getTableDataColor() + ";\n"
                     + "}\n"
                     
                     + ".filament{\n"
@@ -163,7 +163,7 @@ public class Export
                     + "}\n"
                     
                     + "thead{\n"
-                    + "    color:" + ConfigFile.getInstance().getTableDataColor() + ";\n"
+                    + "    color:" + ConfigFile.getInstance().getTableHeaderColor() + ";\n"
                     + "}\n"
                     
                     + "th,td{\n"
@@ -172,11 +172,11 @@ public class Export
                     + "}\n"
                     
                     + "tbody tr:nth-child(even){\n" //other table color
-                    + "    background:#ECF0F1;\n"
+                    + "    background:" + ConfigFile.getInstance().getTableEvenColumnColor() + ";\n"
                     + "}\n"
                     
                     + "tbody td:nth-child(even){\n" //mid print column color
-                    + "    background:#ECF0F1;\n"
+                    + "    background:" + ConfigFile.getInstance().getTableOddColumnColor() + ";\n"
                     + "}");
             fw.close();
         }
@@ -216,6 +216,7 @@ public class Export
 
         try
         {
+            Date date = new Date();
             FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/Report_" + saveFileDateFormat.format(date) + ".txt"));
             fw.write(dateFormat.format(date) + "\n");
             fw.write(System.getProperty("user.name") + "'s 3D Printer Filament Report\n\n");

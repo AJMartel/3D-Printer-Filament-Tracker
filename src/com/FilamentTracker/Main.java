@@ -12,7 +12,7 @@
  * improve icon
  * 
  * Version 1.5
- * Configuration file and Opetion dialog.
+ * Configuration file and Option dialog.
  *      Stores settings
  *      -minimize to tray option
  *      -Location of info and reports files.
@@ -21,6 +21,7 @@
  * Add log4j2 logging/ settings option to log
  * Make a OS specific class that keeps track of OS specific variables (i.e. file locations)
  * save file for print stream, incase program is exited and the stream items are not removed/added to filament
+ * Save file saving when I dont want it to. only saving html stuff
  *      
  * Version 1.4
  * DONE *** Fix locations of icons (point to com/... folder) so I don't have two of each image in my repo.
@@ -387,8 +388,7 @@ public class Main extends JFrame
             {
                 try
                 {
-                    SettingsDialog settingsDialog;
-                    settingsDialog = new SettingsDialog(getX(), getY());
+                    SettingsDialog settingsDialog = new SettingsDialog(getX(), getY());
                     settingsDialog.setVisible(true);
                 }
                 catch (FileNotFoundException e)
