@@ -21,19 +21,19 @@ public class ConfigFile
 
     //HTML Color
     private int              timestampTextAlign   = 1;
-    private double           timestampTextSize    = 10.0;
-    private String           timestampColor       = "#00ffff";
+    private int              timestampTextSize    = 10;
+    private String           timestampColor       = "#FF0033";
     private int              titleTextAlign       = 1;
-    private double           titleTextSize        = 15.0;
-    private String           titleColor           = "#0000ff";
-    private String           filamentBoarderColor = "#1ABC9C";
-    private String           filamentFillColor    = "#FA0C9C";
-    private String           printBoarderColor    = "#FF3C9C";
-    private String           printFillColor       = "#332C9C";
-    private String           tableHeaderColor     = "#FF3C9C";
-    private String           tableDataColor       = "#332C9C";
-    private String           tableEvenColumnColor = "#FF3C9C";
-    private String           tableOddColumnColor  = "#332C9C";
+    private int              titleTextSize        = 15;
+    private String           titleColor           = "#33FF66";
+    private String           filamentBoarderColor = "#000000";
+    private String           filamentFillColor    = "#006666";
+    private String           printBoarderColor    = "#FF6666";
+    private String           printFillColor       = "#6600CC";
+    private String           tableHeaderColor     = "#00CC99";
+    private String           tableDataColor       = "#FF0000";
+    private String           tableEvenColumnColor = "#333333";
+    private String           tableOddColumnColor  = "#000000";
 
     //Logging
 
@@ -79,7 +79,7 @@ public class ConfigFile
                 
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
-                timestampTextSize = Double.parseDouble(token.nextToken());
+                timestampTextSize = Integer.parseInt(token.nextToken());
                 
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
@@ -91,7 +91,7 @@ public class ConfigFile
                 
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
-                titleTextSize = Double.parseDouble(token.nextToken());
+                titleTextSize = Integer.parseInt(token.nextToken());
                 
                 token = new StringTokenizer(scan.nextLine(), "=");
                 token.nextToken();
@@ -206,9 +206,9 @@ public class ConfigFile
     public String getTableOddColumnColor(){return tableOddColumnColor;}
     public String getPrintFillColor(){return printFillColor;}
     public int getTimestampTextAlign(){return timestampTextAlign;}
-    public String getTimestampTextAlignString()
+    public String getTextAlignString(int textAlign)
     {
-        switch (timestampTextAlign)
+        switch (textAlign)
         {
             case 0: //Left
                 return "left";
@@ -220,23 +220,9 @@ public class ConfigFile
                 return "left";
         }
     }
-    public double getTimestampTextSize(){return timestampTextSize;}
+    public int getTimestampTextSize(){return timestampTextSize;}
     public int getTitleTextAlign(){return titleTextAlign;}
-    public String getTitleTextAlignString()
-    {
-        switch (titleTextAlign)
-        {
-            case 0: //Left
-                return "left";
-            case 1: //Center
-                return "center";
-            case 2: //Right
-                return "right";
-            default:
-                return "left";
-        }
-    }
-    public double getTitleTextSize(){return titleTextSize;}
+    public int getTitleTextSize(){return titleTextSize;}
     
 
     public void setMinimizeToTrayOnExit(int minimizeToTrayOnExit){this.minimizeToTrayOnExit = minimizeToTrayOnExit;}
@@ -254,7 +240,7 @@ public class ConfigFile
     public void setTableEvenColumnColor(String tableEvenColumnColor){this.tableEvenColumnColor = tableEvenColumnColor;}
     public void setTableOddColumnColor(String tableOddColumnColor){this.tableOddColumnColor = tableOddColumnColor;}
     public void setTimestampTextAlign(int timestampTextAlign){this.timestampTextAlign = timestampTextAlign;}
-    public void setTimestampTextSize(double timestampTextSize){this.timestampTextSize = timestampTextSize;}
+    public void setTimestampTextSize(int timestampTextSize){this.timestampTextSize = timestampTextSize;}
     public void setTitleTextAlign(int titleTextAlign){this.titleTextAlign = titleTextAlign;}
-    public void setTitleTextSize(double titleTextSize){this.titleTextSize = titleTextSize;}
+    public void setTitleTextSize(int titleTextSize){this.titleTextSize = titleTextSize;}
 }

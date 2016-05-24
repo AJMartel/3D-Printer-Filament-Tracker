@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -120,6 +122,20 @@ public class SettingsDialog extends JFrame
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Dialogs/About_Icon.png").getImage() : new ImageIcon(getClass().getResource("About_Icon.png")).getImage());
         setResizable(false);
         getContentPane().setLayout(null);
+        
+        addWindowListener(new WindowListener()
+        {
+            public void windowOpened(WindowEvent arg0){}
+            public void windowClosed(WindowEvent arg0){}
+            public void windowIconified(WindowEvent arg0){}
+            public void windowActivated(WindowEvent arg0){}
+            public void windowDeiconified(WindowEvent arg0){}
+            public void windowDeactivated(WindowEvent arg0){}
+            public void windowClosing(WindowEvent arg0)
+            {
+                
+            }
+        });
 
         cardsPanel.setBounds(212, 39, 487, 289);
         cardsPanel.setLayout(new CardLayout(0, 0));
@@ -192,6 +208,20 @@ public class SettingsDialog extends JFrame
                 ConfigFile.getInstance().setPromptOnExit(promptOnExit.isSelected());
                 ConfigFile.getInstance().setAutoSaveInterval((Integer) autoSaveSpinner.getValue());
                 ConfigFile.getInstance().setSaveFileLocation(saveLocationTextField.getText());
+                ConfigFile.getInstance().setTimestampTextAlign(timestampComboBox.getSelectedIndex());
+                ConfigFile.getInstance().setTimestampTextSize((Integer) timestampTextSizeSpinner.getValue()); 
+                ConfigFile.getInstance().setTitleTextAlign(titleComboBox.getSelectedIndex());
+                ConfigFile.getInstance().setTitleTextSize((Integer) titleTextSizeSpinner.getValue()); 
+                ConfigFile.getInstance().setFilamentBoarderColor(RGBToHex(filamentBorderColorPanel));
+                ConfigFile.getInstance().setFilamentFillColor(RGBToHex(filamentFillColorPanel));
+                ConfigFile.getInstance().setPrintBoarderColor(RGBToHex(printBorderColorPanel));
+                ConfigFile.getInstance().setPrintFillColor(RGBToHex(printFillColorPanel));
+                ConfigFile.getInstance().setTimestampColor(RGBToHex(timestampColorPanel));
+                ConfigFile.getInstance().setTitleColor(RGBToHex(titleColorPanel));
+                ConfigFile.getInstance().setTableHeaderColor(RGBToHex(tableHeaderColorPanel));
+                ConfigFile.getInstance().setTableDataColor(RGBToHex(tableDataColorPanel));
+                ConfigFile.getInstance().setTableEvenColumnColor(RGBToHex(tableEvenColumnColorPanel));
+                ConfigFile.getInstance().setTableOddColumnColor(RGBToHex(tableOddColumnColorPanel));
 
                 ConfigFile.getInstance().saveConfigFile();
                 applyButton.setEnabled(false);
@@ -203,6 +233,7 @@ public class SettingsDialog extends JFrame
         {
             public void actionPerformed(ActionEvent arg0)
             {
+                
                 dispose();
             }
         });
@@ -217,7 +248,6 @@ public class SettingsDialog extends JFrame
         getContentPane().add(applyButton);
         getContentPane().add(separator);
         getContentPane().add(separator_1);
-
     }
 
     /**
@@ -336,8 +366,6 @@ public class SettingsDialog extends JFrame
     private void setUpHTMLColorsCard()
     {
         HTMLColorsPanel.setLayout(null);
-        
-        drawSample();
 
         separator_2.setBounds(0, 373, 699, 8);
         getContentPane().add(separator_2);
@@ -360,20 +388,20 @@ public class SettingsDialog extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                switch (timestampComboBox.getSelectedIndex())
-                {
-                    case 0: //Left
-                        ConfigFile.getInstance().setTimestampTextAlign(0);
-                        break;
-                    case 1: //Center
-                        ConfigFile.getInstance().setTimestampTextAlign(1);
-                        break;
-                    case 2: //Right
-                        ConfigFile.getInstance().setTimestampTextAlign(2);
-                        break;
-                    default:
-                        break;
-                }
+//                switch (timestampComboBox.getSelectedIndex())
+//                {
+//                    case 0: //Left
+//                        ConfigFile.getInstance().setTimestampTextAlign(0);
+//                        break;
+//                    case 1: //Center
+//                        ConfigFile.getInstance().setTimestampTextAlign(1);
+//                        break;
+//                    case 2: //Right
+//                        ConfigFile.getInstance().setTimestampTextAlign(2);
+//                        break;
+//                    default:
+//                        break;
+//                }
                 applyButton.setEnabled(true);
                 drawSample();
             }
@@ -393,7 +421,7 @@ public class SettingsDialog extends JFrame
                 {
                     timestampTextSizeSpinner.setValue(1);
                 }
-                ConfigFile.getInstance().setTimestampTextSize((Integer) timestampTextSizeSpinner.getValue());
+//                ConfigFile.getInstance().setTimestampTextSize((Integer) timestampTextSizeSpinner.getValue());
                 applyButton.setEnabled(true);
                 drawSample();
             }
@@ -430,20 +458,20 @@ public class SettingsDialog extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                switch (titleComboBox.getSelectedIndex())
-                {
-                    case 0: //Left
-                        ConfigFile.getInstance().setTitleTextAlign(0);
-                        break;
-                    case 1: //Center
-                        ConfigFile.getInstance().setTitleTextAlign(1);
-                        break;
-                    case 2: //Right
-                        ConfigFile.getInstance().setTitleTextAlign(2);
-                        break;
-                    default:
-                        break;
-                }
+//                switch (titleComboBox.getSelectedIndex())
+//                {
+//                    case 0: //Left
+//                        ConfigFile.getInstance().setTitleTextAlign(0);
+//                        break;
+//                    case 1: //Center
+//                        ConfigFile.getInstance().setTitleTextAlign(1);
+//                        break;
+//                    case 2: //Right
+//                        ConfigFile.getInstance().setTitleTextAlign(2);
+//                        break;
+//                    default:
+//                        break;
+//                }
                 applyButton.setEnabled(true);
                 drawSample();
             }
@@ -463,7 +491,7 @@ public class SettingsDialog extends JFrame
                 {
                     titleTextSizeSpinner.setValue(1);
                 }
-                ConfigFile.getInstance().setTitleTextSize((Integer) titleTextSizeSpinner.getValue());
+//                ConfigFile.getInstance().setTitleTextSize((Integer) titleTextSizeSpinner.getValue());
                 applyButton.setEnabled(true);
                 drawSample();
             }
@@ -684,6 +712,8 @@ public class SettingsDialog extends JFrame
         HTMLColorsPanel.add(tableOddColumnColorLabel);
         HTMLColorsPanel.add(tableOddColumnColorPanel);
         cardsPanel.add(HTMLColorsPanel, "HTML Colors");
+        
+        drawSample();
     }
 
     /**
@@ -699,41 +729,41 @@ public class SettingsDialog extends JFrame
         if (c != null)
         {
             panel.setBackground(c);
-            switch (string)
-            {
-                case "filamentBoarder":
-                    ConfigFile.getInstance().setFilamentBoarderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "filamentFill":
-                    ConfigFile.getInstance().setFilamentFillColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "printBoarder":
-                    ConfigFile.getInstance().setPrintBoarderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "printFill":
-                    ConfigFile.getInstance().setPrintFillColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "timestamp":
-                    ConfigFile.getInstance().setTimestampColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "title":
-                    ConfigFile.getInstance().setTitleColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "tableHeader":
-                    ConfigFile.getInstance().setTableHeaderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "tableData":
-                    ConfigFile.getInstance().setTableDataColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "tableEvenColumn":
-                    ConfigFile.getInstance().setTableEvenColumnColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                case "tableOddColumn":
-                    ConfigFile.getInstance().setTableOddColumnColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
-                    break;
-                default:
-                    break;
-            }
+//            switch (string)
+//            {
+//                case "filamentBoarder":
+//                    ConfigFile.getInstance().setFilamentBoarderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "filamentFill":
+//                    ConfigFile.getInstance().setFilamentFillColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "printBoarder":
+//                    ConfigFile.getInstance().setPrintBoarderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "printFill":
+//                    ConfigFile.getInstance().setPrintFillColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "timestamp":
+//                    ConfigFile.getInstance().setTimestampColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "title":
+//                    ConfigFile.getInstance().setTitleColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "tableHeader":
+//                    ConfigFile.getInstance().setTableHeaderColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "tableData":
+//                    ConfigFile.getInstance().setTableDataColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "tableEvenColumn":
+//                    ConfigFile.getInstance().setTableEvenColumnColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                case "tableOddColumn":
+//                    ConfigFile.getInstance().setTableOddColumnColor(String.format("#%02X%02X%02X", c.getRed(), c.getGreen(), c.getBlue()));
+//                    break;
+//                default:
+//                    break;
+//            }
             applyButton.setEnabled(true);
             drawSample();
         }
@@ -746,18 +776,53 @@ public class SettingsDialog extends JFrame
     private void drawSample()
     {
         //Create styles
-        styleSheet.addRule("h1{text-align:" + ConfigFile.getInstance().getTitleTextAlignString() + ";text-transform:uppercase;letter-spacing:2px;font-size:" + ConfigFile.getInstance().getTitleTextSize() / 10.0  + "em;margin:20px 0;color:" + ConfigFile.getInstance().getTitleColor() + ";}");
-        styleSheet.addRule(".date{text-align:" + ConfigFile.getInstance().getTimestampTextAlignString() + ";letter-spacing:1px;font-size:" + ConfigFile.getInstance().getTimestampTextSize() / 10.0  + "em;margin:0px 0;color:" + ConfigFile.getInstance().getTimestampColor() + ";}");
-        styleSheet.addRule("table{border-collapse:collapse;width:95%;margin:auto;color:" + ConfigFile.getInstance().getTableHeaderColor() + ";}");
-        styleSheet.addRule(".filament{border:2px solid " + ConfigFile.getInstance().getFilamentBoarderColor() + ";}");
-        styleSheet.addRule(".filamentthead{background:" + ConfigFile.getInstance().getFilamentFillColor() + ";}");
-        styleSheet.addRule(".print{border:2px solid " + ConfigFile.getInstance().getPrintBoarderColor() + ";}");
-        styleSheet.addRule(".printthead{background:" + ConfigFile.getInstance().getPrintFillColor() + ";}");
-        styleSheet.addRule(".test{color:" + ConfigFile.getInstance().getTableDataColor() + ";}");
+        styleSheet.addRule("h1{"
+                         + "text-align:" + ConfigFile.getInstance().getTextAlignString(titleComboBox.getSelectedIndex()) + ";"
+                         + "text-transform:uppercase;"
+                         + "letter-spacing:2px;"
+                         + "font-size:" + ((Integer) titleTextSizeSpinner.getValue()) / 10.0  + "em;"
+                         + "margin:20px 0;"
+                         + "color:" + RGBToHex(titleColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".date{"
+                         + "text-align:" + ConfigFile.getInstance().getTextAlignString(timestampComboBox.getSelectedIndex()) + ";"
+                         + "letter-spacing:1px;"
+                         + "font-size:" + ((Integer) timestampTextSizeSpinner.getValue()) / 10.0  + "em;"
+                         + "margin:0px 0;"
+                         + "color:" + RGBToHex(timestampColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule("table{"
+                         + "border-collapse:collapse;"
+                         + "width:95%;"
+                         + "margin:auto;"
+                         + "color:" + RGBToHex(tableHeaderColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".filament{"
+                         + "border:2px solid " + RGBToHex(filamentBorderColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".filamentthead{"
+                         + "background:" + RGBToHex(filamentFillColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".print{"
+                         + "border:2px solid " + RGBToHex(printBorderColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".printthead{"
+                         + "background:" + RGBToHex(printFillColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".test{"
+                         + "color:" + RGBToHex(tableDataColorPanel) + ";"
+                         + "}");
 //        styleSheet.addRule("thead{color:" + ConfigFile.getInstance().getTableHeaderColor() + ";}");
-        styleSheet.addRule("th,td{text-align:center;padding:5px 0;}");
-        styleSheet.addRule(".test2{background:" + ConfigFile.getInstance().getTableEvenColumnColor() + ";}");
-        styleSheet.addRule(".test3{background:" + ConfigFile.getInstance().getTableOddColumnColor() + ";}");
+        styleSheet.addRule("th,td{"
+                         + "text-align:center;"
+                         + "padding:5px 0;"
+                         + "}");
+        styleSheet.addRule(".test2{"
+                         + "background:" + RGBToHex(tableEvenColumnColorPanel) + ";"
+                         + "}");
+        styleSheet.addRule(".test3{"
+                         + "background:" + RGBToHex(tableOddColumnColorPanel) + ";"
+                         + "}");
         
         sampleScrollPane.setBounds(0, 411, 699, 245);
         
@@ -823,6 +888,15 @@ public class SettingsDialog extends JFrame
 
         sampleEditorPane.setCaretPosition(0);
         getContentPane().add(sampleScrollPane);
+    }
+    
+    /**
+     * @param panel
+     * @return
+     */
+    private String RGBToHex(JPanel panel)
+    {
+        return String.format("#%02X%02X%02X", panel.getBackground().getRed(), panel.getBackground().getGreen(), panel.getBackground().getBlue());
     }
 
     /**

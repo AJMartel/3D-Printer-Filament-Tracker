@@ -735,16 +735,22 @@ public class Main extends JFrame
             switch (JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]))
             {
                 case 0: //Minimize to tray
-                    ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
-                    ConfigFile.getInstance().setMinimizeToTrayOnExit(0);
-                    ConfigFile.getInstance().saveConfigFile();
+                    if (checkbox.isSelected())
+                    {
+                        ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
+                        ConfigFile.getInstance().setMinimizeToTrayOnExit(0);
+                        ConfigFile.getInstance().saveConfigFile();
+                    }
                     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                     tray();
                     break;
                 case 1: //Exit
-                    ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
-                    ConfigFile.getInstance().setMinimizeToTrayOnExit(1);
-                    ConfigFile.getInstance().saveConfigFile();
+                    if (checkbox.isSelected())
+                    {
+                        ConfigFile.getInstance().setPromptOnExit(!checkbox.isSelected());
+                        ConfigFile.getInstance().setMinimizeToTrayOnExit(1);
+                        ConfigFile.getInstance().saveConfigFile();
+                    }
                     if (saveNeeded)
                     {
                         Object[] options2 = { "Yes", "No", "Cancel" };

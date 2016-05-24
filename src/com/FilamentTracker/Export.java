@@ -123,7 +123,7 @@ public class Export
         {
             FileWriter fw = new FileWriter(new File(OSSpecificVariables.windowsReportsLocation + "/style.css"));
             fw.write( "h1{\n"
-                    + "    text-align:" + ConfigFile.getInstance().getTitleTextAlignString() + ";\n"
+                    + "    text-align:" + ConfigFile.getInstance().getTextAlignString(ConfigFile.getInstance().getTitleTextAlign()) + ";\n"
                     + "    text-transform:uppercase;\n"
                     + "    letter-spacing:2px;\n"
                     + "    font-size:" + ConfigFile.getInstance().getTitleTextSize() / 10.0  + "em;\n"
@@ -132,7 +132,7 @@ public class Export
                     + "}\n"
                     
                     + ".date{\n"
-                    + "    text-align:" + ConfigFile.getInstance().getTimestampTextAlignString() + ";\n"
+                    + "    text-align:" + ConfigFile.getInstance().getTextAlignString(ConfigFile.getInstance().getTimestampTextAlign()) + ";\n"
                     + "    letter-spacing:1px;\n"
                     + "    font-size:" + ConfigFile.getInstance().getTimestampTextSize() / 10.0  + "em;\n"
                     + "    margin:0px 0;\n"
