@@ -171,49 +171,51 @@ public class Main extends JFrame
     }
 
     private static final long         serialVersionUID       = 1L;
-    private final JMenuBar            mainMenuBar            = new JMenuBar();
-    private final JMenu               fileMenuBar            = new JMenu("File");
-    private final JMenu               exportMenuBar          = new JMenu("Export");
-    private final JMenu               editMenuBar            = new JMenu("Edit");
-    private final JMenu               helpMenuBar            = new JMenu("Help");
-    private final JMenuItem           saveMenuItem           = new JMenuItem("Save", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Save_Icon.png") : new ImageIcon(getClass().getResource("Save_Icon.png")));
-    private final JMenuItem           openFolderMenuItem     = new JMenuItem("Open Local Folder", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Open_Folder_Icon.png") : new ImageIcon(getClass().getResource("Open_Folder_Icon.png")));
-    private final JMenuItem           printStreamMenuItem    = new JMenuItem("Print Stream", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Stream_Icon.png") : new ImageIcon(getClass().getResource("Print_Stream_Icon.png")));
-    private final JMenuItem           statsMenuItem          = new JMenuItem("Stats", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Stats_Icon.png") : new ImageIcon(getClass().getResource("Stats_Icon.png")));
-    private final JMenuItem           exportHTMLMenuItem     = new JMenuItem("HTML File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/HTML_Icon.png") : new ImageIcon(getClass().getResource("HTML_Icon.png")));
-    private final JMenuItem           exportTextMenuItem     = new JMenuItem("Text File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Text_Icon.png") : new ImageIcon(getClass().getResource("Text_Icon.png")));
-    private final JMenuItem           exitMenuItem           = new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
-    private final JMenuItem           addFilamentMenuItem    = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
-    private final JMenuItem           addPrintMenuItem       = new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
-    private final JMenuItem           settingstMenuItem      = new JMenuItem("Settings", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
-    private final JMenuItem           updateMenuItem         = new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
-    private final JMenuItem           changeLogMenuItem      = new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Changelog_Icon.png") : new ImageIcon(getClass().getResource("Changelog_Icon.png")));
-    private final JMenuItem           aboutMenuItem          = new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
-    private final JPopupMenu          popupMenu              = new JPopupMenu();
-    private final JMenuItem           editPopupMenuItem      = new JMenuItem("Edit Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Filament_Icon.png") : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")));
-    private final JMenuItem           deletePopupMenuItem    = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Delete_Icon.png") : new ImageIcon(getClass().getResource("Delete_Icon.png")));
-    private final JMenuItem           addPrintPopupMenuItem  = new JMenuItem("Add Print", addPrintMenuItem.getIcon());
-    private final JMenuItem           editPrintPopupMenuItem = new JMenuItem("Edit Prints", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Print_Icon.png") : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")));
-    private final JSeparator          separator1             = new JSeparator();
-    private final JSeparator          separator2             = new JSeparator();
+    private JMenuBar                  mainMenuBar            = new JMenuBar();
+    private JMenu                     fileMenuBar            = new JMenu("File");
+    private JMenu                     exportMenuBar          = new JMenu("Export");
+    private JMenu                     editMenuBar            = new JMenu("Edit");
+    private JMenu                     helpMenuBar            = new JMenu("Help");
+    private JMenuItem                 saveMenuItem           = new JMenuItem("Save", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Save_Icon.png") : new ImageIcon(getClass().getResource("Save_Icon.png")));
+    private JMenuItem                 openFolderMenuItem     = new JMenuItem("Open Local Folder", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Open_Folder_Icon.png") : new ImageIcon(getClass().getResource("Open_Folder_Icon.png")));
+    private JMenuItem                 printStreamMenuItem    = new JMenuItem("Print Stream", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Stream_Icon.png") : new ImageIcon(getClass().getResource("Print_Stream_Icon.png")));
+    private JMenuItem                 statsMenuItem          = new JMenuItem("Stats", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Stats_Icon.png") : new ImageIcon(getClass().getResource("Stats_Icon.png")));
+    private JMenuItem                 exportHTMLMenuItem     = new JMenuItem("HTML File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/HTML_Icon.png") : new ImageIcon(getClass().getResource("HTML_Icon.png")));
+    private JMenuItem                 exportTextMenuItem     = new JMenuItem("Text File", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Text_Icon.png") : new ImageIcon(getClass().getResource("Text_Icon.png")));
+    private JMenuItem                 exitMenuItem           = new JMenuItem("Exit", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Exit_Icon.png") : new ImageIcon(getClass().getResource("Exit_Icon.png")));
+    private JMenuItem                 addFilamentMenuItem    = new JMenuItem("Add New Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png") : new ImageIcon(getClass().getResource("Filament_Icon.png")));
+    private JMenuItem                 addPrintMenuItem       = new JMenuItem("Add New Print", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
+    private JMenuItem                 settingstMenuItem      = new JMenuItem("Settings", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Print_Icon.png") : new ImageIcon(getClass().getResource("Print_Icon.png")));
+    private JMenuItem                 updateMenuItem         = new JMenuItem("Check for Updates", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Update_Icon.png") : new ImageIcon(getClass().getResource("Update_Icon.png")));
+    private JMenuItem                 changeLogMenuItem      = new JMenuItem("Changelog", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Changelog_Icon.png") : new ImageIcon(getClass().getResource("Changelog_Icon.png")));
+    private JMenuItem                 aboutMenuItem          = new JMenuItem("About", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/About_Icon.png") : new ImageIcon(getClass().getResource("About_Icon.png")));
+    private JPopupMenu                popupMenu              = new JPopupMenu();
+    private JMenuItem                 editPopupMenuItem      = new JMenuItem("Edit Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Filament_Icon.png") : new ImageIcon(getClass().getResource("Edit_Filament_Icon.png")));
+    private JMenuItem                 deletePopupMenuItem    = new JMenuItem("Delete Filament", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Delete_Icon.png") : new ImageIcon(getClass().getResource("Delete_Icon.png")));
+    private JMenuItem                 addPrintPopupMenuItem  = new JMenuItem("Add Print", addPrintMenuItem.getIcon());
+    private JMenuItem                 editPrintPopupMenuItem = new JMenuItem("Edit Prints", System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Edit_Print_Icon.png") : new ImageIcon(getClass().getResource("Edit_Print_Icon.png")));
+    private JSeparator                separator1             = new JSeparator();
+    private JSeparator                separator2             = new JSeparator();
+    private JLabel                    donationLabel          = new JLabel("Donations");
+    private JScrollPane               tableScrollPane        = new JScrollPane();
+    private JScrollPane               printScrollPane        = new JScrollPane();
+    private JTextArea                 printHeaderTextArea    = new JTextArea();
+    
     private static JLabel             printInfoLabel         = new JLabel("");
-    private final JLabel              donationLabel          = new JLabel("Donations");
+    private static JTextArea          printsTextArea         = new JTextArea();
+    private static boolean            tableMade              = false;
+    private static DefaultTableModel  tableModel             = null;
+    private static int                selectedRow            = -1;
+    
     public static JLabel              autoSaveLabel          = new JLabel("");
-    private final JScrollPane         tableScrollPane        = new JScrollPane();
-    private final JScrollPane         printScrollPane        = new JScrollPane();
-    public final static JTable        filamentTable          = new JTable();
-    private final JTextArea           printHeaderTextArea    = new JTextArea();
-    private final static JTextArea    printsTextArea         = new JTextArea();
+    public static JTable              filamentTable          = new JTable();
     public static ArrayList<Filament> filaments              = new ArrayList<Filament>();
     public static NumberFormat        percentFormat          = NumberFormat.getPercentInstance();
     public static NumberFormat        numberFormat           = new DecimalFormat("#0.00");
     public static NumberFormat        costFormat             = new DecimalFormat("$#0.00");
-    private static boolean            tableMade              = false;
+    public static TrayIcon            trayIcon               = null;
+    public static boolean             saveNeeded             = false;
     public static int                 index                  = -1;
-    public static TrayIcon            trayIcon;
-    public static boolean             saveNeeded;
-    private static DefaultTableModel  tableModel;
-    private static int                selectedRow;
 
     /**
      * FUNCTION:    Main<P>
@@ -224,6 +226,9 @@ public class Main extends JFrame
      */
     public Main(int trayMode) throws IOException
     {
+        /*
+         * Sets the screen dimension, icon, and screen location.
+         */
         setTitle("3D Printer Filament Tracker " + AboutDialog.VERSION);
         setIconImage(System.getProperty("DEBUG") != null ? new ImageIcon("com/FilamentTracker/Filament_Icon.png").getImage() : new ImageIcon(getClass().getResource("Filament_Icon.png")).getImage());
         setResizable(false);
@@ -233,6 +238,9 @@ public class Main extends JFrame
 
         percentFormat.setMinimumFractionDigits(2);
 
+        /*
+         * Allows saving when the user closes the window.
+         */
         addWindowListener(new WindowListener()
         {
             public void windowOpened(WindowEvent arg0){}
@@ -267,7 +275,9 @@ public class Main extends JFrame
         helpMenuBar.add(changeLogMenuItem);
         helpMenuBar.add(aboutMenuItem);
 
-        // Menu bar mnemonics and accelerators
+        /*
+         * Menu bar mnemonics and accelerators
+         */
         saveMenuItem.setMnemonic(KeyEvent.VK_S);
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
 
@@ -307,7 +317,9 @@ public class Main extends JFrame
         aboutMenuItem.setMnemonic(KeyEvent.VK_A);
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
 
-        // Menu item action listeners
+        /*
+         * Menu item action listeners
+         */
         saveMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -315,6 +327,7 @@ public class Main extends JFrame
                 FileIO.save();
             }
         });
+
         openFolderMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -329,6 +342,7 @@ public class Main extends JFrame
                 }
             }
         });
+
         printStreamMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -337,6 +351,7 @@ public class Main extends JFrame
                 printStreamDialog.setVisible(true);
             }
         });
+
         statsMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -345,6 +360,7 @@ public class Main extends JFrame
                 statsDialog.setVisible(true);
             }
         });
+
         exportHTMLMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
@@ -352,6 +368,7 @@ public class Main extends JFrame
                 Export.exportToHTML();
             }
         });
+
         exportTextMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
@@ -359,6 +376,7 @@ public class Main extends JFrame
                 Export.exportToText();
             }
         });
+
         exitMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -366,6 +384,7 @@ public class Main extends JFrame
                 closingSave();
             }
         });
+
         addFilamentMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -374,6 +393,7 @@ public class Main extends JFrame
                 addFilamentDialog.setVisible(true);
             }
         });
+
         addPrintMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -382,6 +402,7 @@ public class Main extends JFrame
                 addPrintDialog.setVisible(true);
             }
         });
+
         settingstMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -397,6 +418,7 @@ public class Main extends JFrame
                 }
             }
         });
+
         updateMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -411,6 +433,7 @@ public class Main extends JFrame
                 }
             }
         });
+
         changeLogMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -419,6 +442,7 @@ public class Main extends JFrame
                 ChangelogDialog.setVisible(true);
             }
         });
+
         aboutMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(final ActionEvent arg0)
@@ -428,7 +452,9 @@ public class Main extends JFrame
             }
         });
 
-        // Filament Table
+        /*
+         * Create the filament Table
+         */
         filamentTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Index", "Filament Name", "Filament Type", "Filament Weight", "Filament Length", "Length Remaining", "% Remaining", "Filament Cost" })
         {
             private static final long serialVersionUID = 1L;
@@ -444,7 +470,9 @@ public class Main extends JFrame
         tableScrollPane.setBounds(10, 32, 895, 199);
         tableScrollPane.setViewportView(filamentTable);
 
-        // Set widths of each column in the table
+        /*
+         * Set widths of each column in the table
+         */
         filamentTable.getColumnModel().getColumn(0).setPreferredWidth(40); // Index
         filamentTable.getColumnModel().getColumn(1).setPreferredWidth(145); // Name
         filamentTable.getColumnModel().getColumn(2).setPreferredWidth(90); // Type
@@ -454,6 +482,9 @@ public class Main extends JFrame
         filamentTable.getColumnModel().getColumn(6).setPreferredWidth(85); // Percent Remaining
         filamentTable.getColumnModel().getColumn(7).setPreferredWidth(85); // Percent Remaining
 
+        /*
+         * Gets the row selected and shows a popup menu when selecting a row in the table
+         */
         filamentTable.addMouseListener(new MouseListener()
         {
             public void mouseExited(MouseEvent arg0){}
@@ -490,6 +521,7 @@ public class Main extends JFrame
                 addFilamentDialog.setVisible(true);
             }
         });
+
         deletePopupMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
@@ -511,6 +543,7 @@ public class Main extends JFrame
                 }
             }
         });
+
         addPrintPopupMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
@@ -519,6 +552,7 @@ public class Main extends JFrame
                 addPrintDialog.setVisible(true);
             }
         });
+
         editPrintPopupMenuItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
@@ -527,6 +561,7 @@ public class Main extends JFrame
                 addPrintDialog.setVisible(true);
             }
         });
+
         filamentTable.setComponentPopupMenu(popupMenu);
 
         // Print Information
@@ -625,7 +660,15 @@ public class Main extends JFrame
         {
             Filament filament = filamentIterator.next();
             setRemainingFilament(filament);
-            tableModel.addRow(new Object[] { filament.getIndex() + 1, filament.getName(), filament.getType(), filament.getWeight(), numberFormat.format(filament.getLength()) + "mm", numberFormat.format(filament.getLRemaining()) + "mm", percentFormat.format(filament.getPRemaining()), filament.getCost() });
+            tableModel.addRow(new Object[] {
+                    filament.getIndex() + 1,
+                    filament.getName(),
+                    filament.getType(),
+                    filament.getWeight(),
+                    numberFormat.format(filament.getLength()) + "mm",
+                    numberFormat.format(filament.getLRemaining()) + "mm",
+                    percentFormat.format(filament.getPRemaining()),
+                    filament.getCost()});
             tableMade = true;
         }
         updateTableColors(filamentTable);
@@ -662,7 +705,8 @@ public class Main extends JFrame
      */
     public static void addPrint(int filamentIndex, JDateChooser date, String description, double amountUsed)
     {
-        filaments.get(filamentIndex).addPrint(date.getDate().toString().substring(0, 3) + "," + date.getDate().toString().substring(3, 10) + "," + date.getDate().toString().substring(23, 28), description, amountUsed);
+        filaments.get(filamentIndex).addPrint(
+                date.getDate().toString().substring(0, 3) + "," + date.getDate().toString().substring(3, 10) + "," + date.getDate().toString().substring(23, 28), description, amountUsed);
         if (filamentTable.getSelectedRow() != -1)
         {
             if (filamentIndex == Integer.parseInt(filamentTable.getValueAt(filamentTable.getSelectedRow(), 0).toString()) - 1)
@@ -731,7 +775,7 @@ public class Main extends JFrame
         if (ConfigFile.getInstance().getPromptOnExit()) //Ask on close
         {
             JCheckBox checkbox = new JCheckBox("Do not show this message again.");
-            Object[] params = {"Minimize to tray", "Exit", "Cancel", checkbox};
+            Object[] params = { "Minimize to tray", "Exit", "Cancel", checkbox };
             switch (JOptionPane.showOptionDialog(null, "What would you like to do?", "Closing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, params, params[0]))
             {
                 case 0: //Minimize to tray
