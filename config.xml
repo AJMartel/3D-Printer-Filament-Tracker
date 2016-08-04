@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Config>
+    <General>
+        <MinimizeToTray>1</MinimizeToTray>
+        <PromptOnExit>false</PromptOnExit>
+        <AutoSaveInterval>4</AutoSaveInterval>
+    </General>
+    <Report>
+        <General/>
+        <SaveLocation>C:\Users\Andrew\AppData\Roaming/../Local/3DPrinterFilamentTracker</SaveLocation>
+        <OpenAfterGeneration>true</OpenAfterGeneration>
+        <HTML>
+            <Timestamp>
+                <Alignment>1</Alignment>
+                <Size>10</Size>
+                <Color>#000000</Color>
+            </Timestamp>
+            <Title>
+                <Alignment>1</Alignment>
+                <Size>15</Size>
+                <Color>#000000</Color>
+            </Title>
+            <Table>
+                <HeaderColor>#FFFFFF</HeaderColor>
+                <DataColor>#000000</DataColor>
+                <EvenColumnColor>#FFFFFF</EvenColumnColor>
+                <OddColumnColor>#FFFFFF</OddColumnColor>
+            </Table>
+            <FilamentTable>
+                <BorderColor>#000000</BorderColor>
+                <HeaderColor>#000000</HeaderColor>
+            </FilamentTable>
+            <PrintTable>
+                <BorderColor>#000000</BorderColor>
+                <HeaderColor>#000000</HeaderColor>
+            </PrintTable>
+        </HTML>
+    </Report>
+    <Logging>
+        <Temp>1</Temp>
+    </Logging>
+</Config>
