@@ -3,7 +3,7 @@
     <General>
         <MinimizeToTray>1</MinimizeToTray>
         <PromptOnExit>false</PromptOnExit>
-        <AutoSaveInterval>4</AutoSaveInterval>
+        <AutoSaveInterval>5</AutoSaveInterval>
     </General>
     <Report>
         <General/>
